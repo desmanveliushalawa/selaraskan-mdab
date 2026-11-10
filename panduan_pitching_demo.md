@@ -1,6 +1,6 @@
-# Panduan Pitching dan Simulasi Demo 3 Menit: Mandiri RegAlign
+# Panduan Pitching dan Simulasi Demo 3 Menit: SELARASKAN MDAB
 
-Dokumen ini disusun sebagai panduan praktis bagi rekan kerja di Bank Mandiri saat mempresentasikan prototipe sistem **Mandiri RegAlign** kepada pimpinan unit kerja (Kepala Divisi Kepatuhan / Legal Officer / Tim Manajemen Risiko).
+Dokumen ini disusun sebagai panduan praktis bagi rekan kerja di Bank Mandiri saat mempresentasikan prototipe sistem **SELARASKAN MDAB** kepada pimpinan unit kerja (Kepala Divisi Kepatuhan / Legal Officer / Tim Manajemen Risiko).
 
 ---
 
@@ -25,7 +25,7 @@ Pimpinan perbankan tidak membutuhkan penjelasan teknis kode yang berbelit-belit.
 > 
 > Proses telaah manual ini bukan hanya memakan waktu dan tenaga, tetapi juga rentan terhadap kekeliruan manusia (human error). Keterlambatan penyesuaian klausul berisiko menimbulkan sanksi administratif dan denda kepatuhan dari regulator.
 > 
-> Melalui inisiatif Mandiri RegAlign ini, kami ingin membuktikan bahwa proses telaah kepatuhan tersebut dapat diotomatisasi secara terukur dan transparan."
+> Melalui inisiatif SELARASKAN MDAB ini, kami ingin membuktikan bahwa proses telaah kepatuhan tersebut dapat diotomatisasi secara terukur dan transparan."
 
 ---
 
@@ -82,3 +82,4 @@ Pimpinan perbankan tidak membutuhkan penjelasan teknis kode yang berbelit-belit.
 | **"Apakah model AI ini bisa menggantikan peran orang legal?"** | *"Sama sekali tidak menggantikan, Pak/Bu. Sistem ini bertindak sebagai asisten pemeriksa awal (first-line reviewer) untuk memilah ribuan pasal dalam hitungan detik. Keputusan akhir dan persetujuan kebijakan tetap 100% berada di tangan pejabat legal perbankan."* |
 | **"Bagaimana jika dokumen SOP kita memiliki ratusan halaman?"** | *"Sistem telah dilengkapi modul parser dokumen hukum yang otomatis mengenali pola Bab, Bagian, dan Ayat. Pada fase pengembangan berikutnya, pencocokan antar pasal diperkuat dengan semantic vector search sehingga mampu menangani dokumen berukuran besar secara instan."* |
 | **"Berapa lama waktu yang dibutuhkan untuk menerapkan ini secara resmi?"** | *"Prototipe MVP yang Bapak/Ibu lihat hari ini membuktikan bahwa algoritmanya sudah bekerja. Untuk integrasi ke server on-premise bank dan pengujian dataset penuh, estimasi waktu implementasi berkisar antara 4 hingga 8 minggu kerja."* |
+

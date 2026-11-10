@@ -1,6 +1,6 @@
 """
 app.py
-Aplikasi Uji Keselarasan Regulasi Perbankan (Mandiri RegAlign)
+Aplikasi Uji Keselarasan Regulasi Perbankan (SELARASKAN MDAB)
 Komparasi Petunjuk Operasional Bank Mandiri terhadap Regulasi Regulator (POJK, BI, UU PDP)
 Desain institusional berbasis arsitektur legal-tech, bebas dari ornamen AI generik.
 """
@@ -23,7 +23,7 @@ from engine.semantic_retriever import get_default_retriever
 
 # Konfigurasi Halaman Institusional
 st.set_page_config(
-    page_title="Mandiri RegAlign : Uji Keselarasan Regulasi",
+    page_title="SELARASKAN MDAB : Uji Keselarasan Regulasi",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -220,7 +220,7 @@ st.markdown(
     <div class="brand-header">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
-                <h1 class="brand-title">Mandiri RegAlign : Uji Keselarasan Regulasi Operasional</h1>
+                <h1 class="brand-title">SELARASKAN MDAB : Uji Keselarasan Regulasi Operasional</h1>
                 <div class="brand-subtitle">
                     Audit Kepatuhan Kebijakan Internal Bank Mandiri terhadap Ketentuan Regulator (POJK, Bank Indonesia, UU PDP)
                 </div>
@@ -278,14 +278,14 @@ with st.sidebar:
     st.download_button(
         label="Unduh Laporan Formal (PDF)",
         data=generate_compliance_pdf_report(doc_info, benchmark_data["external_benchmark"], clauses, metrics),
-        file_name="Laporan_Resmi_Audit_Regulasi_Mandiri.pdf",
+        file_name="Laporan_Resmi_Audit_Regulasi_SELARASKAN_MDAB.pdf",
         mime="application/pdf",
         use_container_width=True,
     )
     st.download_button(
         label="Unduh Rekapitulasi Data (CSV)",
         data=csv_buffer.getvalue(),
-        file_name="Laporan_Audit_Keselarasan_Regulasi_Mandiri.csv",
+        file_name="Laporan_Audit_Keselarasan_SELARASKAN_MDAB.csv",
         mime="text/csv",
         use_container_width=True,
     )

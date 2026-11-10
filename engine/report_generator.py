@@ -230,7 +230,7 @@ def generate_compliance_pdf_report(
     # 5. Lembar Pengesahan / Catatan Akhir
     elements.append(Paragraph("3. Catatan Implementasi & Kepatuhan", section_title_style))
     notes_text = (
-        "Laporan audit ini dihasilkan secara otomatis melalui sistem Mandiri RegAlign berbasis analisis semantik kepatuhan. "
+        "Laporan audit ini dihasilkan secara otomatis melalui sistem SELARASKAN MDAB berbasis analisis semantik kepatuhan. "
         "Klausul yang berstatus Tidak Selaras berpotensi menimbulkan risiko hukum (legal risk) dan sanksi administratif dari "
         "regulator perbankan. Disarankan unit kerja pemilik kebijakan operasional segera menyusun rancangan addendum "
         "atau pembaruan Surat Edaran Direksi sesuai rekomendasi di atas."
@@ -240,3 +240,4 @@ def generate_compliance_pdf_report(
     doc.build(elements)
     buffer.seek(0)
     return buffer.getvalue()
+

@@ -1,4 +1,4 @@
-# Roadmap Pengembangan & Kebutuhan Prasyarat Proyek Uji Keselarasan Regulasi (Mandiri RegAlign)
+# Roadmap Pengembangan & Kebutuhan Prasyarat Proyek Uji Keselarasan Regulasi (SELARASKAN MDAB)
 
 Dokumen ini memuat **daftar tools, teknologi, dan kebutuhan persiapan (*prerequisites*)**, serta **roadmap bertahap (Fase 1 s.d. Fase 4)** untuk membangun prototipe AI Uji Keselarasan Regulasi (*Regulatory Compliance & Alignment*) berstandar perbankan.
 
@@ -32,7 +32,7 @@ Dokumen ini memuat **daftar tools, teknologi, dan kebutuhan persiapan (*prerequi
 
 ## 2. Roadmap Pengembangan Sistem (Fase 1 s.d. Fase 4)
 
-### 🟢 FASE 1: MVP Prototipe & Interactive Demo (SELESAI)
+### FASE 1: MVP Prototipe & Interactive Demo (SELESAI)
 **Tujuan**: Membuktikan konsep kepada rekan dan pimpinan Bank Mandiri bahwa proyek ini dapat dijelaskan dengan gamblang, memiliki UI interaktif Before-After diff, serta menampilkan status *Selaras, Tidak Selaras, Netral*.
 
 - [x] **Milestone 1.1**: Analisis mendalam, audit keselarasan, dan diagram alir arsitektur.
@@ -44,7 +44,7 @@ Dokumen ini memuat **daftar tools, teknologi, dan kebutuhan persiapan (*prerequi
 
 ---
 
-### 🟡 FASE 2: Legal Document Parser & Hierarchical Chunking (SELESAI)
+### FASE 2: Legal Document Parser & Hierarchical Chunking (SELESAI)
 **Tujuan**: Mengotomatisasi pembacaan dokumen panjang utuh (.docx dan .pdf) tanpa perlu entri manual.
 
 - [x] **Milestone 2.1**: Pembangunan parser khusus format dokumen hukum Indonesia (`engine/legal_parser.py`):
@@ -55,7 +55,7 @@ Dokumen ini memuat **daftar tools, teknologi, dan kebutuhan persiapan (*prerequi
 
 ---
 
-### 🟠 FASE 3: Semantic Retrieval & Scale-Up Matching (RAG Engine) (SELESAI)
+### FASE 3: Semantic Retrieval & Scale-Up Matching (RAG Engine) (SELESAI)
 **Tujuan**: Mengatasi pencocokan otomatis ketika dokumen internal memiliki ratusan pasal dan diuji terhadap puluhan regulasi eksternal ($N \times M$ matching).
 
 - [x] **Milestone 3.1**: Inisialisasi korpus regulasi perbankan nasional (POJK 11/2022, UU PDP, PADG BI).
@@ -66,7 +66,7 @@ Dokumen ini memuat **daftar tools, teknologi, dan kebutuhan persiapan (*prerequi
 
 ---
 
-### 🔵 FASE 4: Enterprise Production & Keamanan Perbankan Mandiri (Next Step)
+### FASE 4: Enterprise Production & Keamanan Perbankan Mandiri (Next Step)
 **Tujuan**: Penyesuaian standar operasional perbankan tingkat bank nasional (keamanan data, audit, dan integrasi sistem).
 
 - [ ] **Milestone 4.1**: Penerapan **On-Premise Private LLM** (Ollama / vLLM dengan model Llama-3-70B di server lokal Bank Mandiri).

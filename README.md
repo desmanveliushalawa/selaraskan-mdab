@@ -1,12 +1,12 @@
-# Mandiri RegAlign: Uji Keselarasan Regulasi Perbankan
+# SELARASKAN MDAB: Uji Keselarasan Regulasi Perbankan
 
-Prototipe AI Kepatuhan Hukum & Uji Keselarasan Regulasi (*Regulatory Compliance & Alignment AI*) yang membandingkan Petunjuk Operasional (PO/SOP) internal Bank Mandiri dengan regulasi regulator (POJK, Bank Indonesia, UU PDP). 
+Prototipe AI Kepatuhan Hukum dan Uji Keselarasan Regulasi (Regulatory Compliance and Alignment AI) yang membandingkan Petunjuk Operasional (PO/SOP) internal Bank Mandiri dengan regulasi regulator (POJK, Bank Indonesia, UU PDP). 
 
 Terinspirasi dari konsep dan antarmuka produk **Big Legal by BigBox (Telkom Indonesia)**.
 
 ---
 
-## 🌟 Fitur Utama
+## Fitur Utama
 
 1. **Dashboard Eksekutif (KPI & Donut Chart)**:
    - Visualisasi persentase tingkat keselarasan dokumen (*Selaras, Tidak Selaras, Netral*).
@@ -25,7 +25,7 @@ Terinspirasi dari konsep dan antarmuka produk **Big Legal by BigBox (Telkom Indo
 
 ---
 
-## 🚀 Cara Menjalankan Aplikasi
+## Cara Menjalankan Aplikasi
 
 Pastikan Python telah terpasang di komputer Anda (rekomendasi Python 3.10 - 3.12).
 
@@ -43,7 +43,7 @@ Pastikan Python telah terpasang di komputer Anda (rekomendasi Python 3.10 - 3.12
 
 ---
 
-## 📁 Struktur Berkas
+## Struktur Berkas
 
 ```
 selaras/
@@ -63,7 +63,7 @@ selaras/
 
 ---
 
-## 🧪 Menjalankan Pengujian Otomatis
+## Menjalankan Pengujian Otomatis
 
 Untuk memastikan semua modul berjalan normal:
 ```bash
