@@ -211,3 +211,4 @@ if __name__ == "__main__":
     pdf_path = os.path.join("data", "sample_kebijakan_internal_mandiri.pdf")
     create_docx(docx_path)
     create_pdf(pdf_path)
+
