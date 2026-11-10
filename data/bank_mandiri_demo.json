@@ -1,0 +1,103 @@
+{
+  "internal_document": {
+    "title": "Petunjuk Operasional (PO) No. PO-DIR/IT/042/2024",
+    "subject": "Tata Kelola Ketahanan Siber, Manajemen Data, dan Operasional Perbankan Digital Bank Mandiri",
+    "version": "v3.2",
+    "issued_date": "15 Januari 2024"
+  },
+  "external_benchmark": {
+    "title": "Komparasi Regulasi Regulator Perbankan",
+    "regulations": [
+      "POJK No. 11/POJK.03/2022 tentang Penyelenggaraan Teknologi Informasi oleh Bank Umum",
+      "UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP)",
+      "PADG Bank Indonesia No. 24/7/PADG/2022 tentang Penyelenggaraan Sistem Pembayaran"
+    ]
+  },
+  "clauses": [
+    {
+      "id": "PO-001",
+      "bab": "BAB II - PENGAMANAN DATA DAN PRIVASI NASABAH",
+      "pasal": "Pasal 4 Angka 2",
+      "judul_klausul": "Enkripsi Data Sensitif Nasabah pada Penyimpanan dan Transmisi",
+      "teks_internal": "Bank Mandiri wajib menerapkan enkripsi data nasabah kategori sensitif (data finansial dan kredensial autentikasi) baik saat data disimpan (data-at-rest) dengan standar minimal AES-256 maupun saat data ditransmisikan (data-in-transit) menggunakan protokol kriptografi TLS 1.3.",
+      "regulasi_terkait": "POJK No. 11/POJK.03/2022",
+      "pasal_regulasi": "Pasal 27 Ayat (1) dan Ayat (2)",
+      "teks_regulasi": "Bank Umum wajib melakukan pengamanan data dan informasi rahasia nasabah melalui penerapan teknik kriptografi yang andal meliputi enkripsi data pada media penyimpanan dan transmisi data melalui jaringan publik dengan standar keamanan industri terkini.",
+      "status": "Selaras",
+      "confidence": 0.96,
+      "reasoning": "Ketentuan operasional internal bank telah memenuhi dan memperinci standar kriptografi yang diwajibkan oleh regulator (AES-256 dan TLS 1.3 sejalan dengan standar industri terkini).",
+      "rekomendasi": "Pertahankan klausul. Lakukan audit berkala terhadap sertifikat kriptografi."
+    },
+    {
+      "id": "PO-002",
+      "bab": "BAB II - PENGAMANAN DATA DAN PRIVASI NASABAH",
+      "pasal": "Pasal 7 Angka 4",
+      "judul_klausul": "Batas Waktu Pelaporan Insiden Kebocoran Data Pribadi",
+      "teks_internal": "Dalam hal terjadi insiden kegagalan perlindungan atau dugaan kebocoran data nasabah, Unit Kerja Pengelola Sistem wajib menyampaikan laporan investigasi awal kepada Direksi dan regulator terkait selambat-lambatnya dalam jangka waktu 7 (tujuh) hari kerja setelah terkonfirmasi.",
+      "regulasi_terkait": "UU No. 27 Tahun 2022 (UU PDP)",
+      "pasal_regulasi": "Pasal 46 Ayat (2)",
+      "teks_regulasi": "Dalam hal terjadi kegagalan Pelindungan Data Pribadi, Pengendali Data Pribadi wajib menyampaikan pemberitahuan tertulis paling lambat 3 x 24 (tiga kali dua puluh empat) jam kepada Lembaga dan Subjek Data Pribadi.",
+      "status": "Tidak Selaras",
+      "confidence": 0.98,
+      "reasoning": "Klausul internal menetapkan tenggat waktu 7 hari kerja, sedangkan UU PDP Pasal 46 Ayat (2) mewajibkan pemberitahuan tertulis maksimal 3 x 24 jam (72 jam kalender). Deviasi ini berisiko sanksi administratif berat bagi bank.",
+      "rekomendasi": "Ubah batas waktu laporan awal pada SOP internal menjadi 'paling lambat 3 x 24 jam' agar patuh terhadap amanat UU PDP."
+    },
+    {
+      "id": "PO-003",
+      "bab": "BAB III - KELANGSUNGAN OPERASIONAL DAN BCP",
+      "pasal": "Pasal 12 Angka 1",
+      "judul_klausul": "Recovery Time Objective (RTO) Pusat Pemulihan Bencana (DRC)",
+      "teks_internal": "Pusat Data Pemulihan Bencana (Disaster Recovery Center/DRC) untuk sistem pemrosesan transaksi utama (Core Banking) wajib dirancang dengan target Recovery Time Objective (RTO) maksimal 2 (dua) jam dan Recovery Point Objective (RPO) mendekati nol (near zero loss).",
+      "regulasi_terkait": "POJK No. 11/POJK.03/2022",
+      "pasal_regulasi": "Pasal 39 Ayat (3)",
+      "teks_regulasi": "Bank wajib menetapkan Recovery Time Objective (RTO) untuk sistem pemrosesan transaksi pembayaran paling lama 4 (empat) jam sejak insiden terjadi dan memastikan ketersediaan cadangan data.",
+      "status": "Selaras",
+      "confidence": 0.94,
+      "reasoning": "SOP internal menetapkan RTO maksimal 2 jam, yang lebih ketat daripada batas maksimal regulasi OJK (4 jam). Praktik ini sepenuhnya selaras dan melebihi standar minimum kepatuhan.",
+      "rekomendasi": "Pertahankan klausul. Lakukan uji coba switch-over DRC berkala minimal 1 kali per tahun."
+    },
+    {
+      "id": "PO-004",
+      "bab": "BAB IV - PENEMPATAN PUSAT DATA DAN CLOUD COMPUTING",
+      "pasal": "Pasal 16 Angka 3",
+      "judul_klausul": "Lokasi Penempatan Data Center dan Sistem Elektronik",
+      "teks_internal": "Unit Kerja Pengembangan Layanan Digital diperkenankan menempatkan data transaksi dan sistem pemrosesan elektronik pada penyedia komputasi awan (Cloud Provider) dengan lokasi server di kawasan Asia Tenggara tanpa keharusan persetujuan regulator terlebih dahulu.",
+      "regulasi_terkait": "POJK No. 11/POJK.03/2022",
+      "pasal_regulasi": "Pasal 21 Ayat (1) dan Ayat (3)",
+      "teks_regulasi": "Bank wajib menempatkan Pusat Data dan Pusat Pemulihan Bencana di wilayah Indonesia. Penempatan data di luar negeri hanya dapat dilakukan untuk tujuan tertentu setelah memperoleh persetujuan Otoritas Jasa Keuangan.",
+      "status": "Tidak Selaras",
+      "confidence": 0.99,
+      "reasoning": "SOP internal mengizinkan penempatan server di luar wilayah Indonesia (Asia Tenggara) tanpa persetujuan, bertentangan langsung dengan Pasal 21 POJK 11/2022 yang mewajibkan penempatan di Indonesia dan izin tertulis OJK.",
+      "rekomendasi": "Revisi pasal operasional: Wajibkan penempatan Data Center di dalam negeri dan hapus klausul tanpa persetujuan regulator."
+    },
+    {
+      "id": "PO-005",
+      "bab": "BAB V - OPERASIONAL DAN MANAJEMEN VENDOR",
+      "pasal": "Pasal 22 Angka 1",
+      "judul_klausul": "Mekanisme Penggantian Jadwal Shift Petugas Security Operations Center (SOC)",
+      "teks_internal": "Rotasi kerja analis Security Operations Center (SOC) dilaksanakan dalam 3 (tiga) shift kerja harian dengan jadwal pergantian yang disetujui oleh Department Head Cybersecurity Monitoring minimal 1 hari sebelum jadwal shift baru dimulai.",
+      "regulasi_terkait": "POJK No. 11/POJK.03/2022",
+      "pasal_regulasi": "Pasal 29 Ayat (2)",
+      "teks_regulasi": "Bank wajib memiliki unit atau fungsi yang memantau keamanan sistem informasi dan siber secara berkesinambungan selama 24 jam sehari dan 7 hari seminggu.",
+      "status": "Netral",
+      "confidence": 0.91,
+      "reasoning": "Klausul internal mengatur tata kelola administrasi internal pergantian jadwal shift karyawan yang bersifat teknis-organisasional. Hal ini tidak bertentangan maupun diatur secara khusus oleh regulator selama pemantauan 24/7 tetap terpenuhi.",
+      "rekomendasi": "Klausul bersifat netral/operasional internal, tidak memerlukan penyesuaian hukum khusus."
+    },
+    {
+      "id": "PO-006",
+      "bab": "BAB V - OPERASIONAL DAN MANAJEMEN VENDOR",
+      "pasal": "Pasal 25 Angka 2",
+      "judul_klausul": "Format Dokumen Non-Disclosure Agreement (NDA) Pihak Ketiga",
+      "teks_internal": "Seluruh mitra penyedia jasa teknologi informasi wajib menandatangani Non-Disclosure Agreement (NDA) menggunakan formulir standar Legal Bank Mandiri Form LGL-08B sebelum diberikan akses terhadap dokumentasi API perbankan.",
+      "regulasi_terkait": "PADG Bank Indonesia No. 24/7/PADG/2022",
+      "pasal_regulasi": "Pasal 18 Ayat (1)",
+      "teks_regulasi": "Penyelenggara Jasa Pembayaran wajib menjaga kerahasiaan data transaksi serta menjamin kepatuhan pihak ketiga yang bekerja sama dalam penyelenggaraan sistem pembayaran.",
+      "status": "Netral",
+      "confidence": 0.88,
+      "reasoning": "Klausul merujuk pada ketentuan tata tertib internal penggunaan kode formulir standar bank. Walaupun mendukung prinsip kerahasiaan, detail formulir merupakan diskresi internal yang berstatus netral terhadap regulasi BI.",
+      "rekomendasi": "Dapat dipertahankan tanpa perubahan redaksional."
+    }
+  ]
+}
+
