@@ -142,3 +142,4 @@ def evaluate_custom_clause_alignment(
         "reasoning": "Klausul internal tidak bertentangan secara langsung dengan ketentuan regulasi rujukan dan mengatur aspek prosedural operasional internal.",
         "rekomendasi": "Dapat dipertahankan tanpa perubahan redaksional mendesak.",
     }
+

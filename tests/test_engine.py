@@ -28,8 +28,8 @@ class TestDiffHighlighter(unittest.TestCase):
         text_a = "lapor 7 hari kerja"
         text_b = "lapor 3 x 24 jam"
         diff_a, diff_b = compute_word_diff(text_a, text_b)
-        self.assertIn("#ffebee", diff_a)  # Highlight merah
-        self.assertIn("#e8f5e9", diff_b)  # Highlight hijau
+        self.assertIn("#fee2e2", diff_a)
+        self.assertIn("#dcfce7", diff_b)
 
     def test_render_side_by_side_diff_html(self):
         html = render_side_by_side_diff_html(
@@ -40,10 +40,10 @@ class TestDiffHighlighter(unittest.TestCase):
             status="Tidak Selaras",
             reasoning="Terdapat perbedaan tenggat waktu."
         )
-        self.assertIn("KALIMAT INTERNAL BANK", html)
-        self.assertIn("KALIMAT REGULASI PEMERINTAH", html)
-        self.assertIn("Tidak Selaras", html)
-        self.assertIn("Catatan Analisis Hukum", html)
+        self.assertIn("Kalimat Dokumen Internal Bank", html)
+        self.assertIn("Kalimat Peraturan Pemerintah", html)
+        self.assertIn("TIDAK SELARAS", html)
+        self.assertIn("Pertimbangan Hukum", html)
 
 
 class TestAlignmentEngine(unittest.TestCase):
