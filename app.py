@@ -26,7 +26,8 @@ from engine.semantic_retriever import get_default_retriever
 
 def render_html(html_str: str):
     """Merender HTML ke Streamlit tanpa risiko terpotong menjadi kode blok markdown."""
-    clean_html = textwrap.dedent(html_str).strip()
+    clean_lines = [line.lstrip() for line in html_str.splitlines() if line.strip()]
+    clean_html = "\n".join(clean_lines)
     st.markdown(clean_html, unsafe_allow_html=True)
 
 
