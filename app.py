@@ -7,6 +7,7 @@ Desain institusional berbasis arsitektur legal-tech, bebas dari ornamen AI gener
 
 import io
 import json
+import textwrap
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
@@ -21,6 +22,13 @@ from engine.legal_parser import extract_raw_text, parse_legal_structure
 from engine.report_generator import generate_compliance_pdf_report
 from engine.semantic_retriever import get_default_retriever
 
+
+def render_html(html_str: str):
+    """Merender HTML ke Streamlit tanpa risiko terpotong menjadi kode blok markdown."""
+    clean_html = textwrap.dedent(html_str).strip()
+    st.markdown(clean_html, unsafe_allow_html=True)
+
+
 # Konfigurasi Halaman Institusional
 st.set_page_config(
     page_title="SELARASKAN MDAB : Uji Keselarasan Regulasi",
@@ -29,7 +37,7 @@ st.set_page_config(
 )
 
 # CSS Bersih dan Terstruktur: Standar Desain Perbankan & Legal Tech
-st.markdown(
+render_html(
     """
     <style>
     /* Tipografi Dasar */
@@ -95,7 +103,7 @@ st.markdown(
     /* Kartu Klausul Hukum */
     .legal-card {
         background-color: #ffffff;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #cbd5e1;
         border-radius: 4px;
         padding: 16px;
         margin-bottom: 12px;
@@ -168,8 +176,7 @@ st.markdown(
         border: 1px solid #cbd5e1;
     }
     </style>
-    """,
-    unsafe_allow_html=True,
+    """
 )
 
 
@@ -186,62 +193,42 @@ def show_diff_dialog(clause: dict):
         status=clause.get("status", "Netral"),
         reasoning=clause.get("reasoning", ""),
     )
-    st.markdown(diff_html, unsafe_allow_html=True)
+    render_html(diff_html)
 
     rekomendasi = clause.get("rekomendasi", "")
     if rekomendasi:
-        st.markdown(
+        render_html(
             f"""
             <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px; padding: 10px 12px; margin-top: 12px; font-size: 12px; color: #1e293b;">
                 <strong>Rekomendasi Tindakan:</strong> {rekomendasi}
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
     if st.button("Tutup Dialog", use_container_width=True):
         st.rerun()
 
 
-# Pemuatan Data Benchmark
+# Pemuatan Data Benchmark Simulasi
 @st.cache_data
 def get_benchmark_data():
     return load_benchmark_data()
 
 benchmark_data = get_benchmark_data()
-doc_info = benchmark_data["internal_document"]
-clauses = benchmark_data["clauses"]
-metrics = calculate_compliance_metrics(clauses)
+demo_doc_info = benchmark_data["internal_document"]
+demo_clauses = benchmark_data["clauses"]
+demo_metrics = calculate_compliance_metrics(demo_clauses)
 
 
-# Header Utama Institusional
-st.markdown(
-    f"""
-    <div class="brand-header">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-            <div>
-                <h1 class="brand-title">SELARASKAN MDAB : Uji Keselarasan Regulasi Operasional</h1>
-                <div class="brand-subtitle">
-                    Audit Kepatuhan Kebijakan Internal Bank Mandiri terhadap Ketentuan Regulator (POJK, Bank Indonesia, UU PDP)
-                </div>
-            </div>
-            <div class="brand-badge">
-                <div>Dokumen: {doc_info['version']}</div>
-                <div>Status Uji: Selesai</div>
-            </div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# Sidebar Kontrol & Metadata
+# Sidebar Kontrol & Pemilihan Sumber Dokumen
 with st.sidebar:
-    st.markdown("### Dokumen yang Dievaluasi")
-    st.markdown(f"**{doc_info['title']}**")
-    st.caption(f"Perihal: {doc_info['subject']}")
-    st.caption(f"Tanggal Berlaku: {doc_info['issued_date']}")
+    st.markdown("### Sumber Dokumen Evaluasi")
+    source_mode = st.radio(
+        "Pilih Data untuk Dianalisis:",
+        options=["Contoh Studi Kasus (Bank Mandiri)", "Unggah Dokumen Baru (.docx / .pdf)"],
+        index=0,
+        help="Gunakan 'Contoh Studi Kasus' untuk melihat simulasi awal, atau 'Unggah Dokumen Baru' untuk memproses dokumen Anda sendiri.",
+    )
 
     st.markdown("---")
     st.markdown("### Regulasi Acuan Kepatuhan")
@@ -259,123 +246,80 @@ with st.sidebar:
     search_keyword = st.text_input("Pencarian Pasal atau Kata Kunci:", placeholder="Contoh: enkripsi, drc, cloud...")
 
     st.markdown("---")
-    df_export = pd.DataFrame([
-        {
-            "ID": c["id"],
-            "Bab": c["bab"],
-            "Pasal Internal": c["pasal"],
-            "Judul": c["judul_klausul"],
-            "Status": c["status"],
-            "Regulasi Terkait": c["regulasi_terkait"],
-            "Pasal Regulasi": c["pasal_regulasi"],
-            "Pertimbangan Hukum": c["reasoning"],
-            "Rekomendasi": c["rekomendasi"],
-        }
-        for c in clauses
-    ])
-    csv_buffer = io.StringIO()
-    df_export.to_csv(csv_buffer, index=False)
-    st.download_button(
-        label="Unduh Laporan Formal (PDF)",
-        data=generate_compliance_pdf_report(doc_info, benchmark_data["external_benchmark"], clauses, metrics),
-        file_name="Laporan_Resmi_Audit_Regulasi_SELARASKAN_MDAB.pdf",
-        mime="application/pdf",
-        use_container_width=True,
-    )
-    st.download_button(
-        label="Unduh Rekapitulasi Data (CSV)",
-        data=csv_buffer.getvalue(),
-        file_name="Laporan_Audit_Keselarasan_SELARASKAN_MDAB.csv",
-        mime="text/csv",
-        use_container_width=True,
-    )
+    st.markdown("### Ekspor Laporan")
+    
+    # Download button untuk mode saat ini
+    if source_mode == "Contoh Studi Kasus (Bank Mandiri)":
+        export_clauses = demo_clauses
+        export_doc_info = demo_doc_info
+        export_metrics = demo_metrics
+    elif "uploaded_analysis" in st.session_state:
+        export_clauses = st.session_state["uploaded_analysis"]["clauses"]
+        export_doc_info = st.session_state["uploaded_analysis"]["doc_info"]
+        export_metrics = st.session_state["uploaded_analysis"]["metrics"]
+    else:
+        export_clauses = []
+        export_doc_info = {"title": "Belum ada dokumen", "version": "v1.0", "subject": "-", "issued_date": "-"}
+        export_metrics = calculate_compliance_metrics([])
 
+    if export_clauses:
+        df_export = pd.DataFrame([
+            {
+                "ID": c.get("id", ""),
+                "Bab": c.get("bab", ""),
+                "Pasal Internal": c.get("pasal", ""),
+                "Judul": c.get("judul_klausul", ""),
+                "Status": c.get("status", ""),
+                "Regulasi Terkait": c.get("regulasi_terkait", ""),
+                "Pasal Regulasi": c.get("pasal_regulasi", ""),
+                "Pertimbangan Hukum": c.get("reasoning", ""),
+                "Rekomendasi": c.get("rekomendasi", ""),
+            }
+            for c in export_clauses
+        ])
+        csv_buffer = io.StringIO()
+        df_export.to_csv(csv_buffer, index=False)
 
-# Ringkasan Eksekutif & Visualisasi Distribusi Kepatuhan
-col_summary, col_pie = st.columns([1.6, 1.2])
-
-with col_summary:
-    st.markdown("#### Ringkasan Hasil Evaluasi Dokumen")
-    kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-
-    with kpi1:
-        st.markdown(
-            f"""
-            <div class="metric-box">
-                <div class="metric-label">Total Klausul</div>
-                <div class="metric-number" style="color: #003d79;">{metrics['total']}</div>
-                <div class="metric-desc">Klausul Dianalisis</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        st.download_button(
+            label="Unduh Laporan Formal (PDF)",
+            data=generate_compliance_pdf_report(export_doc_info, benchmark_data["external_benchmark"], export_clauses, export_metrics),
+            file_name="Laporan_Resmi_Audit_Regulasi_SELARASKAN_MDAB.pdf",
+            mime="application/pdf",
+            use_container_width=True,
         )
-    with kpi2:
-        st.markdown(
-            f"""
-            <div class="metric-box">
-                <div class="metric-label">Selaras</div>
-                <div class="metric-number" style="color: #166534;">{metrics['selaras']['count']}</div>
-                <div class="metric-desc">{metrics['selaras']['pct']}% Memenuhi Syarat</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
+        st.download_button(
+            label="Unduh Rekapitulasi Data (CSV)",
+            data=csv_buffer.getvalue(),
+            file_name="Laporan_Audit_Keselarasan_SELARASKAN_MDAB.csv",
+            mime="text/csv",
+            use_container_width=True,
         )
-    with kpi3:
-        st.markdown(
-            f"""
-            <div class="metric-box">
-                <div class="metric-label">Tidak Selaras</div>
-                <div class="metric-number" style="color: #991b1b;">{metrics['tidak_selaras']['count']}</div>
-                <div class="metric-desc">{metrics['tidak_selaras']['pct']}% Perlu Revisi</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-    with kpi4:
-        st.markdown(
-            f"""
-            <div class="metric-box">
-                <div class="metric-label">Netral</div>
-                <div class="metric-number" style="color: #854d0e;">{metrics['netral']['count']}</div>
-                <div class="metric-desc">{metrics['netral']['pct']}% Aturan Teknis</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    else:
+        st.caption("Unggah dokumen terlebih dahulu untuk mengunduh laporan.")
 
-    st.markdown(
-        """
-        <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 10px 14px; margin-top: 12px; font-size: 12px; color: #334155; line-height: 1.5;">
-            <strong>Catatan Kepatuhan:</strong> Ditemukan 2 klausul operasional yang memiliki deviasi terhadap regulasi pemerintah, yaitu batas waktu pelaporan insiden kebocoran data (Pasal 46 UU PDP) dan ketentuan penempatan server di luar yurisdiksi Indonesia (Pasal 21 POJK 11/2022).
+
+# Header Utama Institusional
+current_version = demo_doc_info['version'] if source_mode == "Contoh Studi Kasus (Bank Mandiri)" else (
+    st.session_state["uploaded_analysis"]["doc_info"]["version"] if "uploaded_analysis" in st.session_state else "Menunggu Unggahan"
+)
+render_html(
+    f"""
+    <div class="brand-header">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div>
+                <h1 class="brand-title">SELARASKAN MDAB : Uji Keselarasan Regulasi Operasional</h1>
+                <div class="brand-subtitle">
+                    Audit Kepatuhan Kebijakan Internal Bank Mandiri terhadap Ketentuan Regulator (POJK, Bank Indonesia, UU PDP)
+                </div>
+            </div>
+            <div class="brand-badge">
+                <div>Dokumen: {current_version}</div>
+                <div>Mode: {'Contoh Demo' if source_mode == "Contoh Studi Kasus (Bank Mandiri)" else 'Unggah Sendiri'}</div>
+            </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-with col_pie:
-    st.markdown("#### Proporsi Keselarasan Norma")
-    labels = ["Selaras", "Tidak Selaras", "Netral"]
-    values = [metrics["selaras"]["count"], metrics["tidak_selaras"]["count"], metrics["netral"]["count"]]
-    colors = ["#166534", "#991b1b", "#ca8a04"]
-
-    fig = go.Figure(data=[go.Pie(
-        labels=labels,
-        values=values,
-        hole=0.60,
-        marker=dict(colors=colors, line=dict(color="#ffffff", width=2)),
-        textinfo="percent+value",
-        hoverinfo="label+value+percent",
-        textfont_size=11,
-    )])
-    fig.update_layout(
-        showlegend=True,
-        height=180,
-        margin=dict(l=10, r=10, t=5, b=5),
-        legend=dict(orientation="h", yanchor="bottom", y=-0.3, xanchor="center", x=0.5, font=dict(size=11)),
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16px 0 20px 0;'>", unsafe_allow_html=True)
+    </div>
+    """
+)
 
 
 # Tab Navigasi Utama
@@ -389,96 +333,204 @@ tab_evaluasi, tab_unggah, tab_uji, tab_panduan = st.tabs([
 
 # TAB 1: Matriks Keselarasan Dokumen
 with tab_evaluasi:
-    filtered_clauses = clauses
-    if filter_status == "Hanya Tidak Selaras (Prioritas Risiko)":
-        filtered_clauses = [c for c in filtered_clauses if c["status"] == "Tidak Selaras"]
-    elif filter_status == "Hanya Selaras":
-        filtered_clauses = [c for c in filtered_clauses if c["status"] == "Selaras"]
-    elif filter_status == "Hanya Netral":
-        filtered_clauses = [c for c in filtered_clauses if c["status"] == "Netral"]
-
-    if search_keyword.strip():
-        kw = search_keyword.strip().lower()
-        filtered_clauses = [
-            c for c in filtered_clauses
-            if kw in c["judul_klausul"].lower()
-            or kw in c["teks_internal"].lower()
-            or kw in c["regulasi_terkait"].lower()
-            or kw in c["pasal"].lower()
-        ]
-
-    col_nav, col_content = st.columns([1.1, 1.9])
-
-    with col_nav:
-        st.markdown("##### Struktur Hierarki Dokumen Internal")
-        babs = {}
-        for c in clauses:
-            babs.setdefault(c["bab"], []).append(c)
-
-        for bab_name, items in babs.items():
-            with st.expander(f"{bab_name}", expanded=True):
-                for item in items:
-                    badge_style = (
-                        "badge-selaras" if item["status"] == "Selaras"
-                        else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
-                    )
-                    st.markdown(
-                        f"""
-                        <div style="font-size: 12px; margin-bottom: 8px; padding: 4px 0 4px 6px; border-left: 2px solid #cbd5e1;">
-                            <div style="font-weight: 600; color: #003d79;">{item['pasal']}</div>
-                            <div style="font-size: 11px; color: #475569; margin: 2px 0;">{item['judul_klausul']}</div>
-                            <span class="{badge_style}">{item['status']}</span>
-                        </div>
-                        """,
-                        unsafe_allow_html=True,
-                    )
-
-    with col_content:
-        st.markdown(f"##### Daftar Klausul & Hasil Evaluasi ({len(filtered_clauses)} Klausul)")
-
-        if not filtered_clauses:
-            st.info("Tidak ada klausul yang sesuai dengan filter pencarian.")
+    # Tentukan data klausul dan metrik yang aktif
+    if source_mode == "Contoh Studi Kasus (Bank Mandiri)":
+        active_doc_info = demo_doc_info
+        active_clauses = demo_clauses
+        active_metrics = demo_metrics
+        st.info("Mode Pratinjau: Menampilkan contoh simulasi (Petunjuk Operasional No. PO-DIR/IT/042/2024 Bank Mandiri). Untuk menganalisis dokumen Anda sendiri dari awal, pilih 'Unggah Dokumen Baru' di sidebar kiri.")
+    else:
+        if "uploaded_analysis" in st.session_state:
+            active_doc_info = st.session_state["uploaded_analysis"]["doc_info"]
+            active_clauses = st.session_state["uploaded_analysis"]["clauses"]
+            active_metrics = st.session_state["uploaded_analysis"]["metrics"]
+            st.success(f"Mode Dokumen Unggahan Aktif: Menampilkan hasil evaluasi dari berkas '{active_doc_info['title']}'.")
         else:
-            for idx, clause in enumerate(filtered_clauses):
-                status = clause["status"]
-                badge_class = (
-                    "badge-selaras" if status == "Selaras"
-                    else ("badge-tidaksaras" if status == "Tidak Selaras" else "badge-netral")
+            active_doc_info = None
+            active_clauses = []
+            active_metrics = None
+
+    if active_clauses and active_metrics:
+        # Ringkasan Eksekutif & Donut Chart
+        col_summary, col_pie = st.columns([1.6, 1.2])
+
+        with col_summary:
+            st.markdown("#### Ringkasan Hasil Evaluasi Dokumen")
+            kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+
+            with kpi1:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Total Klausul</div>
+                        <div class="metric-number" style="color: #003d79;">{active_metrics['total']}</div>
+                        <div class="metric-desc">Klausul Dianalisis</div>
+                    </div>
+                    """
+                )
+            with kpi2:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Selaras</div>
+                        <div class="metric-number" style="color: #166534;">{active_metrics['selaras']['count']}</div>
+                        <div class="metric-desc">{active_metrics['selaras']['pct']}% Sesuai Standar</div>
+                    </div>
+                    """
+                )
+            with kpi3:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Tidak Selaras</div>
+                        <div class="metric-number" style="color: #991b1b;">{active_metrics['tidak_selaras']['count']}</div>
+                        <div class="metric-desc">{active_metrics['tidak_selaras']['pct']}% Perlu Revisi</div>
+                    </div>
+                    """
+                )
+            with kpi4:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Netral</div>
+                        <div class="metric-number" style="color: #854d0e;">{active_metrics['netral']['count']}</div>
+                        <div class="metric-desc">{active_metrics['netral']['pct']}% Aturan Teknis</div>
+                    </div>
+                    """
                 )
 
-                st.markdown(
-                    f"""
+            st.markdown(
+                f"""
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 10px 14px; margin-top: 12px; font-size: 12px; color: #334155; line-height: 1.5;">
+                    <strong>Catatan Kepatuhan:</strong> Dari {active_metrics['total']} klausul yang dievaluasi, terdeteksi {active_metrics['tidak_selaras']['count']} klausul yang memiliki deviasi normatif terhadap regulasi rujukan dan direkomendasikan untuk segera dilakukan addendum/penyesuaian kebijakan.
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with col_pie:
+            st.markdown("#### Proporsi Keselarasan Norma")
+            labels = ["Selaras", "Tidak Selaras", "Netral"]
+            values = [active_metrics["selaras"]["count"], active_metrics["tidak_selaras"]["count"], active_metrics["netral"]["count"]]
+            colors = ["#166534", "#991b1b", "#ca8a04"]
+
+            fig = go.Figure(data=[go.Pie(
+                labels=labels,
+                values=values,
+                hole=0.60,
+                marker=dict(colors=colors, line=dict(color="#ffffff", width=2)),
+                textinfo="percent+value",
+                hoverinfo="label+value+percent",
+                textfont_size=11,
+            )])
+            fig.update_layout(
+                showlegend=True,
+                height=180,
+                margin=dict(l=10, r=10, t=5, b=5),
+                legend=dict(orientation="h", yanchor="bottom", y=-0.3, xanchor="center", x=0.5, font=dict(size=11)),
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+        st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16px 0 20px 0;'>", unsafe_allow_html=True)
+
+        # Filter klausul
+        filtered_clauses = active_clauses
+        if filter_status == "Hanya Tidak Selaras (Prioritas Risiko)":
+            filtered_clauses = [c for c in filtered_clauses if c["status"] == "Tidak Selaras"]
+        elif filter_status == "Hanya Selaras":
+            filtered_clauses = [c for c in filtered_clauses if c["status"] == "Selaras"]
+        elif filter_status == "Hanya Netral":
+            filtered_clauses = [c for c in filtered_clauses if c["status"] == "Netral"]
+
+        if search_keyword.strip():
+            kw = search_keyword.strip().lower()
+            filtered_clauses = [
+                c for c in filtered_clauses
+                if kw in c.get("judul_klausul", "").lower()
+                or kw in c.get("teks_internal", "").lower()
+                or kw in c.get("regulasi_terkait", "").lower()
+                or kw in c.get("pasal", "").lower()
+            ]
+
+        col_nav, col_content = st.columns([1.1, 1.9])
+
+        with col_nav:
+            st.markdown("##### Struktur Hierarki Dokumen")
+            babs = {}
+            for c in active_clauses:
+                babs.setdefault(c.get("bab", "Umum"), []).append(c)
+
+            for bab_name, items in babs.items():
+                with st.expander(f"{bab_name}", expanded=True):
+                    for item in items:
+                        badge_style = (
+                            "badge-selaras" if item["status"] == "Selaras"
+                            else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
+                        )
+                        render_html(
+                            f"""
+                            <div style="font-size: 12px; margin-bottom: 8px; padding: 4px 0 4px 6px; border-left: 2px solid #cbd5e1;">
+                                <div style="font-weight: 600; color: #003d79;">{item.get('pasal', '')}</div>
+                                <div style="font-size: 11px; color: #475569; margin: 2px 0;">{item.get('judul_klausul', '')}</div>
+                                <span class="{badge_style}">{item.get('status', '')}</span>
+                            </div>
+                            """
+                        )
+
+        with col_content:
+            st.markdown(f"##### Daftar Klausul & Hasil Evaluasi ({len(filtered_clauses)} Klausul)")
+
+            if not filtered_clauses:
+                st.info("Tidak ada klausul yang sesuai dengan filter pencarian.")
+            else:
+                for idx, clause in enumerate(filtered_clauses):
+                    status = clause["status"]
+                    badge_class = (
+                        "badge-selaras" if status == "Selaras"
+                        else ("badge-tidaksaras" if status == "Tidak Selaras" else "badge-netral")
+                    )
+
+                    card_html = f"""
                     <div class="legal-card">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <div>
-                                <div class="legal-meta">{clause['id']} : {clause['bab']}</div>
-                                <h3 class="legal-title">{clause['pasal']}: {clause['judul_klausul']}</h3>
+                                <div class="legal-meta">{clause.get('id', '')} : {clause.get('bab', '')}</div>
+                                <h3 class="legal-title">{clause.get('pasal', '')}: {clause.get('judul_klausul', '')}</h3>
                             </div>
                             <span class="{badge_class}">{status.upper()}</span>
                         </div>
-
                         <div class="reference-box">
-                            <strong>Ketentuan Acuan:</strong> {clause['regulasi_terkait']} ({clause['pasal_regulasi']})
+                            <strong>Ketentuan Acuan:</strong> {clause.get('regulasi_terkait', '')} ({clause.get('pasal_regulasi', '')})
                         </div>
-
                         <div class="reasoning-text">
-                            <strong>Pertimbangan Hukum:</strong> {clause['reasoning']}
+                            <strong>Pertimbangan Hukum:</strong> {clause.get('reasoning', '')}
                         </div>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+                    """
+                    render_html(card_html)
 
-                btn_col1, _ = st.columns([1.6, 2.4])
-                with btn_col1:
-                    if st.button(
-                        "Lihat Komparasi Before-After",
-                        key=f"btn_diff_{clause['id']}_{idx}",
-                        use_container_width=True,
-                    ):
-                        show_diff_dialog(clause)
+                    btn_col1, _ = st.columns([1.6, 2.4])
+                    with btn_col1:
+                        if st.button(
+                            "Lihat Komparasi Before-After",
+                            key=f"btn_diff_{clause.get('id', '')}_{idx}",
+                            use_container_width=True,
+                        ):
+                            show_diff_dialog(clause)
 
-                st.write("")
+                    st.write("")
+    else:
+        # Tampilan kosong terarah (Clean Empty State)
+        render_html(
+            """
+            <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 40px 20px; text-align: center; color: #475569; margin: 20px 0;">
+                <h4 style="color: #003d79; margin-bottom: 8px; font-size: 16px;">Belum Ada Dokumen yang Diunggah</h4>
+                <p style="font-size: 13px; max-width: 580px; margin: 0 auto 16px auto; line-height: 1.5; color: #64748b;">
+                    Anda saat ini berada pada mode <strong>Unggah Dokumen Baru</strong>. Silakan buka tab <strong>"Unggah & Parsing Dokumen"</strong> di atas untuk mengunggah berkas Word (.docx) atau PDF regulasi Anda, atau alihkan pilihan ke <strong>"Contoh Studi Kasus (Bank Mandiri)"</strong> pada menu di sidebar kiri untuk melihat contoh simulasi.
+                </p>
+            </div>
+            """
+        )
 
 
 # TAB 2: Unggah & Parsing Dokumen (Legal Parser)
@@ -514,48 +566,44 @@ with tab_unggah:
                 st.markdown("##### Metadata Dokumen yang Diekstraksi")
                 meta_cols = st.columns(4)
                 with meta_cols[0]:
-                    st.markdown(
+                    render_html(
                         f"""
                         <div class="metric-box">
                             <div class="metric-label">Nama Berkas</div>
                             <div style="font-size: 13px; font-weight: 600; color: #003d79; margin: 4px 0;">{filename}</div>
                             <div class="metric-desc">Ukuran: {file_size_kb} KB</div>
                         </div>
-                        """,
-                        unsafe_allow_html=True,
+                        """
                     )
                 with meta_cols[1]:
-                    st.markdown(
+                    render_html(
                         f"""
                         <div class="metric-box">
                             <div class="metric-label">Total Bab Terdeteksi</div>
                             <div class="metric-number" style="color: #003d79;">{parsed_doc['total_bab']}</div>
                             <div class="metric-desc">Struktur Utama</div>
                         </div>
-                        """,
-                        unsafe_allow_html=True,
+                        """
                     )
                 with meta_cols[2]:
-                    st.markdown(
+                    render_html(
                         f"""
                         <div class="metric-box">
                             <div class="metric-label">Total Pasal</div>
                             <div class="metric-number" style="color: #003d79;">{parsed_doc['total_pasal']}</div>
                             <div class="metric-desc">Norma Terpisah</div>
                         </div>
-                        """,
-                        unsafe_allow_html=True,
+                        """
                     )
                 with meta_cols[3]:
-                    st.markdown(
+                    render_html(
                         f"""
                         <div class="metric-box">
                             <div class="metric-label">Total Ayat / Butir</div>
                             <div class="metric-number" style="color: #003d79;">{parsed_doc['total_ayat']}</div>
                             <div class="metric-desc">Klausul Spesifik</div>
                         </div>
-                        """,
-                        unsafe_allow_html=True,
+                        """
                     )
 
                 st.markdown(f"**Estimasi Judul Regulasi:** `{parsed_doc['title']}`")
@@ -587,7 +635,7 @@ with tab_unggah:
                                     ref_sample = matches[0]
                                     sim_pct = int(ref_sample["similarity_score"] * 100)
                                 else:
-                                    ref_sample = clauses[i % len(clauses)]
+                                    ref_sample = demo_clauses[i % len(demo_clauses)]
                                     sim_pct = 70
 
                                 eval_res = evaluate_custom_clause_alignment(c["text"], ref_sample["teks_regulasi"])
@@ -608,10 +656,23 @@ with tab_unggah:
                                 })
 
                             up_metrics = calculate_compliance_metrics(eval_list)
+                            
+                            # Simpan ke session state agar Tab 1 otomatis menampilkan hasil dokumen ini!
+                            st.session_state["uploaded_analysis"] = {
+                                "doc_info": {
+                                    "title": parsed_doc["title"],
+                                    "subject": f"Ekstraksi dari berkas {filename}",
+                                    "version": "v1.0 (Unggahan)",
+                                    "issued_date": "Terbaru",
+                                },
+                                "clauses": eval_list,
+                                "metrics": up_metrics,
+                            }
+
                             st.success(
                                 f"Audit selesai. Ditemukan {up_metrics['selaras']['count']} Selaras, "
                                 f"{up_metrics['tidak_selaras']['count']} Tidak Selaras, "
-                                f"{up_metrics['netral']['count']} Netral."
+                                f"{up_metrics['netral']['count']} Netral. Hasil kini juga dapat dilihat di Tab 1!"
                             )
 
                             for up_idx, item in enumerate(eval_list):
@@ -619,27 +680,25 @@ with tab_unggah:
                                     "badge-selaras" if item["status"] == "Selaras"
                                     else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
                                 )
-                                st.markdown(
-                                    f"""
-                                    <div class="legal-card">
-                                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                            <div>
-                                                <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
-                                                <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
-                                            </div>
-                                            <span class="{b_class}">{item['status'].upper()}</span>
+                                up_card_html = f"""
+                                <div class="legal-card">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                        <div>
+                                            <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
+                                            <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
                                         </div>
-                                        <div class="reference-box">
-                                            <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
-                                            <em>Relevansi Semantik: {item['similarity_pct']}%</em>
-                                        </div>
-                                        <div class="reasoning-text">
-                                            <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
-                                        </div>
+                                        <span class="{b_class}">{item['status'].upper()}</span>
                                     </div>
-                                    """,
-                                    unsafe_allow_html=True,
-                                )
+                                    <div class="reference-box">
+                                        <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
+                                        <em>Relevansi Semantik: {item['similarity_pct']}%</em>
+                                    </div>
+                                    <div class="reasoning-text">
+                                        <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
+                                    </div>
+                                </div>
+                                """
+                                render_html(up_card_html)
 
                                 up_btn_col, _ = st.columns([1.6, 2.4])
                                 with up_btn_col:
@@ -656,13 +715,12 @@ with tab_unggah:
             except Exception as e:
                 st.error(f"Gagal memproses berkas: {str(e)}")
     else:
-        st.markdown(
+        render_html(
             """
             <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 24px; text-align: center; color: #64748b; font-size: 13px;">
                 Silakan pilih berkas dokumen peraturan internal (.docx atau .pdf) pada kotak di atas untuk memulai ekstraksi otomatis.
             </div>
-            """,
-            unsafe_allow_html=True,
+            """
         )
 
 
@@ -711,25 +769,23 @@ with tab_uji:
 
             res_c1, res_c2 = st.columns([1, 2.5])
             with res_c1:
-                st.markdown(
+                render_html(
                     f"""
                     <div style="background-color: {c_bg}; border: 1px solid {c_bdr}; border-radius: 4px; padding: 16px; text-align: center;">
                         <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Status Evaluasi</div>
                         <div style="font-size: 20px; font-weight: 700; color: {c_txt}; margin: 6px 0;">{status.upper()}</div>
                         <div style="font-size: 11px; color: #64748b;">Keyakinan Model: {int(eval_result['confidence']*100)}%</div>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
+                    """
                 )
             with res_c2:
-                st.markdown(
+                render_html(
                     f"""
                     <div style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; padding: 14px;">
                         <div style="font-size: 12px; margin-bottom: 8px;"><strong>Pertimbangan Hukum:</strong> {eval_result['reasoning']}</div>
                         <div style="font-size: 12px; color: #475569;"><strong>Rekomendasi Revisi:</strong> {eval_result['rekomendasi']}</div>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
+                    """
                 )
 
             st.markdown("##### Komparasi Redaksional (Diff)")
@@ -741,7 +797,7 @@ with tab_uji:
                 status=status,
                 reasoning=eval_result["reasoning"],
             )
-            st.markdown(diff_custom_html, unsafe_allow_html=True)
+            render_html(diff_custom_html)
 
 
 # TAB 4: Arsitektur & Panduan
