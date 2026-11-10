@@ -7,6 +7,7 @@ Desain institusional berbasis arsitektur legal-tech, bebas dari ornamen AI gener
 
 import io
 import json
+import os
 import textwrap
 import pandas as pd
 import plotly.graph_objects as go
@@ -543,6 +544,49 @@ with tab_unggah:
         "</span>",
         unsafe_allow_html=True,
     )
+
+    # Box Unduh Berkas Contoh Pengujian
+    render_html(
+        """
+        <div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; padding: 12px 16px; margin: 12px 0 16px 0;">
+            <div style="font-size: 13px; font-weight: 600; color: #003d79; margin-bottom: 4px;">
+                Belum memiliki berkas dokumen untuk diuji?
+            </div>
+            <div style="font-size: 12px; color: #475569; line-height: 1.4;">
+                Unduh salah satu contoh berkas kebijakan internal Bank Mandiri (PO-DIR/IT/042/2024) siap uji di bawah ini, lalu unggah kembali melalui kotak di bawah untuk melihat proses ekstraksi dan audit otomatis:
+            </div>
+        </div>
+        """
+    )
+
+    col_dl1, col_dl2, _ = st.columns([1.2, 1.2, 2.6])
+    
+    # Baca berkas sample untuk tombol unduh
+    pdf_sample_path = "data/sample_kebijakan_internal_mandiri.pdf"
+    docx_sample_path = "data/sample_kebijakan_internal_mandiri.docx"
+    
+    with col_dl1:
+        if os.path.exists(pdf_sample_path):
+            with open(pdf_sample_path, "rb") as f_pdf:
+                st.download_button(
+                    label="Unduh Contoh PDF (.pdf)",
+                    data=f_pdf.read(),
+                    file_name="sample_kebijakan_internal_mandiri.pdf",
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+    with col_dl2:
+        if os.path.exists(docx_sample_path):
+            with open(docx_sample_path, "rb") as f_docx:
+                st.download_button(
+                    label="Unduh Contoh Word (.docx)",
+                    data=f_docx.read(),
+                    file_name="sample_kebijakan_internal_mandiri.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    use_container_width=True,
+                )
+
+    st.write("")
 
     uploaded_file = st.file_uploader(
         "Pilih berkas dokumen peraturan internal atau regulasi acuan:",
