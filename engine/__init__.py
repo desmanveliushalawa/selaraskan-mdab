@@ -7,6 +7,7 @@ from .alignment_engine import (
     calculate_compliance_metrics,
     evaluate_custom_clause_alignment,
 )
+from .legal_parser import extract_raw_text, parse_legal_structure
 
 __all__ = [
     "compute_word_diff",
@@ -14,5 +15,6 @@ __all__ = [
     "load_benchmark_data",
     "calculate_compliance_metrics",
     "evaluate_custom_clause_alignment",
+    "extract_raw_text",
+    "parse_legal_structure",
 ]
-

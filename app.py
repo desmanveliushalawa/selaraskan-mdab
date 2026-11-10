@@ -17,6 +17,7 @@ from engine.alignment_engine import (
     calculate_compliance_metrics,
     evaluate_custom_clause_alignment,
 )
+from engine.legal_parser import extract_raw_text, parse_legal_structure
 
 # Konfigurasi Halaman Institusional
 st.set_page_config(
@@ -128,7 +129,7 @@ st.markdown(
         margin-bottom: 10px;
     }
 
-    /* Badge Status (Bentuk Kotak Tegas, Bukan Kapsul Bulat) */
+    /* Badge Status */
     .badge-selaras {
         background-color: #f0fdf4;
         color: #166534;
@@ -369,8 +370,9 @@ st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16p
 
 
 # Tab Navigasi Utama
-tab_evaluasi, tab_uji, tab_panduan = st.tabs([
+tab_evaluasi, tab_unggah, tab_uji, tab_panduan = st.tabs([
     "Matriks Keselarasan Dokumen",
+    "Unggah & Parsing Dokumen",
     "Uji Klausul Mandiri",
     "Arsitektur & Konsep Sistem",
 ])
@@ -470,7 +472,174 @@ with tab_evaluasi:
                 st.write("")
 
 
-# TAB 2: Uji Klausul Mandiri
+# TAB 2: Unggah & Parsing Dokumen (Legal Parser)
+with tab_unggah:
+    st.markdown("#### Unggah & Ekstraksi Dokumen Regulasi (Legal Parser)")
+    st.markdown(
+        "<span style='font-size: 13px; color: #475569;'>"
+        "Modul ini mengekstrak struktur hierarki Bab, Pasal, dan Ayat dari berkas dokumen hukum asli (.docx, .pdf, atau .txt) "
+        "sebelum dijalankan pada engine uji keselarasan."
+        "</span>",
+        unsafe_allow_html=True,
+    )
+
+    uploaded_file = st.file_uploader(
+        "Pilih berkas dokumen peraturan internal atau regulasi acuan:",
+        type=["docx", "pdf", "txt"],
+        help="Mendukung dokumen Microsoft Word (.docx), PDF standar (.pdf), atau teks mentah (.txt)",
+    )
+
+    if uploaded_file is not None:
+        file_bytes = uploaded_file.read()
+        filename = uploaded_file.name
+        file_size_kb = round(len(file_bytes) / 1024, 1)
+
+        with st.spinner("Mengekstrak teks dan menganalisis hierarki hukum Indonesia..."):
+            try:
+                raw_text = extract_raw_text(file_bytes, filename)
+                parsed_doc = parse_legal_structure(raw_text)
+
+                st.success(f"Berkas '{filename}' berhasil di-parse.")
+
+                # Tabel Metadata Hasil Ekstraksi
+                st.markdown("##### Metadata Dokumen yang Diekstraksi")
+                meta_cols = st.columns(4)
+                with meta_cols[0]:
+                    st.markdown(
+                        f"""
+                        <div class="metric-box">
+                            <div class="metric-label">Nama Berkas</div>
+                            <div style="font-size: 13px; font-weight: 600; color: #003d79; margin: 4px 0;">{filename}</div>
+                            <div class="metric-desc">Ukuran: {file_size_kb} KB</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                with meta_cols[1]:
+                    st.markdown(
+                        f"""
+                        <div class="metric-box">
+                            <div class="metric-label">Total Bab Terdeteksi</div>
+                            <div class="metric-number" style="color: #003d79;">{parsed_doc['total_bab']}</div>
+                            <div class="metric-desc">Struktur Utama</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                with meta_cols[2]:
+                    st.markdown(
+                        f"""
+                        <div class="metric-box">
+                            <div class="metric-label">Total Pasal</div>
+                            <div class="metric-number" style="color: #003d79;">{parsed_doc['total_pasal']}</div>
+                            <div class="metric-desc">Norma Terpisah</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                with meta_cols[3]:
+                    st.markdown(
+                        f"""
+                        <div class="metric-box">
+                            <div class="metric-label">Total Ayat / Butir</div>
+                            <div class="metric-number" style="color: #003d79;">{parsed_doc['total_ayat']}</div>
+                            <div class="metric-desc">Klausul Spesifik</div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+
+                st.markdown(f"**Estimasi Judul Regulasi:** `{parsed_doc['title']}`")
+
+                # Daftar Klausul yang Berhasil Diekstraksi
+                st.markdown("##### Rincian Klausul yang Terdaftar")
+                if parsed_doc["clauses"]:
+                    df_parsed = pd.DataFrame([
+                        {
+                            "No": i + 1,
+                            "Bab": c["bab"],
+                            "Pasal": c["pasal"],
+                            "Ayat / Butir": c["ayat"],
+                            "Teks Klausul": (c["text"][:110] + "...") if len(c["text"]) > 110 else c["text"],
+                        }
+                        for i, c in enumerate(parsed_doc["clauses"])
+                    ])
+                    st.dataframe(df_parsed, use_container_width=True, hide_index=True)
+
+                    # Aksi Eksekusi Audit Kepatuhan Otomatis
+                    st.markdown("##### Evaluasi Keselarasan terhadap Regulasi Acuan")
+                    if st.button("Jalankan Uji Keselarasan untuk Dokumen Ini", type="primary"):
+                        with st.spinner("Membandingkan setiap ayat dengan regulasi pemerintah..."):
+                            # Pasangkan dengan benchmark
+                            eval_list = []
+                            for i, c in enumerate(parsed_doc["clauses"]):
+                                # Ambil regulasi pembanding terdekat atau fallback
+                                ref_sample = clauses[i % len(clauses)]
+                                eval_res = evaluate_custom_clause_alignment(c["text"], ref_sample["teks_regulasi"])
+                                eval_list.append({
+                                    "id": f"UP-{i+1:03d}",
+                                    "bab": c["bab"],
+                                    "pasal": c["pasal"],
+                                    "ayat": c["ayat"],
+                                    "judul_klausul": f"{c['pasal']} {c['ayat']}",
+                                    "teks_internal": c["text"],
+                                    "regulasi_terkait": ref_sample["regulasi_terkait"],
+                                    "pasal_regulasi": ref_sample["pasal_regulasi"],
+                                    "teks_regulasi": ref_sample["teks_regulasi"],
+                                    "status": eval_res["status"],
+                                    "reasoning": eval_res["reasoning"],
+                                    "rekomendasi": eval_res["rekomendasi"],
+                                })
+
+                            up_metrics = calculate_compliance_metrics(eval_list)
+                            st.success(
+                                f"Audit selesai. Ditemukan {up_metrics['selaras']['count']} Selaras, "
+                                f"{up_metrics['tidak_selaras']['count']} Tidak Selaras, "
+                                f"{up_metrics['netral']['count']} Netral."
+                            )
+
+                            for item in eval_list:
+                                b_class = (
+                                    "badge-selaras" if item["status"] == "Selaras"
+                                    else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
+                                )
+                                st.markdown(
+                                    f"""
+                                    <div class="legal-card">
+                                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                            <div>
+                                                <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
+                                                <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
+                                            </div>
+                                            <span class="{b_class}">{item['status'].upper()}</span>
+                                        </div>
+                                        <div class="reference-box">
+                                            <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']})
+                                        </div>
+                                        <div class="reasoning-text">
+                                            <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
+                                        </div>
+                                    </div>
+                                    """,
+                                    unsafe_allow_html=True,
+                                )
+                else:
+                    st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen ini.")
+
+            except Exception as e:
+                st.error(f"Gagal memproses berkas: {str(e)}")
+    else:
+        st.markdown(
+            """
+            <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 24px; text-align: center; color: #64748b; font-size: 13px;">
+                Silakan pilih berkas dokumen peraturan internal (.docx atau .pdf) pada kotak di atas untuk memulai ekstraksi otomatis.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+# TAB 3: Uji Klausul Mandiri
 with tab_uji:
     st.markdown("#### Uji Mandiri Keselarasan Klausul Baru")
     st.markdown(
@@ -548,7 +717,7 @@ with tab_uji:
             st.markdown(diff_custom_html, unsafe_allow_html=True)
 
 
-# TAB 3: Arsitektur & Panduan
+# TAB 4: Arsitektur & Panduan
 with tab_panduan:
     st.markdown("#### Landasan Konsep & Arsitektur Sistem")
     st.markdown(
