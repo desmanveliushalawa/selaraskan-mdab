@@ -18,6 +18,8 @@ from engine.alignment_engine import (
     evaluate_custom_clause_alignment,
 )
 from engine.legal_parser import extract_raw_text, parse_legal_structure
+from engine.report_generator import generate_compliance_pdf_report
+from engine.semantic_retriever import get_default_retriever
 
 # Konfigurasi Halaman Institusional
 st.set_page_config(
@@ -274,7 +276,14 @@ with st.sidebar:
     csv_buffer = io.StringIO()
     df_export.to_csv(csv_buffer, index=False)
     st.download_button(
-        label="Unduh Laporan Hasil Audit (CSV)",
+        label="Unduh Laporan Formal (PDF)",
+        data=generate_compliance_pdf_report(doc_info, benchmark_data["external_benchmark"], clauses, metrics),
+        file_name="Laporan_Resmi_Audit_Regulasi_Mandiri.pdf",
+        mime="application/pdf",
+        use_container_width=True,
+    )
+    st.download_button(
+        label="Unduh Rekapitulasi Data (CSV)",
         data=csv_buffer.getvalue(),
         file_name="Laporan_Audit_Keselarasan_Regulasi_Mandiri.csv",
         mime="text/csv",
@@ -569,12 +578,18 @@ with tab_unggah:
                     # Aksi Eksekusi Audit Kepatuhan Otomatis
                     st.markdown("##### Evaluasi Keselarasan terhadap Regulasi Acuan")
                     if st.button("Jalankan Uji Keselarasan untuk Dokumen Ini", type="primary"):
-                        with st.spinner("Membandingkan setiap ayat dengan regulasi pemerintah..."):
-                            # Pasangkan dengan benchmark
+                        with st.spinner("Mencocokkan klausul dengan korpus regulasi menggunakan Semantic Retrieval..."):
+                            retriever = get_default_retriever()
                             eval_list = []
                             for i, c in enumerate(parsed_doc["clauses"]):
-                                # Ambil regulasi pembanding terdekat atau fallback
-                                ref_sample = clauses[i % len(clauses)]
+                                matches = retriever.retrieve_best_match(c["text"], top_k=1)
+                                if matches and matches[0]["similarity_score"] > 0.05:
+                                    ref_sample = matches[0]
+                                    sim_pct = int(ref_sample["similarity_score"] * 100)
+                                else:
+                                    ref_sample = clauses[i % len(clauses)]
+                                    sim_pct = 70
+
                                 eval_res = evaluate_custom_clause_alignment(c["text"], ref_sample["teks_regulasi"])
                                 eval_list.append({
                                     "id": f"UP-{i+1:03d}",
@@ -586,6 +601,7 @@ with tab_unggah:
                                     "regulasi_terkait": ref_sample["regulasi_terkait"],
                                     "pasal_regulasi": ref_sample["pasal_regulasi"],
                                     "teks_regulasi": ref_sample["teks_regulasi"],
+                                    "similarity_pct": sim_pct,
                                     "status": eval_res["status"],
                                     "reasoning": eval_res["reasoning"],
                                     "rekomendasi": eval_res["rekomendasi"],
@@ -598,7 +614,7 @@ with tab_unggah:
                                 f"{up_metrics['netral']['count']} Netral."
                             )
 
-                            for item in eval_list:
+                            for up_idx, item in enumerate(eval_list):
                                 b_class = (
                                     "badge-selaras" if item["status"] == "Selaras"
                                     else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
@@ -614,7 +630,8 @@ with tab_unggah:
                                             <span class="{b_class}">{item['status'].upper()}</span>
                                         </div>
                                         <div class="reference-box">
-                                            <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']})
+                                            <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
+                                            <em>Relevansi Semantik: {item['similarity_pct']}%</em>
                                         </div>
                                         <div class="reasoning-text">
                                             <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
@@ -623,6 +640,16 @@ with tab_unggah:
                                     """,
                                     unsafe_allow_html=True,
                                 )
+
+                                up_btn_col, _ = st.columns([1.6, 2.4])
+                                with up_btn_col:
+                                    if st.button(
+                                        "Lihat Komparasi Before-After",
+                                        key=f"btn_up_diff_{item['id']}_{up_idx}",
+                                        use_container_width=True,
+                                    ):
+                                        show_diff_dialog(item)
+                                st.write("")
                 else:
                     st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen ini.")
 

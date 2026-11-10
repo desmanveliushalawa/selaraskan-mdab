@@ -134,3 +134,4 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
         "total_ayat": len(clauses),
         "clauses": clauses,
     }
+

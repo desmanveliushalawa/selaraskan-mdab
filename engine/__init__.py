@@ -8,6 +8,8 @@ from .alignment_engine import (
     evaluate_custom_clause_alignment,
 )
 from .legal_parser import extract_raw_text, parse_legal_structure
+from .report_generator import generate_compliance_pdf_report
+from .semantic_retriever import SemanticRetriever, get_default_retriever
 
 __all__ = [
     "compute_word_diff",
@@ -17,4 +19,7 @@ __all__ = [
     "evaluate_custom_clause_alignment",
     "extract_raw_text",
     "parse_legal_structure",
+    "generate_compliance_pdf_report",
+    "SemanticRetriever",
+    "get_default_retriever",
 ]
