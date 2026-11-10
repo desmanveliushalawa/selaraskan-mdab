@@ -31,6 +31,39 @@ def render_html(html_str: str):
     st.markdown(clean_html, unsafe_allow_html=True)
 
 
+def filter_clause_list(clauses_list: list, status_filter: str, search_query: str) -> list:
+    """Menyaring daftar klausul berdasarkan status kepatuhan dan kata kunci pencarian."""
+    result = list(clauses_list)
+
+    if status_filter == "Hanya Tidak Selaras (Prioritas Risiko)":
+        result = [c for c in result if c.get("status") == "Tidak Selaras"]
+    elif status_filter == "Hanya Selaras":
+        result = [c for c in result if c.get("status") == "Selaras"]
+    elif status_filter == "Hanya Netral":
+        result = [c for c in result if c.get("status") == "Netral"]
+
+    if search_query and search_query.strip():
+        q_tokens = search_query.strip().lower().split()
+        def matches(c):
+            haystack = " ".join([
+                str(c.get("bab", "")),
+                str(c.get("pasal", "")),
+                str(c.get("ayat", "")),
+                str(c.get("judul_klausul", "")),
+                str(c.get("teks_internal", "")),
+                str(c.get("text", "")),
+                str(c.get("regulasi_terkait", "")),
+                str(c.get("pasal_regulasi", "")),
+                str(c.get("teks_regulasi", "")),
+                str(c.get("reasoning", "")),
+                str(c.get("status", "")),
+            ]).lower()
+            return all(token in haystack for token in q_tokens)
+        result = [c for c in result if matches(c)]
+
+    return result
+
+
 # Konfigurasi Halaman Institusional
 st.set_page_config(
     page_title="SELARASKAN MDAB : Uji Keselarasan Regulasi",
@@ -225,10 +258,11 @@ demo_metrics = calculate_compliance_metrics(demo_clauses)
 # Sidebar Kontrol & Pemilihan Sumber Dokumen
 with st.sidebar:
     st.markdown("### Sumber Dokumen Evaluasi")
+    default_source_idx = 1 if "uploaded_analysis" in st.session_state else 0
     source_mode = st.radio(
         "Pilih Data untuk Dianalisis:",
         options=["Contoh Studi Kasus (Bank Mandiri)", "Unggah Dokumen Baru (.docx / .pdf)"],
-        index=0,
+        index=default_source_idx,
         help="Gunakan 'Contoh Studi Kasus' untuk melihat simulasi awal, atau 'Unggah Dokumen Baru' untuk memproses dokumen Anda sendiri.",
     )
 
@@ -435,52 +469,47 @@ with tab_evaluasi:
 
         st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16px 0 20px 0;'>", unsafe_allow_html=True)
 
-        # Filter klausul
-        filtered_clauses = active_clauses
-        if filter_status == "Hanya Tidak Selaras (Prioritas Risiko)":
-            filtered_clauses = [c for c in filtered_clauses if c["status"] == "Tidak Selaras"]
-        elif filter_status == "Hanya Selaras":
-            filtered_clauses = [c for c in filtered_clauses if c["status"] == "Selaras"]
-        elif filter_status == "Hanya Netral":
-            filtered_clauses = [c for c in filtered_clauses if c["status"] == "Netral"]
-
-        if search_keyword.strip():
-            kw = search_keyword.strip().lower()
-            filtered_clauses = [
-                c for c in filtered_clauses
-                if kw in c.get("judul_klausul", "").lower()
-                or kw in c.get("teks_internal", "").lower()
-                or kw in c.get("regulasi_terkait", "").lower()
-                or kw in c.get("pasal", "").lower()
-            ]
+        # Filter klausul menggunakan helper universal
+        filtered_clauses = filter_clause_list(active_clauses, filter_status, search_keyword)
 
         col_nav, col_content = st.columns([1.1, 1.9])
 
         with col_nav:
             st.markdown("##### Struktur Hierarki Dokumen")
             babs = {}
-            for c in active_clauses:
+            for c in filtered_clauses:
                 babs.setdefault(c.get("bab", "Umum"), []).append(c)
 
-            for bab_name, items in babs.items():
-                with st.expander(f"{bab_name}", expanded=True):
-                    for item in items:
-                        badge_style = (
-                            "badge-selaras" if item["status"] == "Selaras"
-                            else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
-                        )
-                        render_html(
-                            f"""
-                            <div style="font-size: 12px; margin-bottom: 8px; padding: 4px 0 4px 6px; border-left: 2px solid #cbd5e1;">
-                                <div style="font-weight: 600; color: #003d79;">{item.get('pasal', '')}</div>
-                                <div style="font-size: 11px; color: #475569; margin: 2px 0;">{item.get('judul_klausul', '')}</div>
-                                <span class="{badge_style}">{item.get('status', '')}</span>
-                            </div>
-                            """
-                        )
+            if not babs:
+                st.caption("Tidak ada Bab yang cocok dengan kriteria filter.")
+            else:
+                for bab_name, items in babs.items():
+                    with st.expander(f"{bab_name} ({len(items)})", expanded=True):
+                        for item in items:
+                            badge_style = (
+                                "badge-selaras" if item["status"] == "Selaras"
+                                else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
+                            )
+                            render_html(
+                                f"""
+                                <div style="font-size: 12px; margin-bottom: 8px; padding: 4px 0 4px 6px; border-left: 2px solid #cbd5e1;">
+                                    <div style="font-weight: 600; color: #003d79;">{item.get('pasal', '')}</div>
+                                    <div style="font-size: 11px; color: #475569; margin: 2px 0;">{item.get('judul_klausul', '')}</div>
+                                    <span class="{badge_style}">{item.get('status', '')}</span>
+                                </div>
+                                """
+                            )
 
         with col_content:
-            st.markdown(f"##### Daftar Klausul & Hasil Evaluasi ({len(filtered_clauses)} Klausul)")
+            st.markdown(f"##### Daftar Klausul & Hasil Evaluasi ({len(filtered_clauses)} dari {len(active_clauses)} Klausul)")
+
+            if search_keyword.strip() or filter_status != "Semua Status":
+                active_filter_msg = []
+                if search_keyword.strip():
+                    active_filter_msg.append(f"Kata Kunci: \"{search_keyword.strip()}\"")
+                if filter_status != "Semua Status":
+                    active_filter_msg.append(f"Status: {filter_status}")
+                st.caption(f"Filter Aktif: {', '.join(active_filter_msg)}")
 
             if not filtered_clauses:
                 st.info("Tidak ada klausul yang sesuai dengan filter pencarian.")
@@ -678,6 +707,10 @@ with tab_unggah:
                 # Daftar Klausul yang Berhasil Diekstraksi
                 st.markdown("##### Rincian Klausul yang Terdaftar")
                 if parsed_doc["clauses"]:
+                    display_parsed_clauses = filter_clause_list(parsed_doc["clauses"], "Semua Status", search_keyword)
+                    if search_keyword.strip():
+                        st.caption(f"Menampilkan {len(display_parsed_clauses)} dari {len(parsed_doc['clauses'])} klausul untuk kata kunci: \"{search_keyword.strip()}\"")
+
                     df_parsed = pd.DataFrame([
                         {
                             "No": i + 1,
@@ -686,7 +719,7 @@ with tab_unggah:
                             "Ayat / Butir": c["ayat"],
                             "Teks Klausul": (c["text"][:110] + "...") if len(c["text"]) > 110 else c["text"],
                         }
-                        for i, c in enumerate(parsed_doc["clauses"])
+                        for i, c in enumerate(display_parsed_clauses)
                     ])
                     st.dataframe(df_parsed, use_container_width=True, hide_index=True)
 
@@ -747,46 +780,54 @@ with tab_unggah:
                         saved_metrics = analysis["metrics"]
                         saved_clauses = analysis["clauses"]
 
+                        display_eval_clauses = filter_clause_list(saved_clauses, filter_status, search_keyword)
+
                         st.success(
                             f"Audit selesai. Ditemukan {saved_metrics['selaras']['count']} Selaras, "
                             f"{saved_metrics['tidak_selaras']['count']} Tidak Selaras, "
                             f"{saved_metrics['netral']['count']} Netral. Hasil lengkap kini juga dapat dianalisis di Tab 1 (Matriks Keselarasan Dokumen)!"
                         )
 
-                        for up_idx, item in enumerate(saved_clauses):
-                            b_class = (
-                                "badge-selaras" if item["status"] == "Selaras"
-                                else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
-                            )
-                            up_card_html = f"""
-                            <div class="legal-card">
-                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                    <div>
-                                        <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
-                                        <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
-                                    </div>
-                                    <span class="{b_class}">{item['status'].upper()}</span>
-                                </div>
-                                <div class="reference-box">
-                                    <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
-                                    <em>Relevansi Semantik: {item['similarity_pct']}%</em>
-                                </div>
-                                <div class="reasoning-text">
-                                    <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
-                                </div>
-                            </div>
-                            """
-                            render_html(up_card_html)
+                        if search_keyword.strip() or filter_status != "Semua Status":
+                            st.info(f"Menampilkan {len(display_eval_clauses)} dari {len(saved_clauses)} klausul hasil evaluasi sesuai filter penelusuran.")
 
-                            up_btn_col, _ = st.columns([1.6, 2.4])
-                            with up_btn_col:
-                                if st.button(
-                                    "Lihat Komparasi Before-After",
-                                    key=f"btn_up_diff_{item['id']}_{up_idx}",
-                                    use_container_width=True,
-                                ):
-                                    show_diff_dialog(item)
-                            st.write("")
+                        if not display_eval_clauses:
+                            st.warning(f"Tidak ada klausul hasil evaluasi yang sesuai dengan filter kata kunci '{search_keyword.strip()}'.")
+                        else:
+                            for up_idx, item in enumerate(display_eval_clauses):
+                                b_class = (
+                                    "badge-selaras" if item["status"] == "Selaras"
+                                    else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
+                                )
+                                up_card_html = f"""
+                                <div class="legal-card">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                        <div>
+                                            <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
+                                            <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
+                                        </div>
+                                        <span class="{b_class}">{item['status'].upper()}</span>
+                                    </div>
+                                    <div class="reference-box">
+                                        <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
+                                        <em>Relevansi Semantik: {item['similarity_pct']}%</em>
+                                    </div>
+                                    <div class="reasoning-text">
+                                        <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
+                                    </div>
+                                </div>
+                                """
+                                render_html(up_card_html)
+
+                                up_btn_col, _ = st.columns([1.6, 2.4])
+                                with up_btn_col:
+                                    if st.button(
+                                        "Lihat Komparasi Before-After",
+                                        key=f"btn_up_diff_{item['id']}_{up_idx}",
+                                        use_container_width=True,
+                                    ):
+                                        show_diff_dialog(item)
+                                st.write("")
                 else:
                     st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen ini.")
 
