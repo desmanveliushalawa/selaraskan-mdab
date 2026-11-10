@@ -82,6 +82,18 @@ class TestAlignmentEngine(unittest.TestCase):
         result = evaluate_custom_clause_alignment(internal, regulasi)
         self.assertEqual(result["status"], "Selaras")
 
+    def test_evaluate_kur_bunga_conflict(self):
+        internal = "Suku bunga pinjaman KUR Mikro ditetapkan flat sebesar 6% efektif per tahun tanpa memberlakukan kenaikan suku bunga berjenjang."
+        regulasi = "Suku bunga atau marjin KUR Mikro dikenakan suku bunga berjenjang yaitu 6%, 7%, 8%, dan 9% bagi debitur berulang."
+        result = evaluate_custom_clause_alignment(internal, regulasi)
+        self.assertEqual(result["status"], "Tidak Selaras")
+
+    def test_evaluate_kur_agunan_conflict(self):
+        internal = "Unit Bisnis Mikro Bank Mandiri wajib meminta agunan tambahan berupa sertifikat tanah/bangunan atau BPKB."
+        regulasi = "Penyalur KUR dilarang meminta agunan tambahan kepada calon Penerima KUR dengan plafon sampai dengan Rp 100.000.000."
+        result = evaluate_custom_clause_alignment(internal, regulasi)
+        self.assertEqual(result["status"], "Tidak Selaras")
+
 
 if __name__ == "__main__":
     unittest.main()

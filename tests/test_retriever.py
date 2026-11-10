@@ -34,6 +34,14 @@ class TestSemanticRetriever(unittest.TestCase):
         self.assertEqual(best["id"], "REG-04")
         self.assertIn("wilayah Indonesia", best["teks_regulasi"])
 
+    def test_retrieve_kur_agunan_clause(self):
+        query = "Unit Bisnis Mikro wajib meminta agunan tambahan tanah atau BPKB untuk pinjaman KUR."
+        matches = self.retriever.retrieve_best_match(query, top_k=1)
+        self.assertEqual(len(matches), 1)
+        best = matches[0]
+        self.assertEqual(best["id"], "REG-08")
+        self.assertIn("Permenko", best["regulasi_terkait"])
+
 
 if __name__ == "__main__":
     unittest.main()

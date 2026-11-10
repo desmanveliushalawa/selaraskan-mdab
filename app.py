@@ -724,8 +724,9 @@ with tab_unggah:
 
                             up_metrics = calculate_compliance_metrics(eval_list)
                             
-                            # Simpan ke session state agar Tab 1 otomatis menampilkan hasil dokumen ini!
+                            # Simpan ke session state agar persisten dan Tab 1 otomatis sinkron
                             st.session_state["uploaded_analysis"] = {
+                                "filename": filename,
                                 "doc_info": {
                                     "title": parsed_doc["title"],
                                     "subject": f"Ekstraksi dari berkas {filename}",
@@ -735,47 +736,57 @@ with tab_unggah:
                                 "clauses": eval_list,
                                 "metrics": up_metrics,
                             }
+                            st.rerun()
 
-                            st.success(
-                                f"Audit selesai. Ditemukan {up_metrics['selaras']['count']} Selaras, "
-                                f"{up_metrics['tidak_selaras']['count']} Tidak Selaras, "
-                                f"{up_metrics['netral']['count']} Netral. Hasil kini juga dapat dilihat di Tab 1!"
+                    # Render hasil evaluasi dari session state (persisten saat tombol dialog diklik)
+                    if (
+                        "uploaded_analysis" in st.session_state
+                        and st.session_state["uploaded_analysis"].get("filename") == filename
+                    ):
+                        analysis = st.session_state["uploaded_analysis"]
+                        saved_metrics = analysis["metrics"]
+                        saved_clauses = analysis["clauses"]
+
+                        st.success(
+                            f"Audit selesai. Ditemukan {saved_metrics['selaras']['count']} Selaras, "
+                            f"{saved_metrics['tidak_selaras']['count']} Tidak Selaras, "
+                            f"{saved_metrics['netral']['count']} Netral. Hasil lengkap kini juga dapat dianalisis di Tab 1 (Matriks Keselarasan Dokumen)!"
+                        )
+
+                        for up_idx, item in enumerate(saved_clauses):
+                            b_class = (
+                                "badge-selaras" if item["status"] == "Selaras"
+                                else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
                             )
-
-                            for up_idx, item in enumerate(eval_list):
-                                b_class = (
-                                    "badge-selaras" if item["status"] == "Selaras"
-                                    else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
-                                )
-                                up_card_html = f"""
-                                <div class="legal-card">
-                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                        <div>
-                                            <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
-                                            <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
-                                        </div>
-                                        <span class="{b_class}">{item['status'].upper()}</span>
+                            up_card_html = f"""
+                            <div class="legal-card">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div>
+                                        <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
+                                        <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
                                     </div>
-                                    <div class="reference-box">
-                                        <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
-                                        <em>Relevansi Semantik: {item['similarity_pct']}%</em>
-                                    </div>
-                                    <div class="reasoning-text">
-                                        <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
-                                    </div>
+                                    <span class="{b_class}">{item['status'].upper()}</span>
                                 </div>
-                                """
-                                render_html(up_card_html)
+                                <div class="reference-box">
+                                    <strong>Ketentuan Acuan:</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
+                                    <em>Relevansi Semantik: {item['similarity_pct']}%</em>
+                                </div>
+                                <div class="reasoning-text">
+                                    <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
+                                </div>
+                            </div>
+                            """
+                            render_html(up_card_html)
 
-                                up_btn_col, _ = st.columns([1.6, 2.4])
-                                with up_btn_col:
-                                    if st.button(
-                                        "Lihat Komparasi Before-After",
-                                        key=f"btn_up_diff_{item['id']}_{up_idx}",
-                                        use_container_width=True,
-                                    ):
-                                        show_diff_dialog(item)
-                                st.write("")
+                            up_btn_col, _ = st.columns([1.6, 2.4])
+                            with up_btn_col:
+                                if st.button(
+                                    "Lihat Komparasi Before-After",
+                                    key=f"btn_up_diff_{item['id']}_{up_idx}",
+                                    use_container_width=True,
+                                ):
+                                    show_diff_dialog(item)
+                            st.write("")
                 else:
                     st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen ini.")
 

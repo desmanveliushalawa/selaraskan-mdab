@@ -69,6 +69,34 @@ DEFAULT_REGULATORY_CORPUS: List[Dict[str, str]] = [
         "topik": "Manajemen Risiko Pengadaan Penyedia Jasa Teknologi Informasi Vendor IT",
         "teks_regulasi": "Bank wajib melakukan penilaian kelayakan dan uji tuntas due diligence terhadap penyedia jasa teknologi informasi vendor IT sebelum melakukan perikatan kerja sama.",
     },
+    {
+        "id": "REG-08",
+        "regulasi_terkait": "Permenko Perekonomian No. 1 Tahun 2023",
+        "pasal_regulasi": "Pasal 14 Ayat (1) dan (3)",
+        "topik": "Larangan Permintaan Agunan Tambahan bagi Calon Penerima KUR Mikro dan Kecil sampai dengan Plafon Rp 100 Juta",
+        "teks_regulasi": "Penyalur KUR dilarang meminta agunan tambahan kepada calon Penerima KUR dengan plafon pinjaman sampai dengan Rp 100.000.000,00 (seratus juta rupiah). Agunan yang dipersyaratkan hanya berupa agunan pokok yaitu usaha atau objek yang dibiayai.",
+    },
+    {
+        "id": "REG-09",
+        "regulasi_terkait": "Permenko Perekonomian No. 1 Tahun 2023",
+        "pasal_regulasi": "Pasal 18 Ayat (1) dan (2)",
+        "topik": "Ketentuan Penerapan Suku Bunga Marjin Pinjaman KUR Mikro Berjenjang bagi Debitur Berulang",
+        "teks_regulasi": "Suku bunga atau marjin pinjaman KUR Mikro dan KUR Kecil bagi debitur yang mengajukan pembiayaan berulang dikenakan suku bunga berjenjang yaitu 6% efektif per tahun untuk pinjaman pertama, 7% untuk pinjaman kedua, 8% untuk pinjaman ketiga, dan 9% efektif per tahun untuk pinjaman keempat.",
+    },
+    {
+        "id": "REG-10",
+        "regulasi_terkait": "Permenko Perekonomian No. 1 Tahun 2023",
+        "pasal_regulasi": "Pasal 5 Ayat (1)",
+        "topik": "Kriteria Kelayakan Usaha Produktif Calon Debitur Penerima Fasilitas KUR dan Izin Usaha NIB",
+        "teks_regulasi": "Calon Penerima KUR adalah individu perseorangan atau badan usaha yang melakukan usaha produktif dan layak dibiayai yang telah berjalan paling singkat 6 (enam) bulan serta dibuktikan dengan kepemilikan Nomor Induk Berusaha NIB atau Surat Keterangan Usaha SKU dari pejabat berwenang.",
+    },
+    {
+        "id": "REG-11",
+        "regulasi_terkait": "Permenko Perekonomian No. 1 Tahun 2023",
+        "pasal_regulasi": "Pasal 24 Ayat (2)",
+        "topik": "Kewajiban Pemeriksaan Basis Data Sistem Informasi Kredit Program SIKP Kementerian Keuangan",
+        "teks_regulasi": "Penyalur KUR wajib melakukan verifikasi dan pemeriksaan status calon debitur melalui Sistem Informasi Kredit Program SIKP Kementerian Keuangan guna memastikan total akumulasi plafon dan riwayat subsidi bunga sebelum persetujuan kredit disetujui.",
+    },
 ]
 
 

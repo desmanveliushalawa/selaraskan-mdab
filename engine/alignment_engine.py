@@ -109,6 +109,10 @@ def evaluate_custom_clause_alignment(
         ("diperkenankan di luar", "di wilayah indonesia", "Lokasi kepatuhan bertentangan dengan asas penempatan yurisdiksi dalam negeri."),
         ("tidak wajib", "wajib", "Klausul internal menafikan hal yang diwajibkan oleh regulator."),
         ("dilarang", "dapat", "Klausul internal melarang apa yang diperbolehkan regulasi."),
+        ("flat", "berjenjang", "Penyimpangan skema suku bunga: Bank menerapkan bunga flat 6% tanpa kenaikan, sedangkan Permenko No. 1 Tahun 2023 mewajibkan skema suku bunga berjenjang (6%, 7%, 8%, 9%) untuk debitur berulang."),
+        ("tanpa memberlakukan", "berjenjang", "Penyimpangan skema suku bunga: SOP internal meniadakan skema kenaikan suku bunga berjenjang yang diwajibkan pemerintah."),
+        ("wajib meminta agunan", "dilarang meminta agunan", "Pertentangan persyaratan agunan: SOP bank mewajibkan agunan tambahan, sedangkan Permenko KUR melarang keras pembebanan agunan tambahan untuk pinjaman sampai Rp 100 juta."),
+        ("agunan tambahan", "dilarang", "Pelanggaran larangan agunan: Penyalur KUR dilarang membebankan agunan tambahan kepada calon penerima KUR dengan plafon sampai dengan Rp 100 juta."),
     ]
 
     for p_int, p_ext, explanation in conflict_patterns:
@@ -123,7 +127,9 @@ def evaluate_custom_clause_alignment(
     # Indikator keselarasan (Entailment Indicators)
     entail_words = [
         "wajib", "enkripsi", "pengamanan", "kriptografi", "persetujuan",
-        "cadangan", "pemulihan", "kepatuhan", "melindungi", "menjaga"
+        "cadangan", "pemulihan", "kepatuhan", "melindungi", "menjaga",
+        "usaha", "produktif", "debitur", "plafon", "pemeriksaan", "verifikasi",
+        "sikp", "kredit", "subsidi", "penjaminan"
     ]
     overlap_words = [w for w in entail_words if w in lower_int and w in lower_ext]
 

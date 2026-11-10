@@ -208,3 +208,4 @@ if __name__ == "__main__":
     pdf_path = os.path.join(dest_dir, "SOP_Penyaluran_KUR_Bank_Mandiri.pdf")
     create_kur_docx(docx_path)
     create_kur_pdf(pdf_path)
+
