@@ -123,6 +123,36 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
 
     flush_pasal()
 
+    # Fallback untuk dokumen kebijakan/RIPLAY/Pedoman operasional yang tidak menggunakan format Bab-Pasal formal
+    if not clauses and len(lines) > 2:
+        current_section = "Ketentuan Pokok"
+        item_counter = 1
+
+        for line in lines[1:]:
+            if any(skip in line.upper() for skip in ["BERIZIN DAN DIAWASI", "NAMA PENERBIT", "JENIS PRODUK", "VERSI UMUM"]):
+                continue
+            if (line.isupper() and len(line) < 45 and not line.startswith("•")) or re.match(r"^[A-Z\d]\.\s+", line):
+                current_section = line.strip(" :.-")
+                continue
+            if line.startswith("•") or line.startswith("-") or re.match(r"^\d+\.\s+", line):
+                clean_item = re.sub(r"^[•\-\d\.\s]+", "", line).strip()
+                if len(clean_item) > 10:
+                    clauses.append({
+                        "bab": current_section,
+                        "pasal": f"Butir {item_counter}",
+                        "ayat": "Ketentuan",
+                        "text": clean_item,
+                    })
+                    item_counter += 1
+            elif len(line) > 35 and not line.startswith("•"):
+                clauses.append({
+                    "bab": current_section,
+                    "pasal": f"Butir {item_counter}",
+                    "ayat": "Ketentuan",
+                    "text": line,
+                })
+                item_counter += 1
+
     # Hitung jumlah unik Bab dan Pasal
     unique_babs = set(c["bab"] for c in clauses)
     unique_pasals = set(f"{c['bab']}_{c['pasal']}" for c in clauses)

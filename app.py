@@ -551,39 +551,61 @@ with tab_unggah:
         """
         <div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 4px; padding: 12px 16px; margin: 12px 0 16px 0;">
             <div style="font-size: 13px; font-weight: 600; color: #003d79; margin-bottom: 4px;">
-                Belum memiliki berkas dokumen untuk diuji?
+                Pilih Berkas Kebijakan Resmi Bank Mandiri untuk Pengujian:
             </div>
             <div style="font-size: 12px; color: #475569; line-height: 1.4;">
-                Unduh salah satu contoh berkas kebijakan internal Bank Mandiri (PO-DIR/IT/042/2024) siap uji di bawah ini, lalu unggah kembali melalui kotak di bawah untuk melihat proses ekstraksi dan audit otomatis:
+                Unduh salah satu berkas peraturan resmi di bawah ini (tersedia dokumen Kredit Usaha Rakyat / KUR dan Tata Kelola TI Bank Mandiri), lalu unggah kembali melalui kotak uploader di bawah untuk menjalankan ekstraksi dan audit keselarasan:
             </div>
         </div>
         """
     )
 
-    col_dl1, col_dl2, _ = st.columns([1.2, 1.2, 2.6])
-    
-    # Baca berkas sample untuk tombol unduh
-    pdf_sample_path = "data/sample_kebijakan_internal_mandiri.pdf"
-    docx_sample_path = "data/sample_kebijakan_internal_mandiri.docx"
-    
+    col_dl1, col_dl2, col_dl3, col_dl4 = st.columns(4)
+
+    # 1. SOP Penyaluran KUR Bank Mandiri
+    kur_docx_path = "dokumen_internal_mandiri/SOP_Penyaluran_KUR_Bank_Mandiri.docx"
+    kur_pdf_path = "dokumen_internal_mandiri/SOP_Penyaluran_KUR_Bank_Mandiri.pdf"
+    riplay_kur_path = "dokumen_internal_mandiri/RIPLAY_Ketentuan_KUR_Bank_Mandiri.pdf"
+    cyber_pdf_path = "data/sample_kebijakan_internal_mandiri.pdf"
+
     with col_dl1:
-        if os.path.exists(pdf_sample_path):
-            with open(pdf_sample_path, "rb") as f_pdf:
+        if os.path.exists(kur_pdf_path):
+            with open(kur_pdf_path, "rb") as f_kpdf:
                 st.download_button(
-                    label="Unduh Contoh PDF (.pdf)",
-                    data=f_pdf.read(),
-                    file_name="sample_kebijakan_internal_mandiri.pdf",
+                    label="SOP KUR Mandiri (PDF)",
+                    data=f_kpdf.read(),
+                    file_name="SOP_Penyaluran_KUR_Bank_Mandiri.pdf",
                     mime="application/pdf",
                     use_container_width=True,
                 )
     with col_dl2:
-        if os.path.exists(docx_sample_path):
-            with open(docx_sample_path, "rb") as f_docx:
+        if os.path.exists(kur_docx_path):
+            with open(kur_docx_path, "rb") as f_kdocx:
                 st.download_button(
-                    label="Unduh Contoh Word (.docx)",
-                    data=f_docx.read(),
-                    file_name="sample_kebijakan_internal_mandiri.docx",
+                    label="SOP KUR Mandiri (DOCX)",
+                    data=f_kdocx.read(),
+                    file_name="SOP_Penyaluran_KUR_Bank_Mandiri.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    use_container_width=True,
+                )
+    with col_dl3:
+        if os.path.exists(riplay_kur_path):
+            with open(riplay_kur_path, "rb") as f_riplay:
+                st.download_button(
+                    label="RIPLAY KUR Mandiri (PDF)",
+                    data=f_riplay.read(),
+                    file_name="RIPLAY_Ketentuan_KUR_Bank_Mandiri.pdf",
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+    with col_dl4:
+        if os.path.exists(cyber_pdf_path):
+            with open(cyber_pdf_path, "rb") as f_cpdf:
+                st.download_button(
+                    label="Kebijakan TI Siber (PDF)",
+                    data=f_cpdf.read(),
+                    file_name="sample_kebijakan_internal_mandiri.pdf",
+                    mime="application/pdf",
                     use_container_width=True,
                 )
 
