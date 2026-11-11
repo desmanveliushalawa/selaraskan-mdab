@@ -5,9 +5,9 @@ Sistem Desain Institusional Perbankan & Legal-Tech Kepatuhan Regulasi Bank Mandi
 ## 1. Identitas & Karakter Desain
 - **Karakter:** Formal, presisi, institusional, otoritatif, dan berbasis bukti hukum (*evidence-based*).
 - **Domain:** Audit Kepatuhan Regulasi Perbankan (POJK, Bank Indonesia, UU PDP, Kebijakan Internal Mandiri).
-- **Prinsip Anti-Slop:** Bebas dari elemen dekoratif AI generik (tanpa animasi melayang, tanpa gradient ungu-biru, tanpa sudut membulat pil ekstrim, tanpa bayangan tebal).
+- **Prinsip Desain:** Bebas dari ornamen AI generik (tanpa animasi melayang, tanpa gradient ungu-biru, tanpa sudut membulat pil ekstrim, tanpa bayangan tebal).
 
-## 2. Parameter Dials (Sesuai R-37 & Part 3 Antislop)
+## 2. Parameter Dials (Standar Kerapian Desain)
 - **ENERGY: 1 (Calm)** : Antarmuka tenang, fokus membaca teks hukum panjang, minim distraksi visual.
 - **RHYTHM: 1 (Uniform)** : Tata letak grid dan kartu terstruktur seragam sesuai standar master data perbankan.
 - **MOTION: 1 (Static)** : Transisi visual statis, pergerakan hanya terjadi pada status loading dan interaksi langsung pengguna.

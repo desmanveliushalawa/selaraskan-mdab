@@ -2,7 +2,7 @@
 
 Sistem audit kepatuhan regulasi berbasis kecerdasan buatan (Regulatory Compliance and Alignment AI) yang dirancang untuk menguji keselarasan norma antara Petunjuk Operasional (SOP/PO) internal Bank Mandiri dengan regulasi pemerintah dan otoritas terkait (POJK, Bank Indonesia, UU Perlindungan Data Pribadi).
 
-Konsep dan arsitektur sistem ini terinspirasi dari produk **Big Legal by BigBox (Telkom Indonesia)**, dibangun dengan standar desain institusional perbankan yang bebas dari ornamen generik kecerdasan buatan (Anti-Slop standard).
+Konsep dan arsitektur sistem ini terinspirasi dari produk **Big Legal by BigBox (Telkom Indonesia)**, dibangun dengan standar desain institusional perbankan yang bersih, formal, dan profesional.
 
 ---
 
@@ -115,7 +115,7 @@ pip install -r requirements.txt
 ```bash
 python -m unittest discover -s tests -v
 ```
-Seluruh 15 unit test wajib berstatus `OK` (100% Pass).
+Seluruh 22 unit test wajib berstatus `OK` (100% Pass).
 
 ### Langkah 5: Jalankan Aplikasi Streamlit
 ```bash
@@ -128,27 +128,33 @@ Aplikasi otomatis terbuka di peramban web pada alamat `http://localhost:8501`.
 ## 5. Panduan Penggunaan Fitur Sistem
 
 ### Tab 1: Matriks Keselarasan Dokumen
-1. Menampilkan ringkasan metrik kepatuhan dokumen Petunjuk Operasional TI Bank Mandiri terhadap POJK 11/2022 dan UU PDP.
-2. Di sebelah kiri terdapat penelusuran hierarki dokumen (Bab II sampai Bab V).
+1. Menampilkan ringkasan metrik kepatuhan dokumen Petunjuk Operasional TI Bank Mandiri terhadap regulasi acuan.
+2. Di sebelah kiri terdapat penelusuran hierarki dokumen (Bab per Bab).
 3. Di sebelah kanan terdapat kartu hasil evaluasi dengan tiga badge status:
    - **SELARAS**: SOP memenuhi atau melampaui standar kementerian/regulator.
    - **TIDAK SELARAS**: Ditemukan pertentangan atau deviasi batas kepatuhan.
    - **NETRAL**: Ketentuan teknis prosedural internal bank yang tidak bertentangan.
-4. Klik tombol **"Lihat Komparasi Before-After"** untuk membuka jendela pop-up perbandingan kalimat bersanding dengan kata-kata yang bertentangan disorot warna merah.
-5. Unduh laporan formal melalui tombol **"Unduh Laporan Formal (PDF)"** di sidebar kiri.
+4. Klik tombol **"Lihat Komparasi Before-After"** untuk membuka jendela modal perbandingan kalimat bersanding dengan kata-kata deviasi disorot warna.
+5. Unduh laporan formal melalui tombol **"Unduh Laporan Formal (PDF)"** atau CSV di sidebar kiri.
 
-### Tab 2: Unggah dan Parsing Dokumen (Legal Parser)
-1. Unggah berkas dokumen SOP atau regulasi baru berformat `.docx`, `.pdf`, atau `.txt`.
-2. Sistem otomatis membaca teks dan menghitung total Bab, total Pasal, dan total Ayat.
-3. Klik tombol **"Jalankan Uji Keselarasan untuk Dokumen Ini"** untuk menjalankan pencarian semantik (Semantic Retrieval) yang otomatis memetakan setiap ayat ke korpus regulasi pemerintah terkait.
+### Tab 2: Unggah & Cek Keselarasan
+1. Pilih bucket dokumen acuan kepatuhan yang ingin dijadikan tolok ukur (Regulasi Eksternal, KPKD, atau Juknis KUR).
+2. Tentukan dokumen internal target (tersedia tombol cepat: SOP KUR, RIPLAY, KPKD, atau unggah berkas `.pdf`/`.docx`/`.txt` sendiri).
+3. Sistem mengekstrak struktur Bab dan Pasal secara terstruktur.
+4. Klik tombol **"SUBMIT CEK KESELARASAN"** untuk menjalankan audit inferensi semantik terhadap bucket acuan terpilih.
 
-### Tab 3: Uji Klausul Mandiri
+### Tab 3: Manajemen Bucket Dokumen Acuan
+1. Mengelola repositori regulasi rujukan secara dinamis (tidak terkunci statis di database).
+2. **Tambah Berkas ke Bucket**: Unggah berkas peraturan resmi untuk diekstrak dan diindeks pasalnya ke bucket yang sudah ada.
+3. **Buat Bucket Baru**: Membuat kategori bucket acuan baru untuk memisahkan domain kepatuhan (misal: Unit APU PPT, Audit TI, Manajemen Risiko).
+
+### Tab 4: Uji Klausul Mandiri
 1. Masukkan teks draf klausul internal bank pada kolom kiri.
 2. Masukkan teks pasal regulasi rujukan pada kolom kanan.
 3. Klik tombol **"Jalankan Uji Keselarasan"** untuk melihat inferensi status kepatuhan, pertimbangan hukum ringkas, dan visualisasi diff kata per kata.
 
-### Tab 4: Arsitektur dan Panduan
-1. Memuat penjelasan metodologi Natural Language Inference (NLI) dan mitigasi risiko kerahasiaan data perbankan melalui skema implementasi privat on-premise.
+### Tab 5: Arsitektur & Konsep Sistem
+1. Memuat penjelasan metodologi Natural Language Inference (NLI), audit bertingkat (*multi-tier compliance*), dan mitigasi risiko kerahasiaan data perbankan melalui skema implementasi privat on-premise.
 
 ---
 
@@ -156,23 +162,24 @@ Aplikasi otomatis terbuka di peramban web pada alamat `http://localhost:8501`.
 
 ```
 selaraskan-mdab/
-├── app.py                      # Antarmuka utama aplikasi Streamlit
+├── app.py                      # Antarmuka utama aplikasi Streamlit (5 Tab)
 ├── data/
-│   └── bank_mandiri_demo.json  # Korpus studi kasus Petunjuk Operasional Bank Mandiri
+│   ├── bank_mandiri_demo.json  # Korpus studi kasus Petunjuk Operasional Bank Mandiri
+│   └── buckets/                # Penyimpanan lokal metadata bucket regulasi acuan
 ├── engine/
 │   ├── __init__.py             # Inisialisasi package engine
 │   ├── alignment_engine.py     # Logika inferensi NLI dan perhitungan metrik kepatuhan
+│   ├── bucket_manager.py       # Manajemen repositori regulasi dinamis multi-tier
 │   ├── diff_highlighter.py     # Generator perbandingan kata bersanding (word-level diff)
-│   ├── legal_parser.py         # Ekstraktor hierarki Bab/Pasal/Ayat dari DOCX dan PDF
+│   ├── legal_parser.py         # Ekstraktor hierarki Bab/Pasal/Artikel dari DOCX dan PDF
 │   ├── report_generator.py     # Generator dokumen laporan audit formal PDF (ReportLab)
 │   └── semantic_retriever.py   # Mesin pencari semantik pasal acuan berbasis TF-IDF & Cosine
 ├── tests/
+│   ├── test_bucket_manager.py  # Pengujian unit manajemen bucket & audit end-to-end
 │   ├── test_engine.py          # Pengujian unit diff highlighter & alignment engine
 │   ├── test_parser.py          # Pengujian unit ekstraktor dokumen hukum
 │   ├── test_report_generator.py# Pengujian unit generator laporan PDF
 │   └── test_retriever.py       # Pengujian unit mesin pencari semantik
-├── panduan_pitching_demo.md    # Naskah simulasi presentasi 3 menit di depan pimpinan
-├── road_map.md                 # Peta jalan pengembangan Fase 1 s.d. Fase 4
 ├── requirements.txt            # Daftar pustaka dependensi Python
 └── README.md                   # Dokumentasi resmi proyek
 ```
