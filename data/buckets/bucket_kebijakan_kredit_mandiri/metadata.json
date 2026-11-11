@@ -1,0 +1,652 @@
+{
+  "id": "bucket_kebijakan_kredit_mandiri",
+  "name": "Kebijakan Perkreditan Internal Bank Mandiri (Tier-1 Policy)",
+  "category": "Kebijakan Induk Internal",
+  "description": "Kebijakan Perkreditan (KPKD) PT Bank Mandiri (Persero) Tbk: Landasan filosofi kredit, Prinsip Kehati-hatian (Artikel 200), Agunan (Artikel 540), Persetujuan Kredit (Artikel 500), dan Produk Khusus.",
+  "is_default": true,
+  "files": [
+    "Kebijakan_Perkreditan_Bank_Mandiri_i3655.pdf"
+  ],
+  "clauses": [
+    {
+      "id": "KPKD-001",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 300",
+      "topik": "Artikel 300 Klausul Utama: Risiko Kredit, penyesuaian terkait country risk. 10 Mei 2021",
+      "teks_regulasi": "Risiko Kredit, penyesuaian terkait country risk. 10 Mei 2021",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-002",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 400",
+      "topik": "Artikel 400 Klausul Utama: Dewan Komisaris terkait hapus tagih 10 Mei 2021",
+      "teks_regulasi": "Dewan Komisaris terkait hapus tagih 10 Mei 2021",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-003",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 420",
+      "topik": "Artikel 420 Klausul Utama: KKP, penyesuaian RMC menjadi CPC. 10 Mei 2021",
+      "teks_regulasi": "KKP, penyesuaian RMC menjadi CPC. 10 Mei 2021",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-004",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 430",
+      "topik": "Artikel 430 Klausul Utama: KK, penyesuaian istilah dimana. 10 Mei 2021",
+      "teks_regulasi": "KK, penyesuaian istilah dimana. 10 Mei 2021",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-005",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 540",
+      "topik": "Artikel 540 Klausul Utama: Jaminan dan Agunan Kredit disesuaikan menjadi Jaminan Kredit. 11 Desember 2023",
+      "teks_regulasi": "Jaminan dan Agunan Kredit disesuaikan menjadi Jaminan Kredit. 11 Desember 2023",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-006",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 600",
+      "topik": "Artikel 600 Klausul Utama: Uncommitted, penyesuaian istilah dimana. 11 Desember 2023",
+      "teks_regulasi": "Uncommitted, penyesuaian istilah dimana. 11 Desember 2023",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-007",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 610",
+      "topik": "Artikel 610 Klausul Utama: Joint Financing, penyesuaian istilah dimana. 10 Mei 2021",
+      "teks_regulasi": "Joint Financing, penyesuaian istilah dimana. 10 Mei 2021",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-008",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 900",
+      "topik": "Artikel 900 Klausul Utama: penyesuaian terkait plafondering kredit. 11 Desember 2023 Daftar Istilah, penamb",
+      "teks_regulasi": "penyesuaian terkait plafondering kredit. 11 Desember 2023 Daftar Istilah, penambahan istilah Country Risk dan Transfer Risk. 11 Desember 2023 Daftar Isi, penyesuaian Jaminan Kredit. 21. 4 4 13 Juni 2025 24 Desember 2024 PCP Penambahan Artikel 580 Pengalihan Piutang sesuai POJK No. 26 Tahun 2024 perihal Perluasan Kegiatan Usaha Perbankan Pasal 36 Pengalihan Piutang berlaku 13 Juni 2025. Penyesuaian Redaksional:",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-010",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 200",
+      "topik": "Artikel 200 Klausul Utama: Prinsip Kehati hatian dalam Perkreditan",
+      "teks_regulasi": "Prinsip Kehati hatian dalam Perkreditan",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-011",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "Ketentuan Umum - Artikel 240",
+      "topik": "Artikel 240 Klausul Utama: Kredit Kepada Pihak Terkait, Debitur Besar, BUMN, BUMD dan Pemda Penegasan penga",
+      "teks_regulasi": "Kredit Kepada Pihak Terkait, Debitur Besar, BUMN, BUMD dan Pemda Penegasan pengaturan pada Artikel 930 menjadi Restrukturisasi dan/atau Penyelesaian Kredit Bermasalah Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   : 13 Juni 2025 Tanggal yang digantikan  : 24 Desember 2024 Diverifikasi oleh : iii Daftar Isi Halaman Kata Pengantar Daftar Isi",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-012",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 100",
+      "topik": "Artikel 100 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                         I - 100 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-013",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 100",
+      "topik": "Artikel 100 Klausul Utama: Latar Belakang Kebijakan Perkreditan merupakan kerangka kerja (framework) dalam ",
+      "teks_regulasi": "Latar Belakang Kebijakan Perkreditan merupakan kerangka kerja (framework) dalam pengelolaan kredit dan bersifat high level , strategis dan jangka panjang, meliputi prinsip -prinsip dan ketentuan - ketentuan yang mengacu kepada perundang -undangan, peraturan Regulator yang berlaku serta best practices dalam kegiatan perkreditan. Untuk menjaga agar pemberian kredit dapat dilaksanakan secara konsisten dan berkesinambungan berdasarkan pada azas perkreditan yang sehat, maka Kebijakan Perkreditan harus di-review paling lama setiap 3 (tiga) tahun sekali. Disamping itu, d engan mempertimbangkan perkembangan teknologi, Bank dapat menerapkan digitalisasi dalam proses perkreditan.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-014",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 110",
+      "topik": "Artikel 110 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                         I - 110 -1 Edisi        :  4 Revisi ke  :  2 Berlaku sejak tanggal   : 11 Desember 2023 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-015",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 110",
+      "topik": "Artikel 110 Klausul Utama: Maksud dan Tujuan 1. Memberikan pedoman bagi Bank dalam melaksanakan aktivitas p",
+      "teks_regulasi": "Maksud dan Tujuan 1. Memberikan pedoman bagi Bank dalam melaksanakan aktivitas perkreditan yang bersifat high level, strategis dan jangka panjang. 2. Menjadi dasar/acuan dalam penyusunan ketentuan sesuai hierarki kebijakan di bawahnya untuk menjalankan fungsi aktivitas perkreditan. 3. Standarisasi dan konsistensi dalam melaksanakan aktivitas perkreditan.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-016",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 120",
+      "topik": "Artikel 120 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh : I - 120 - 1",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-017",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 120",
+      "topik": "Artikel 120 Klausul Utama: Visi, Misi, Budaya Bank Mandiri, dan Budaya Kredit Bank Mandiri Untuk menunjang ",
+      "teks_regulasi": "Visi, Misi, Budaya Bank Mandiri, dan Budaya Kredit Bank Mandiri Untuk menunjang tercapainya visi dan misi Bank Mandiri, maka perlu ditetapkan Kebijakan Perkreditan sebagai pedoman dalam pemberian kredit yang sehat berdasarkan asas prinsip kehati-hatian, konsisten dan berkesinambungan. A. Visi dan Misi Bank Mandiri 1. Visi Bank Mandiri “Menjadi partner finansial pilihan utama Anda”. 2. Misi Bank Mandiri “Menyediakan solusi perbankan digital yang handal dan  simple yang menjadi bagian hidup nasabah”. B. Budaya Bank Mandiri Budaya Kerja agar dibangun sejalan dengan Visi, Misi, Code Of Conduct , Good Corporate Governance , dan Business Ethic . Budaya Kerja diwujudkan dalam suatu tindakan berdasarkan Core Value. C. Budaya Kredit Bank Mandiri Sejalan dengan budaya Bank Mandiri, dalam rangka mencapai sasaran kerja di bidang perkreditan berupa keseimbangan antara volume dengan kualitas kredit untuk menghasilkan risk adjusted return  yang optimal, maka ditetapkan Budaya Kredit yang harus menjadi pedoman perilaku pejabat dan pegawai dalam melaksanakan tugas kesehariannya di bidang perkreditan. Budaya Kredit merupakan sistem nilai yang mendasari perilaku seluruh jajaran (Pejabat dan Pegawai) yang terlibat dalam bidang perkreditan sebagai berikut: 1. Taat dan disiplin terhadap ketentuan intern dan ekstern Bank. 2. Konsisten melaksanakan prinsip kehati-hatian dalam pemberian kredit. 3. Menerapkan prinsip Know Your Customer (KYC). 4. Tidak ada conflict of interest dalam pemberian kredit. 5. Obyektif, independen dan bertanggung jawab dalam pemberian kredit. 6. Proses kredit secara four eyes principle. 7. Memonitor secara intensif dan berkesinambungan atas kredit yang diberikan. 8. Proaktif dan segera menindaklanjuti atas signal risiko yang terjadi. 9. Melakukan check dan balance/dual control dalam proses pemberian kredit. 10. Memberikan pelayanan kepada debitur secara profesional dan proporsional.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-018",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 120",
+      "topik": "Artikel 120 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh : I - 120 - 2 Selain Budaya Kredit diatas, setiap Pejabat dan Pegawai di bidang perkreditan, secara profesional memiliki: 1. Kompetensi dan pengetahuan, dibidang perkreditan. 2. Wawasan luas, etika, dan bertanggung jawab. 3. Komitmen penuh untuk memberikan hasil kerja yang terbaik dan berkualitas bagi perusahaan, pemegang saham dan nasabah.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-019",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 130",
+      "topik": "Artikel 130 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh : I - 130 - 1",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-020",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 130",
+      "topik": "Artikel 130 Klausul Utama: Filosofi Perkreditan 1. Pemberian kredit merupakan salah satu usaha Bank yang me",
+      "teks_regulasi": "Filosofi Perkreditan 1. Pemberian kredit merupakan salah satu usaha Bank yang mengandung risiko. Kredit yang diberikan akan berkualitas, apabila risiko atas pemberian kredit dimaksud dapat diantisipasi dan dapat dikontrol dengan parameter -parameter yang ditetapkan. Oleh karenanya pemberian kredit harus didasarkan pada credit acceptance criteria yang jelas. 2. Kredit yang baik adalah kredit yang diberikan sesuai dengan kebutuhan riil debitur, sehingga dapat memperbaiki/meningkatkan kinerja usaha debitur dan kredit dapat dikembalikan kepada Bank dengan tepat waktu dan menguntungkan Bank. 3. Dalam pemberian kredit, Bank mengharapkan kredit tersebut harus dapat dikembalikan dengan jumlah nilai yang diharapkan. Dengan demikian, setiap pemberian kredit harus didasarkan pada pertimbangan bahwa : - Debitur mempunyai kemampuan untuk mengembalikan kredit tersebut. - Kegiatan usaha debitur akan tetap berlangsung, baik dalam kondisi ekonomi normal (good time) maupun dalam kondisi ekonomi yang kurang baik (bad time). 4. Pemberian kredit tidak sepenuhnya hanya didasarkan pada petunjuk pelaksanaan kredit atau standar prosedur kredit yang berlaku, tetapi harus juga mempertimbangkan common sense dan business judgement rule berdasarkan informasi dan data yang memadai. 5. Pertimbangan yang matang, pengalaman dan pemahaman yang mendalam terhadap hal yang common sense  dalam pemberian kredit adalah kunci sukses dalam pemberian kredit. Keingintahuan terhadap kondisi usaha (calon) debitur sejak awal proses pemberian kredit adalah sangat penting. 6. Dalam melakukan evaluasi pemberian kredit, Bank mempertimbangkan aspek -aspek mengenai karakter/watak/sifat dari (calon) debitur, dana/modal yang dimiliki (calon) debitur, kemampuan (calon) debitur dalam menjalankan usaha, agunan yang diserahkan serta kondisi perekonomian yang dapat mempengaruhi kelancaran usaha (calon) debitur. 7. Dalam rangka meningkatkan kualitas pelayanan kepada debitur, proses pemberian kredit dilakukan dengan memperhatikan service level dan prinsip kehati-hatian. 8. Bank agar berhati -hati dalam memberikan kredit kepada debitur yang sumber pengembaliannya tergantung kepada penjamin (guarantor). 9. Dalam menilai manajemen perusahaan debitur, Bank tidak cukup hanya menerima informasi dari manajemen saja ( don’t take the borrower’s word alone ), tetapi harus menggali informasi lebih dalam lagi tentang perusahaan tersebut secara menyeluruh. 10. Analisa keuangan terutama trend ratio merupakan salah satu faktor kunci dalam proses pemberian kredit. 11. Jangan memandang bahwa agunan sebagai pengganti sumber pengembalian kredit, karena pada prinsipnya sumber pengembalian kredit harus berasal dari cash flow perusahaan debitur. 12. Dalam mengevaluasi agunan, faktor yang harus dipertimbangkan adalah: aman secara yuridis, dapat dikontrol, mudah dipasarkan dan mempunyai nilai ekonomi yang memadai.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-021",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 130",
+      "topik": "Artikel 130 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh : I - 130 - 2 13. Dokumen kredit merupakan sumber informasi dalam setiap proses pemutusan kredit, oleh karenanya dokumen kredit harus lengkap dan memenuhi syarat serta disimpan dengan aman dan tertib. 14. Kredit menjadi bermasalah dapat disebabkan oleh implementasi proses kredit yang kurang memenuhi syarat antara lain: ketidakcukupan data untuk credit checking, kurang antisipasi terhadap perkembangan faktor ekstern, dokumentasi yang kurang memenuhi syarat dan kurang memperhatikan terhadap hal-hal yang lebih detail. 15. Setiap Pejabat dan Pegawai di bidang perkreditan harus sensitif terhadap perubahan - perubahan baik yang terjadi pada debitur maupun kondisi ekstern debitur, yang dapat mempengaruhi kualitas kredit yang telah diberikan. 16. Pejabat dan Pegawai harus tanggap terhadap early warning signal  yang tercermin dari kondisi bisnis debitur, baik yang disebabkan faktor intern maupun faktor ekstern dan segera mengambil tindakan penyelamatan dengan solusi yang tepat dan terbaik dari pilihan aternatif yang ada. 17. Proses pemberian kredit merupakan rangkaian tahapan yang bersifat terintegrasi secara end to end process , yang harus dilalui dan saling terkait dimulai dari inisiasi kredit, evaluasi, pemutusan kredit, monitoring dan penyelesaian kredit bermasalah. 18. Setiap Pejabat dan Pegawai harus menggunakan istilah perkreditan yang standar (common credit language ). Oleh karena itu, setiap Pejabat dan Pegawai harus memahami dan melaksanakan kebijakan, prosedur dan ketentuan pelaksanaan kredit yang ada, secara konsisten dengan komitmen yang tinggi.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-022",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 140",
+      "topik": "Artikel 140 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                         I - 140 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-023",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 140",
+      "topik": "Artikel 140 Klausul Utama: Ruang Lingkup Kebijakan Perkreditan ini mencakup: A. Umum 1. Prinsip kehati-hati",
+      "teks_regulasi": "Ruang Lingkup Kebijakan Perkreditan ini mencakup: A. Umum 1. Prinsip kehati-hatian dalam perkreditan Menguraikan mengenai dasar penerapan prinsip kehati -hatian serta pokok -pokok pemberian kredit yang sehat. 2. Manajemen risiko kredit Menguraikan mengenai jenis dan cara -cara mengelola dan meminimalkan risiko termasuk didalamnya mengelola kredit dengan mengoptimalkan portfolio kredit dan transaksi-transaksi yang berkaitan dengan fasilitas kredit. 3. Organisasi dan Manajemen Perkreditan Menguraikan mengenai perangkat/satuan kerja yang terkait dalam proses perkreditan, fungsi, tugas, wewenang dan tanggung jawab di bidang perkreditan. 4. Proses pemberian kredit Menguraikan mengenai target market , analisa dan keputusan kredit, Perjanjian Kredit, konsep hubungan dengan pemohon kredit, kebijakan agunan kredit, pencairan kredit dan kebijakan khusus. 5. Fasilitas kredit dan Bentuk Pembiayaan. Menguraikan mengenai jenis-jenis fasilitas kredit dan bentuk pembiayaan yang dapat diberikan oleh Bank. 6. Dokumentasi dan administrasi kredit Menguraikan mengenai kewajiban Bank untuk melaksanakan  dokumentasi dan administrasi kredit, jenis dokumen yang harus dipelihara, serta tatacara administrasi kredit dan pemeliharaan data perkreditan. 7. Pengawasan kredit Menguraikan mengenai monitoring dalam proses perkreditan melalui penerapan prinsip pengawasan melekat serta pengawasan oleh Satuan Kerja Audit Intern (SKAI). 8. Pengelolaan kredit bermasalah Menguraikan mengenai kredit bermasalah, dan tatacara penyelesaiannya. B. Khusus Kebijakan Perkreditan  ini mengatur mengenai Aset Produktif yang mengandung risiko kredit. Aset Produktif adalah penyediaan dana Bank untuk memperoleh penghasilan.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-024",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 150",
+      "topik": "Artikel 150 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                         I - 150 -1 Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   : 13 Juni 2025 Tanggal yang digantikan  : 11 Desember 2023 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-025",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB I : PENDAHULUAN - Artikel 150",
+      "topik": "Artikel 150 Klausul Utama: Dasar Hukum 1. Ketentuan eksternal terkait perkreditan. 2. POJK Nomor 42/POJK.03",
+      "teks_regulasi": "Dasar Hukum 1. Ketentuan eksternal terkait perkreditan. 2. POJK Nomor 42/POJK.03/2017 tentang Kewajiban Penyusunan Dan Pelaksanaan Kebijakan Perkreditan Atau Pembiayaan Bank Bagi Bank Umum. 3. Anggaran Dasar PT Bank Mandiri (Persero) Tbk.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-026",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 200",
+      "topik": "Artikel 200 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   : 13 Juni 2025 Tanggal yang digantikan  : 24 Desember 2024 Diverifikasi oleh : II - 200 - 1",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-027",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 200",
+      "topik": "Artikel 200 Klausul Utama: Prinsip Kehati-hatian Dalam Perkreditan Perkreditan merupakan salah satu kegiata",
+      "teks_regulasi": "Prinsip Kehati-hatian Dalam Perkreditan Perkreditan merupakan salah satu kegiatan/usaha pokok Bank yang memberikan kontribusi terbesar terhadap pendapatan Bank. Namun demikian, perkreditan mengandung potensi risiko tinggi, sehingga perlu diterapkan prinsip kehati -hatian, dengan cara melaksanakan ketentuan perkreditan secara benar, konsisten, konsekuen dan dapat dipertanggungjawabkan. Prinsip kehati-hatian perkreditan meliputi: A. Four-Eyes Principle 1. Four-eyes principle adalah suatu prinsip segregation of duties (pemisahan fungsi) dalam proses kredit, yakni salah satu pihak menjalankan fungsi bisnis dan satu pihak lainnya menjalankan fungsi risk yang masing-masing saling independen satu dengan yang lainnya. 2. Pemisahan fungsi dimaksud dilakukan dalam rangka cross checking dan dual control dalam proses kredit. 3. Pemutusan kredit dilakukan oleh Komite Kredit atau Pemegang Kewenangan Memutus Kredit. Masing -masing pemegang kewenangan dalam Komite Kredit memiliki kedudukan yang independen satu dengan yang lain untuk menyetujui/menolak suatu proposal kredit. 4. Keputusan dari Komite Kredit dinyatakan efektif apabila telah memenuhi kuorum atau telah mendapat persetujuan dari pemegang kewenangan secara lengkap. 5. Setiap pengajuan proposal kredit harus dilakukan melalui mekanisme bottom up process sebelum diajukan kepada Komite Kredit/Pemegang Kewenangan Memutus Kredit. B. Prinsip Konsolidasi Eksposur Prinsip konsolidasi eksposur merupakan pendekatan dalam rangka risk assesment untuk mengetahui total eksposur kredit yang diperoleh satu debitur group atau non -group. Dengan demikian, dalam melakukan analisa kredit harus memperhitungkan jumlah keseluruhan fasilitas kredit ( cash loan  dan non-cash loan) yang diperoleh oleh satu debitur (group atau non-group) dari Bank/kreditur lainnya. C. Prinsip One Obligor Suatu kelompok perusahaan yang masing -masing perusahaannya memiliki fasilitas kredit dari Bank dipandang sebagai satu kesatuan obligor. Adapun pengertian kelompok perusahaan mengacu pada ketentuan Regulator. Penerapan prinsip One Obligor  pada dasarnya dilandasi asumsi, bahwa perusahaan yang tergabung dalam kelompok usaha, maka risiko satu debitur/perusahaan dipengaruhi oleh risiko groupnya secara keseluruhan dan sebaliknya. Risiko group dipengaruhi oleh masing -masing perusahaan di dalamny a. Salah satu tujuan pelaksanaan prinsip One Obligor  agar fasilitas kredit yang diberikan tidak melampaui/melanggar Batas Maksimum Pemberian Kredit (BMPK/ Legal Lending Limit ) dan untuk menetapkan strategi penanganan account yang akan diterapkan kepada debitur dalam suatu group debitur.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-028",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 200",
+      "topik": "Artikel 200 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   : 13 Juni 2025 Tanggal yang digantikan  : 24 Desember 2024 Diverifikasi oleh : II - 200 - 2 D. Prinsip Mengenal Nasabah (Know Your Customer) Dalam memproses setiap permohonan kredit dan pelaksanaan transaksi, setiap unit kerja yang terkait menerapkan prinsip mengenal nasabah (KYC). Tatacara mengenal nasabah berpedoman kepada ketentuan Regulator serta ketentuan intern Bank. E. Self Financing Setiap pemberian fasilitas kredit, pada prinsipnya debitur wajib menyediakan dana sendiri (self financing) atau bentuk lainnya yang besarnya dapat ditetapkan oleh Bank, sebagai risk sharing dalam rangka penerapan prinsip kehati-hatian. Self financing dapat tidak dipersyaratkan untuk jenis-jenis kredit tertentu yang lazim tidak mempersyaratkan adanya self financing atau sesuai dengan persetujuan Direksi. F. Prinsip Penetapan Kualitas Aset Produktif Penilaian dan penggolongan kualitas aset produktif  dilaksanakan sesuai dengan ketentuan Regulator. 1. Kualitas aset produktif ditetapkan berdasarkan faktor penilaian : a. Prospek usaha; b. Kinerja (performance) debitur; c. Kemampuan membayar; atau ditetapkan lain oleh Regulator. 2. Kualitas aset produktif dibedakan/digolongkan menjadi 5 (lima) kategori, sebagai berikut: a. Lancar (Sound/Current) b. Dalam Perhatian Khusus (Special Mention) c. Kurang Lancar (Sub Standard) d. Diragukan (Doubtful) e. Macet (Loss) 3. Penetapan kualitas aset produktif perlu memperhatikan hal-hal sebagai berikut: a. Ketentuan kualitas aset produktif dilaksanakan secara konsisten dan objektif. b. Untuk memenuhi kebutuhan intern Bank dalam mengantisipasi risiko setiap debitur, penetapan besaran Penyisihan Penilaian Kualitas Aset (PPKA) dan Cadangan Kerugian Penurunan Nilai (CKPN) aset produktif dilaksanakan sesuai ketentuan Regulator. 4. Internal Risk Rating Disamping penentuan kualitas aset produktif yang dinilai berdasarkan kualitas kredit sesuai ketentuan Regulator, Bank menerapkan internal risk rating yang digunakan untuk mengklasifikasikan tingkat risiko dari setiap debitur.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-029",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 210",
+      "topik": "Artikel 210 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        II - 210 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-030",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 210",
+      "topik": "Artikel 210 Klausul Utama: Pemberian Kredit Yang Dihindari 1. Kredit yang digunakan untuk membiayai usaha y",
+      "teks_regulasi": "Pemberian Kredit Yang Dihindari 1. Kredit yang digunakan untuk membiayai usaha yang bersifat spekulasi , sehingga akan mempengaruhi kemampuan bayar. 2. Kredit yang diberikan tanpa informasi keuangan yang cukup, kecuali untuk kredit -kredit kecil dapat disesuaikan oleh Bank. 3. Kredit yang memerlukan keahlian khusus yang tidak dimiliki Bank dan tidak dapat dimitigasi risikonya. 4. Kredit kepada debitur bermasalah dan/atau macet pada bank lain. Dalam hal akan diberikan kredit sebagaimana hal tersebut di atas, maka dimintakan persetujuan Komite Kredit/Komite Kredit -Restrukturisasi Kategori A , 1 (satu) tingkat lebih tinggi, setinggi-tingginya Komite Kredit/Komite Kredit-Restrukturisasi Kategori A1.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-031",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 220",
+      "topik": "Artikel 220 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        II - 220 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-032",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 220",
+      "topik": "Artikel 220 Klausul Utama: Pemberian Kredit Yang Dilarang Kredit yang tidak sesuai dengan ketentuan-ketentu",
+      "teks_regulasi": "Pemberian Kredit Yang Dilarang Kredit yang tidak sesuai dengan ketentuan-ketentuan hukum yang berlaku.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-033",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 230",
+      "topik": "Artikel 230 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        II - 230 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-034",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 230",
+      "topik": "Artikel 230 Klausul Utama: Sektor Ekonomi, Segmen Pasar, Kegiatan Usaha, Dan Debitur Yang Mengandung Risiko",
+      "teks_regulasi": "Sektor Ekonomi, Segmen Pasar, Kegiatan Usaha, Dan Debitur Yang Mengandung Risiko Tinggi Pemberian kredit pada sektor ekonomi, segmen pasar, kegiatan usaha, dan debitur yang mengandung risiko tinggi bagi Bank harus dilakukan secara selektif dan prudent.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-035",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 240",
+      "topik": "Artikel 240 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        II - 240 -1 Edisi        :  4 Revisi ke  :  4 Berlaku sejak tanggal   : 13 Juni 2025 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-036",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 240",
+      "topik": "Artikel 240 Klausul Utama: Kredit Kepada Pihak Terkait, Debitur Besar, Badan Usaha Milik Negara, Badan Usah",
+      "teks_regulasi": "Kredit Kepada Pihak Terkait, Debitur Besar, Badan Usaha Milik Negara, Badan Usaha Milik Daerah dan Pemerintah Daerah A. Kredit Kepada Pihak Terkait , Debitur Besar , Badan Usaha Milik Negara, Badan Usaha Milik Daerah Pemberian kredit kepada Pihak Terkait, Debitur Besar, Badan Usaha Milik Negara, Badan Usaha Milik Daerah harus mengacu kepada ketentuan perundang -undangan yang berlaku. B. Kredit Kepada Pemerintah Daerah Selain peraturan Regulator, pemberian kredit kepada Pemerintah Daerah harus memperhatikan peraturan yang berlaku pada daerah tersebut seperti Peraturan Daerah (Perda) dan peraturan perundang-undangan yang berlaku.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-037",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 250",
+      "topik": "Artikel 250 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        II - 250 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-038",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 250",
+      "topik": "Artikel 250 Klausul Utama: Fasilitas Kredit Dalam Valuta Asing Kredit dalam valuta asing diutamakan untuk k",
+      "teks_regulasi": "Fasilitas Kredit Dalam Valuta Asing Kredit dalam valuta asing diutamakan untuk kegiatan usaha yang sumber pelunasannya atau pendapatannya dalam valuta yang sama dengan valuta kreditnya. Dalam pemberian kredit dalam valuta asing, selain risiko kredit, harus dipertimbangkan risiko nilai tukar dan risiko suku bunga. Kredit dalam valuta asing hanya dapat diberikan untuk valuta -valuta yang telah dikelola oleh Treasury Unit dan harus memperhatikan keseimbangan ketersediaan dana dalam valuta asing dengan pemberian kredit dalam valuta yang sama.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-039",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 260",
+      "topik": "Artikel 260 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        II - 260 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-040",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB II : PRINSIP KEHATI-HATIAN - Artikel 260",
+      "topik": "Artikel 260 Klausul Utama: Antisipasi Risiko Antisipasi risiko dilakukan untuk mendeteksi risiko sedini mun",
+      "teks_regulasi": "Antisipasi Risiko Antisipasi risiko dilakukan untuk mendeteksi risiko sedini mungkin dan menentukan tindakan pengamanannya. Antisipasi risiko memperhatikan antara lain hal-hal sebagai berikut: 1. Pengungkapan Risk Area. Mencakup semua risiko kredit baik dari aspek manajemen, usaha, keuangan maupun makro ekonomi. 2. Sistem Deteksi Dini (Early Recognition Watch List) Evaluasi dan monitoring atas penyebab menurunnya kualitas kredit. 3. Klarifikasi atas Unfavourable Info Setiap informasi negatif mengenai debitur harus dapat dijelaskan secara tertulis dan disertai tindak lanjut yang diperlukan. 4. Reminder System Monitoring atas pemenuhan kewajiban, pemenuhan covenant dan kelengkapan dokumentasi kredit. 5. Klasifikasi Pinjaman Klasifikasi pinjaman terhadap debitur yang telah menunjukkan gejala menurun dilakukan sedini mungkin. 6. Phase out Program Menyusun rencana untuk phase out untuk kredit yang bermasalah. Selain hal di atas, Bank juga melakukan stress test terhadap suatu portfolio kredit akibat perubahan-perubahan yang terjadi seperti perubahan kurs atau suku bunga, sebagai antisipasi risiko portfolio kredit.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-041",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 300",
+      "topik": "Artikel 300 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   : 24 Desember 2024 Tanggal yang digantikan  : 11 Desember 2023 Diverifikasi oleh : III - 300 - 1",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-042",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 300",
+      "topik": "Artikel 300 Klausul Utama: Manajemen Risiko Kredit Manajemen risiko kredit adalah suatu proses untuk mengid",
+      "teks_regulasi": "Manajemen Risiko Kredit Manajemen risiko kredit adalah suatu proses untuk mengidentifikasi, mengukur dan mengklasifikasi risiko serta mengambil langkah-langkah pengelolaan risiko kredit yang dapat diterima ( acceptable), sehingga Bank dapat memiliki komposisi portofolio dengan risk dan return yang seimbang. Jenis risiko dalam pemberian kredit: 1. Risiko Kredit Risiko kredit adalah risiko akibat kegagalan debitur dan/atau pihak lain dalam memenuhi kewajiban kepada Bank. Termasuk dalam kelompok Risiko Kredit adalah risiko konsentrasi kredit, counterparty credit risk, settlement risk,  dan country risk (antara lain transfer risk, sovereign risk  dan macroeconomic risk). Mitigasi risiko kredit mencakup namun tidak terbatas pada: ▪ Menjaga agar credit exposure setiap debitur (counterparty) berada dalam batas yang ditetapkan kepada debitur tersebut sesuai perhitungan credit limit. ▪ Memproses setiap proposal kredit sesuai dengan ketentuan dan prosedur yang berlaku. ▪ Melakukan monitoring dan review terhadap debitur secara berkala serta tanggap deteksi dini atas kredit yang mengarah kepada kredit bermasalah. ▪ Melakukan manajemen credit risk yang independen dengan kewenangan yang jelas dan bertanggung jawab. 2. Risiko Pasar Risiko pasar adalah risiko pada posisi neraca dan rekening administratif termasuk transaksi derivatif, akibat perubahan secara keseluruhan dari kondisi pasar, termasuk risiko perubahan harga option. Risiko pasar meliputi antara lain risiko suku bunga, risiko nilai tukar, risiko komoditas dan risiko ekuitas. Mitigasi risiko pasar mencakup namun tidak terbatas pada: ▪ Melakukan mark-to-market dengan menilai posisi terhadap pasar. ▪ Melakukan pengukuran risiko pasar sesuai dengan ketentuan yang berlaku. ▪ Menerapkan strategi pengelolaan market risk  secara efektif dengan memisahkan fungsi-fungsi pembuat keputusan, pelaksana dan pemantau. 3. Risiko Likuiditas Risiko likuiditas adalah risiko akibat ketidakmampuan Bank untuk memenuhi kewajiban yang jatuh tempo dari sumber pendanaan arus kas dan/atau dari aset likuid berkualitas tinggi yang dapat diagunkan, tanpa mengganggu aktivitas dan kondisi keuangan Bank.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-043",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 300",
+      "topik": "Artikel 300 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   : 24 Desember 2024 Tanggal yang digantikan  : 11 Desember 2023 Diverifikasi oleh : III - 300 - 2 Pengelolaan risiko likuiditas bertujuan untuk meminimalkan dampak risiko likuiditas bagi Bank, dengan tetap mempertimbangkan tingkat pendapatan yang diperoleh oleh Bank. 4. Risiko Hukum Risiko hukum adalah risiko akibat tuntutan hukum dan/atau kelemahan aspek yuridis. Risiko ini timbul antara lain karena ketiadaan peraturan perundang -undangan yang mendukung atau kelemahan perikatan, seperti tidak dipenuhinya syarat sahnya kontrak atau pengikatan agunan yang tidak sempurna. Mitigasi risiko hukum mencakup namun tidak terbatas pada: ▪ Penggunaan dokumen perjanjian yang sesuai ketentuan dan mempunyai kekuatan hukum. ▪ Bekerjasama dengan pihak lain untuk menyakinkan legal enforceability  (kekuatan hukum) dari transaksi yang terjadi di dalam dan di luar negeri. ▪ Memutakhirkan kebijakan dan peraturan. ▪ Melakukan administrasi dokumen secara tertib. 5. Risiko Operasional Risiko operasional adalah risiko akibat ketidakcukupan dan/atau tidak berfungsinya proses intern, kesalahan manusia, kegagalan sistem dan/atau adanya kejadian-kejadian ekstern yang mempengaruhi operasional Bank. Mitigasi risiko operasional mencakup namun tidak terbatas pada: ▪ Memastikan bahwa risiko Bank atas proses bisnis, aktivitas/operasional, produk dan pelayanan, termasuk risiko sebagai akibat keterikatan secara hukum dengan pihak di luar Bank, teridentifikasi, terukur dan terkendali, untuk menghindarkan Bank dari kerugian. ▪ Memastikan sumber-sumber risiko operasional dapat  diklasifikasikan dan terukur. ▪ Mengembangkan dan menyempurnakan sistem mitigasi, pengendalian dan pengawasan risiko operasional. 6. Risiko Reputasi Risiko reputasi adalah risiko akibat menurunnya tingkat kepercayaan stakeholder yang bersumber dari persepsi negatif terhadap Bank. Risiko ini timbul antara lain karena adanya pemberitaan media dan atau rumor mengenai Bank yang bersifat negatif, serta adanya strategi komunikasi Bank yang kurang efektif. Untuk mitigasi risiko reputasi dalam proses pemberian kredit, Bank harus menjaga nama baik dengan melakukan Good Corporate Governance, antara lain dengan melaksanakan: ▪ Pemberian kredit secara professional, berdasarkan prinsip kehati -hatian serta best practices.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-044",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 300",
+      "topik": "Artikel 300 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   : 24 Desember 2024 Tanggal yang digantikan  : 11 Desember 2023 Diverifikasi oleh : III - 300 - 3 ▪ Melakukan pemenuhan kewajiban -kewajiban ( lender’s liabilities ) kepada debitur secara bertanggungjawab. 7. Risiko Stratejik Risiko stratejik adalah risiko akibat ketidaktepatan dalam pengambilan dan/atau pelaksanaan suatu keputusan stratejik serta kegagalan dalam mengantisipasi perubahan lingkungan bisnis Pengelolaan risiko stratejik antara lain dilakukan dengan cara mengelola agar keputusan yang bersifat strate jik memperhatikan kondisi intern dan ekstern Bank secara komprehensif. 8. Risiko Kepatuhan Risiko kepatuhan adalah risiko akibat Bank tidak mematuhi dan/atau tidak melaksanakan peraturan perundang-undangan dan ketentuan yang berlaku. Pengelolaan risiko kepatuhan dilakukan antara lain melalui : ▪ Penerapan sistem pengendalian intern secara konsisten ▪ Memonitor dan melaksanakan perubahan peraturan perundangan -undangan terkait perkreditan. 9. Risiko Transaksi Intra-Grup Risiko transaksi intra-grup adalah Risiko akibat ketergantungan suatu entitas baik secara langsung maupun tidak langsung terhadap entitas lainnya dalam satu Konglomerasi Keuangan dalam rangka pemenuhan kewajiban perjanjian tertulis maupun perjanjian tidak tertulis baik yang diikuti perpindahan dana dan/atau tidak diikuti perpindahan dana. Risiko transaksi intra-grup antara lain dapat timbul dari: a. Kepemilikan silang antar Lembaga Jasa Keuangan dalam Konglomerasi Keuangan. b. Sentralisasi manajemen likuiditas jangka pendek. c. Jaminan, pinjaman, dan komitmen yang diberikan atau diperoleh suatu Lembaga Jasa Keuangan dari Lembaga Jasa Keuangan lain dalam Konglomerasi Keuangan. d. Eksposur kepada pemegang saham pengendali, termasuk eksposur pinjaman dan off-balance sheet seperti jaminan dan komitmen. e. Pembelian atau penjualan aset kepada Lembaga Jasa Keuangan lain dalam satu Konglomerasi Keuangan. f. Transfer risiko melalui reasuransi. g. Transaksi untuk mengalihkan eksposur risiko pihak ketiga di antara Lembaga Jasa Keuangan dalam satu Konglomerasi Keuangan. Kebijakan terkait risiko diatur lebih lanjut dalam Kebijakan Manajemen Risiko.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-045",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 310",
+      "topik": "Artikel 310 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 310 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-046",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 310",
+      "topik": "Artikel 310 Klausul Utama: Manajemen Portfolio Kredit Manajemen portfolio adalah pengelolaan portfolio aset",
+      "teks_regulasi": "Manajemen Portfolio Kredit Manajemen portfolio adalah pengelolaan portfolio aset produktif yang berisiko ( risk assets) secara keseluruhan (bankwide). Dalam rangka pengelolaan portfolio kredit, manajemen portfolio kredit bertujuan untuk mengelola risiko kredit agar mencapai risk adjusted return yang optimal. Kebijakan portfolio kredit sebagai berikut: 1. Melakukan d iversifikasi kredit untuk  menghindari risiko konsentrasi kredit pada segmen/industri/debitur tertentu. 2. Menetapkan batas maksimum exposure portfolio kredit yang dituangkan dalam portfolio guideline dan di-review secara periodik. 3. Menetapkan in-house limit yang merupakan batas maksimum pemberian kredit oleh Bank (BMPK Internal). Tujuan penetapan in-house limit tersebut agar pemberian kredit kepada pihak terkait, debitur/group serta BUMN, tidak melampaui/melanggar BMPK yang ditetapkan Regulator. Besaran in-house limit  dihitung berdasarkan persentase tertentu dari BMPK yang ditetapkan Regulator. 4. Pemberian kredit yang melebihi in-house limit  tapi belum melampaui BMPK bukan merupakan pelanggaran, namun perlu dilakukan kajian yang lebih mendalam dan hati - hati serta harus disetujui oleh Komite Kredit Tingkat Direksi serta dilaporkan kepada Dewan Komisaris.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-047",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 320",
+      "topik": "Artikel 320 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 320 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-048",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 320",
+      "topik": "Artikel 320 Klausul Utama: Exposure Antarbank Domestik dan Internasional Pada dasarnya exposure pada Bank l",
+      "teks_regulasi": "Exposure Antarbank Domestik dan Internasional Pada dasarnya exposure pada Bank lain adalah berupa penyediaan credit line yang bersifat uncommitted dan unadvised untuk melayani transaksi antarbank yang antara lain berupa Placement (Money Market), Trading (Foreign Exchange & Derivatif)  dan Commercial (Trade Finance) dengan ketentuan sebagai berikut: 1. Semua transaksi antarbank dilaksanakan atas dasar credit lines  yang tersedia yang bersifat uncommitted dan unadvised. 2. Credit lines untuk suatu counterparty pada dasarnya adalah total exposure, yaitu limit gabungan untuk placement, trading, commercial dan lainnya. 3. Pemantauan atau monitoring penggunaan limit kepada counterparty/bank dilakukan untuk mengurangi risiko terjadinya pelampauan limit yang telah ditetapkan.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-049",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 330",
+      "topik": "Artikel 330 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 330 -1 Edisi        :  4 Revisi ke  :  2 Berlaku sejak tanggal   : 11 Desember 2023 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-050",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 330",
+      "topik": "Artikel 330 Klausul Utama: Risiko Kredit pada Transaksi Derivatif dan Foreign Exchange Trading A. Definisi ",
+      "teks_regulasi": "Risiko Kredit pada Transaksi Derivatif dan Foreign Exchange Trading A. Definisi 1. Transaksi derivatif Transaksi Derivatif adalah suatu kontrak atau perjanjian pembayaran yang nilainya merupakan turunan dari nilai instrumen yang mendasari seperti suku bunga, nilai tukar, komoditi, equity dan indeks, baik yang diikuti dengan pergerakan atau tanpa pergerakan dana/instrumen. Transaksi derivatif yang dapat dilakukan hanya yang berkaitan dengan nilai tukar dan suku bunga. 2. Transaksi Foreign Exchange Trading (FX Trading) Transaksi FX adalah transaksi jual/beli yang dilakukan secara tunai atau berjangka antara 2 (dua) mata uang dengan penyerahan dana sesuai kesepakatan. B. Risiko Derivatif dan Foreign Exchange Trading Beberapa risiko yang berkaitan dengan transaksi derivatif dan forex trading adalah risiko kredit, risiko pasar, risiko operasional, risiko likuiditas dan risiko hukum.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-051",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 340",
+      "topik": "Artikel 340 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 340 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-052",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 340",
+      "topik": "Artikel 340 Klausul Utama: Penetapan Suku Bunga dan Biaya Kredit Penetapan suku bunga kredit kepada masing ",
+      "teks_regulasi": "Penetapan Suku Bunga dan Biaya Kredit Penetapan suku bunga kredit kepada masing -masing debitur dilakukan dengan pendekatan Risk Based Pricing. Penetapan suku bunga kredit juga mempertimbangkan antara lain required yield Bank, tingkat persaingan atau pertimbangan lainnya yang ditetapkan oleh pemegang kewenangan. Bank dapat menetapkan provisi, denda dan biaya/fee selain suku bunga kredit. Kebijakan penentuan suku bunga kredit merupakan kewenangan Asset & Liability Committee (ALCO).",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-053",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 350",
+      "topik": "Artikel 350 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 350 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-054",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 350",
+      "topik": "Artikel 350 Klausul Utama: Pengukuran Risiko Kredit Pengelolaan kredit harus selalu berusaha mengoptimalkan",
+      "teks_regulasi": "Pengukuran Risiko Kredit Pengelolaan kredit harus selalu berusaha mengoptimalkan keseimbangan antara risiko dan return tiap usaha, sehingga dalam keputusan kredit harus telah memperhatikan perimbangan antara risk dan return yang optimal. Dalam rangka menuju penerapan credit risk management yang mengacu pada best practice, Bank akan secara terus menerus berupaya untuk dapat mengukur risiko kredit. Besarnya risiko kredit dicerminkan melalui nilai Expected Loss (EL). Estimasi potensi kerugian dari suatu kredit tergantung dari 3 (tiga) parameter dasar , yaitu kemungkinan kredit menjadi macet (Probability of Default/PD), besarnya eksposur dari kredit pada saat macet ( Exposure at Default /EAD) dan hasil penagihan atau penjualan agunan ( Recovery, Loss Given Default/LGD). Risiko kredit sebagaimana tercermin dalam Expected Loss (EL) harus di -cover oleh penyisihan penghapusan aset produktif. Selain nilai Expected Loss , terdapat kemungkinan kerugian lain dalam risiko kredit yaitu kerugian yang tidak diharapkan (Unexpected Loss/UL). Unexpected Loss harus di-cover oleh ketersediaan modal ekonomis (economic capital) dalam jumlah yang cukup.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-055",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 360",
+      "topik": "Artikel 360 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 360 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-056",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 360",
+      "topik": "Artikel 360 Klausul Utama: Risk Adjusted Performance Measurement (RAPM) Untuk mengukur performance portfoli",
+      "teks_regulasi": "Risk Adjusted Performance Measurement (RAPM) Untuk mengukur performance portfolio  kredit pada berbagai tingkatan (individu, segmen, sektor ekonomi atau produk) Bank dapat menggunakan metodologi perhitungan tertentu yang ditetapkan oleh Bank.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-057",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 370",
+      "topik": "Artikel 370 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       III - 370 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-058",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB III : MANAJEMEN RISIKO KREDIT - Artikel 370",
+      "topik": "Artikel 370 Klausul Utama: Credit Risk Transfer Dalam mengelola risiko, Bank dimungkinkan untuk melakukan C",
+      "teks_regulasi": "Credit Risk Transfer Dalam mengelola risiko, Bank dimungkinkan untuk melakukan Credit Risk Transfer  yaitu suatu teknik pengalihan risiko dengan cara melakukan pengalihan aset kredit  atau pengalihan risiko aset kredit kepada pihak lain diluar Bank. Credit Risk Transfer dilakukan dengan tujuan antara lain: 1. Mengurangi risiko kredit. 2. Meningkatkan fee based income. 3. Liquidity management. 4. Optimalisasi return atas portfolio kredit yang dikelola Bank. Pelaksanaan Credit Risk Transfer harus mempertimbangkan hal-hal dibawah ini: 1. Aset Bank yang akan ditransfer mempunyai rating yang rendah (tingkat risiko tinggi) atau tidak sesuai dengan risk appetite Bank. 2. Risk taker tidak satu group dengan debitur yang risiko kreditnya dialihkan. 3. Cost and benefit bagi Bank. 4. Optimalisasi antara return dan risiko. 5. Efektifitas manajemen portfolio kredit.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-059",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 400",
+      "topik": "Artikel 400 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 400 -1 Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   : 24 Desember 2024 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-060",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 400",
+      "topik": "Artikel 400 Klausul Utama: Dewan Komisaris Tugas dan wewenang Dewan Komisaris dalam kaitan dengan kegiatan ",
+      "teks_regulasi": "Dewan Komisaris Tugas dan wewenang Dewan Komisaris dalam kaitan dengan kegiatan perkreditan mengacu kepada Anggaran Dasar Bank. Selain tugas, wewenang dan tanggung jawab menurut Anggaran Dasar, Dewan Komisaris mempunyai tugas dan wewenang serta tanggung jawab yang berkaitan dengan perkreditan meliputi hal-hal sebagai berikut: 1. Menyetujui Kebijakan Perkreditan Bank; 2. Menyetujui rencana kredit tahunan termasuk rencana pemberian kredit kepada Pihak Terkait dengan Bank dan kredit kepada debitur besar tertentu yang tertuang dalam Rencana Bisnis Bank yang disampaikan kepada Regulator; 3. Mengawasi pelaksanaan rencana pemberian kredit pada butir 2; 4. Meminta penjelasan dan/atau pertanggungjawaban Direksi serta meminta langkah - langkah perbaikan dalam hal pelaksanaan pemberian Kredit menyimpang dari rencana perkreditan yang telah dibuat; 5. Meminta penjelasan dan/atau pertanggungjawaban Direksi dalam hal terdapat penyimpangan dalam pelaksanaan Kebijakan Perkreditan Bank; 6. Meminta penjelasan dan/atau pertanggungjawaban Direksi mengenai perkembangan dan kualitas portofolio perkreditan secara keseluruhan termasuk kredit yang diberikan kepada pihak yang terkait dengan Bank dan debitur besar tertentu. 7. Memberikan persetujuan penyediaan dana kepada Pihak Terkait  berdasarkan usulan Direksi/Komite Kredit/Komite Kredit Restrukturisasi. 8. Mengawasi secara aktif pelaksanaan kebijakan Penyelesaian Kredit Bermasalah. 9. Memberikan persetujuan kebijakan hapus tagih yang ditetapkan Direksi dan rencana penggunaan plafon (limit) hapus tagih yang ditetapkan Rapat Umum Pemegang Saham (RUPS). 10. Menerima laporan tertulis dari manajemen untuk pemberian kredit diatas Rp. 3 Triliun secara individual secara periodik setiap 3 bulan. Dalam hal diperlukan, Dewan Komisaris berwenang meminta penjelasan kepada Direksi. 11. Tugas, wewenang dan tanggung jawab lain yang ditetapkan dalam RUPS. 12. Memberikan arahan terkait rencana tindak atas pelanggaran dan/atau pelampauan Batas Maksimum Pemberian Kredit (BMPK) yang diajukan Direksi.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-061",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 410",
+      "topik": "Artikel 410 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 410 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-062",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 410",
+      "topik": "Artikel 410 Klausul Utama: Direksi Tugas, wewenang serta tanggung -jawab Direksi dalam kaitannya dengan keg",
+      "teks_regulasi": "Direksi Tugas, wewenang serta tanggung -jawab Direksi dalam kaitannya dengan kegiatan perkreditan mengacu kepada Anggaran Dasar Bank. Selain tugas, wewenang dan tanggung jawab menurut Anggaran Dasar, Direksi mempunyai tugas dan wewenang serta tanggung -jawab yang berkaitan dengan perkreditan antara lain meliputi hal-hal sebagai berikut: 1. Menyusun atau bertanggung jawab atas penyusunan Kebijakan Perkreditan. 2. Menyusun atau bertanggung jawab atas penyusunan  rencana perkreditan yang dituangkan dalam dengan Rencana Bisnis Bank (RBB) yang disampaikan kepada Regulator serta memastikan pelaksanaannya telah sesuai dengan rencana. 3. Menetapkan anggota Komite Kebijakan Perkreditan (KKP) dan Komite Kredit (KK). 4. Memastikan bahwa Kebijakan Perkreditan telah diterapkan dan dilaksanakan secara konsekuen dan konsisten. 5. Bertanggung jawab atas pelaksanaan langkah-langkah perbaikan atas hasil evaluasi dan saran-saran yang disampaikan oleh KKP. 6. Memastikan pelaksanaan langkah -langkah perbaikan atas berbagai penyimpangan dalam perkreditan yang ditemukan oleh Satuan Kerja Audit Intern. 7. Memastikan ketaatan Bank terhadap ketentuan perundang-undangan dan peraturan lain yang berlaku di bidang perkreditan. 8. Melaporkan secara berkala dan tertulis kepada Dewan Komisaris disertai langkah - langkah perbaikan yang telah, sedang dan akan dilakukan mengenai: a. Perkembangan dan kualitas portofolio perkreditan secara keseluruhan. b. Perkembangan dan kualitas kredit yang diberikan kepada Pihak Terkait dengan Bank dan debitur-debitur tertentu (antara lain termasuk kredit kepada 20 debitur dan group terbesar). c. Kredit dalam pengawasan khusus dan kredit bermasalah. d. Penyimpangan dalam pelaksanaan Kebijakan Perkreditan Bank. e. Temuan-temuan penting dalam perkreditan yang dilaporkan oleh Satuan Kerja Audit Intern. f. Pelaksanaan dari rencana perkreditan yang telah tertuang dalam RBB yang disampaikan kepada Regulator. g. Penyimpangan atau pelanggaran ketentuan di bidang perkreditan. 9. Menyampaikan rencana tindak atas pelanggaran dan/atau pelampauan Batas Maksimum Pemberian Kredit (BMPK) kepada Dewan Komisaris. 10. Tugas, wewenang dan tanggungjawab lain ditetapkan oleh Dewan Komisaris dan Rapat Umum Pemegang Saham.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-063",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 420",
+      "topik": "Artikel 420 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 420 -1 Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   : 24 Desember 2024 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-064",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 420",
+      "topik": "Artikel 420 Klausul Utama: Komite Kebijakan Perkreditan Komite Kebijakan Perkreditan (KKP) merupakan komite",
+      "teks_regulasi": "Komite Kebijakan Perkreditan Komite Kebijakan Perkreditan (KKP) merupakan komite yang membantu Direksi dalam merumuskan kebijakan, mengawasi pelaksanaan kebijakan, memantau perkembangan dan kondisi portofolio perkreditan dan memberikan saran langkah perbaikan. 1. Fungsi KKP dilaksanakan oleh Credit Policy Committee (CPC). 2. Komite Kebijakan Perkreditan diketuai oleh Direktur Utama dengan anggota paling sedikit terdiri dari Direktur Kredit, pimpinan satuan kerja bidang operasional yang terkait dengan perkreditan, dan pimpinan SKAI. Dalam hal Direktur Utama tidak dapat mengetuai Komite Kebijakan Perkreditan, dapat ditunjuk salah seorang anggota Direksi lain dengan persetujuan Dewan Komisaris. 3. Fungsi Komite Kebijakan Perkreditan meliputi: a. Memberikan masukan kepada Direksi dalam penyusunan Kebijakan Perkreditan Bank, terutama yang berkaitan dengan perumusan prinsip kehati -hatian dalam perkreditan. b. Mengawasi agar Kebijakan Perkreditan dapat diterapkan dan dilaksanakan secara konsekuen dan konsisten serta merumuskan pemecahan dalam hal terdapat hambatan atau kendala dalam penerapan Kebijakan Perkreditan. Selanjutnya KKP juga melakukan kajian berkala terhadap Kebijakan Perkreditan dan memberikan saran kepada Direksi dalam hal diperlukan perubahan atau perbaikan Kebijakan Perkreditan. c. Memantau dan mengevaluasi perkembangan dan kualitas portofolio perkreditan secara keseluruhan. d. Memantau dan mengevaluasi kebenaran pelaksanaan kewenangan memutus kredit, proses pemberian, perkembangan, dan kualitas kredit yang diberikan kepada Pihak Terkait dengan Bank dan debitur besar tertentu. e. Memantau dan mengevaluasi kebenaran pelaksanaan ketentuan BMPK, ketaatan terhadap ketentuan peraturan perundang -undangan dan peraturan lain dalam pelaksanaan pemberian kredit, serta penyelesaian kredit bermasalah sesuai dengan yang ditetapkan dalam Kebijakan Perkreditan. f. Memantau dan mengevaluasi upaya Bank dalam memenuhi kecukupan jumlah penyisihan penghapusan kredit. 4. Tanggung Jawab Komite Kebijakan Perkreditan paling sedikit meliputi: a. Menyampaikan laporan tertulis secara berkala kepada Direksi dengan tembusan kepada Dewan Komisaris mengenai: 1) Hasil pengawasan atas penerapan dan pelaksanaan Kebijakan Perkreditan; 2) Hasil pemantauan dan evaluasi mengenai hal-hal yang dimaksud dalam butir 3.c. s.d. 3.f; b. Memberikan saran langkah -langkah perbaikan kepada Direksi dengan tembusan kepada Dewan Komisaris mengenai hal-hal yang terkait dengan butir 4.a.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-065",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 430",
+      "topik": "Artikel 430 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 430 -1 Edisi        :  4 Revisi ke  :  3 Berlaku sejak tanggal   : 24 Desember 2024 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-066",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 430",
+      "topik": "Artikel 430 Klausul Utama: Komite Kredit Komite Kredit adalah komite yang beranggotakan pemegang kewenangan",
+      "teks_regulasi": "Komite Kredit Komite Kredit adalah komite yang beranggotakan pemegang kewenangan memutus kredit termasuk restrukturisasi kredit, yang mewakili fungsi Business Unit/Credit Recovery Unit dan Credit Risk Taking Unit. Komite Kredit berwenang melakukan evaluasi permohonan dan pemutusan kredit. Komite Kredit terbagi dalam beberapa kategori. Komite Kredit Kategori A merupakan Komite Kredit yang tertinggi.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-067",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 440",
+      "topik": "Artikel 440 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 440 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-068",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 440",
+      "topik": "Artikel 440 Klausul Utama: Penetapan Batas Wewenang Memutus Kredit Batas wewenang memutus kredit ditetapkan",
+      "teks_regulasi": "Penetapan Batas Wewenang Memutus Kredit Batas wewenang memutus kredit ditetapkan oleh Direksi sebagai pendelegasian kewenangan kepada individu pemegang kewenangan memutus kredit. Direksi memiliki kewenangan penuh untuk menetapkan (memberikan atau mencabut atau meninjau kembali) batas wewenang memutus kredit anggota Komite Kredit. Kewenangan memutus kredit melekat pada individu yang memiliki kemampuan, kompetensi dan integritas.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-069",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 450",
+      "topik": "Artikel 450 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 450 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-070",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 450",
+      "topik": "Artikel 450 Klausul Utama: Penetapan Pejabat Pemegang Kewenangan Memutus Kredit Penetapan pejabat pemegang ",
+      "teks_regulasi": "Penetapan Pejabat Pemegang Kewenangan Memutus Kredit Penetapan pejabat pemegang kewenangan memutus kredit secara individu harus mempertimbangkan kemampuan, kompetensi, sikap profesional dan integritas individu pejabat dimaksud dalam bidang perkreditan.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-071",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 460",
+      "topik": "Artikel 460 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                       IV - 460 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-072",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB IV : ORGANISASI DAN KEWENANGAN - Artikel 460",
+      "topik": "Artikel 460 Klausul Utama: Unit Kerja Perkreditan Organisasi perkreditan dibentuk sesuai dengan kebutuhan d",
+      "teks_regulasi": "Unit Kerja Perkreditan Organisasi perkreditan dibentuk sesuai dengan kebutuhan dan perkembangan bisnis. Direksi dapat menetapkan bentuk, cakupan tugas, dan kewenangan Unit Kerja Perkreditan. Unit Kerja Perkreditan adalah unit kerja yang terkait dengan perkreditan yang terdiri dari: 1. Business Unit. 2. Credit Risk Taking Unit 3. Credit Risk Management Unit. 4. Credit Operations Unit. 5. Credit Recovery Unit. 6. Unit kerja lain yang terkait dengan perkreditan. Setiap pejabat dan pegawai Unit Kerja Perkreditan: 1. Menaati seluruh ketentuan yang ditetapkan dalam Kebijakan Perkreditan; 2. Melaksanakan tugasnya secara jujur, objektif, cermat, serta seksama; dan 3. Menghindarkan diri dari pengaruh pihak yang berkepentingan dengan pemohon kredit yang dapat merugikan Bank.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-073",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 500",
+      "topik": "Artikel 500 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  2 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  2 Berlaku sejak tanggal   : 11 Desember 2023 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh : V - 500 - 1",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-074",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 500",
+      "topik": "Artikel 500 Klausul Utama: Proses Persetujuan Kredit 1. Target Market Target Market merupakan identifikasi ",
+      "teks_regulasi": "Proses Persetujuan Kredit 1. Target Market Target Market merupakan identifikasi awal terhadap bidang usaha/calon debitur yang potensial sekaligus merupakan arah dan prioritas usaha yang akan dibiayai oleh Bank. 2. Permohonan Kredit Dalam menilai permohonan kredit, perlu memperhatikan prinsip sebagai berikut: a. Permohonan kredit diajukan secara tertulis, baik untuk kredit baru, perpanjangan jangka waktu, tambahan kredit maupun permohonan kredit lainnya. b. Permohonan kredit memuat informasi yang memenuhi persyaratan sesuai dengan ketentuan Bank. 3. Analisis Kredit Dalam melakukan analisis kredit, perlu memperhatikan prinsip sebagai berikut: a. Pemberian kredit didasarkan atas data dan informasi dari (calon) debitur untuk melakukan analisa kredit dan risk assessment. Pemrosesan data dan informasi (calon) debitur memperhatikan ketentuan yang berlaku. b. Bentuk, format, dan kedalaman analisis kredit disesuaikan dengan jumlah dan jenis kredit. c. Pemberian kredit didasarkan atas analisa tertulis  baik secara kualitatif maupun kuantitatif. d. Menggambarkan konsep hubungan total (calon) debitur  dengan Bank. e. Analisis kredit paling sedikit harus mencakup penilaian atas watak ( character), kemampuan ( capacity), modal ( capital), agunan ( collateral), dan prospek usaha debitur ( condition of economy) dan penilaian terhadap sumber pelunasan kredit. Selain itu, analisis kredit juga meliputi: 1) Analisis semua informasi yang berkaitan dengan usaha dan atau group usaha, termasuk hasil penelitian pada daftar kredit macet. 2) Penilaian atas kelayakan kredit disesuaikan dengan proyek atau kegiatan usaha yang dibiayai/akan dibiayai, dengan maksud untuk  menghindari kemungkinan terjadinya praktek mark-up yang dapat merugikan Bank. 3) Penilaian yang obyektif dan tidak dipengaruhi oleh pihak -pihak yang berkepentingan dengan pemohon kredit/ (calon) debitur. f. Dalam pemberian kredit sindikasi, apabila bank merupakan anggota sindikasi, maka analisis kredit meliputi penilaian terhadap Bank yang bertindak sebagai bank induk. g. Dalam memberikan kredit, agar mempertimbangkan kemampuan dan kesanggupan (calon) debitur untuk melunasi atau mengembalikan kreditnya sesuai dengan yang diperjanjikan.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-075",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 500",
+      "topik": "Artikel 500 Klausul Utama: Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  2 Berlaku sejak tanggal   ",
+      "teks_regulasi": "Kebijakan Perkreditan Edisi        :  4 Revisi ke  :  2 Berlaku sejak tanggal   : 11 Desember 2023 Tanggal yang digantikan  : 10 Mei 2021 Diverifikasi oleh : V - 500 - 2 4. Covenant Covenant merupakan persyaratan kredit yang ditentukan Bank dan disetujui debitur dalam perjanjian kredit untuk melakukan dan/atau tidak melakukan ti ndakan tertentu selama fasilitas kredit berjalan. Penentuan covenant oleh Bank didasarkan atas hasil analisa terhadap struktur kredit debitur. Tidak dipenuhinya covenant oleh debitur merupakan suatu kejadian kelalaian debitur (Event of Default) dan sekaligus berfungsi sebagai peringatan dini yang memberikan hak kepada Bank untuk mengambil langkah-langkah pengamanan sesuai perjanjian kredit. 5. Rekomendasi Kredit Rekomendasi kedit disusun secara tertulis berdasarkan hasil analisis kredit yang telah dilakukan. Isi rekomendasi kredit sejalan dengan kesimpulan analisis kredit. 6. Keputusan Kredit a. Keputusan kredit memperhatikan analisis dan rekomendasi kredit. b. Setiap keputusan kredit yang berbeda dengan isi rekomendasi dijelaskan secara tertulis. c. Untuk mendapatkan informasi yang lebih memadai dalam pengambilan keputusan kredit, Bank dapat meminta bantuan dari pihak ketiga yang independen untuk memberikan gambaran secara tertulis mengenai kondisi (calon) debitur.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-076",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 510",
+      "topik": "Artikel 510 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        V - 510 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-077",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 510",
+      "topik": "Artikel 510 Klausul Utama: Surat Penawaran Pemberian Kredit (SPPK) 1. SPPK adalah Surat Penawaran Pemberian",
+      "teks_regulasi": "Surat Penawaran Pemberian Kredit (SPPK) 1. SPPK adalah Surat Penawaran Pemberian Kredit kepada debitur/calon debitur atas permohonan kredit yang diajukannya. 2. SPPK diterbitkan berdasarkan Nota Analisa Kredit yang telah disetujui oleh pemegang kewenangan. 3. SPPK berisi ketentuan dan persyaratan fasilitas kredit yang ditawarkan dan bersifat tidak mengikat Bank. 4. SPPK ini dimaksudkan agar debitur/calon debitur memahami terlebih dahulu hal-hal yang berkaitan dengan persyaratan pemberian kredit dan mempersiapkan segala sesuatu yang diperlukan oleh Bank.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-078",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 520",
+      "topik": "Artikel 520 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        V - 520 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-079",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 520",
+      "topik": "Artikel 520 Klausul Utama: Perjanjian Kredit Setiap kredit yang telah disetujui dan disepakati dengan pemoh",
+      "teks_regulasi": "Perjanjian Kredit Setiap kredit yang telah disetujui dan disepakati dengan pemohon kredit dituangkan dalam Perjanjian Kredit secara tertulis. Bentuk dan format Perjanjian Kredit memperhatikan hal-hal sebagai berikut: 1. Memenuhi keabsahan dan persyaratan hukum yang dapat melindungi kepentingan Bank; 2. Memuat jumlah, jangka waktu, tata cara pembayaran kembali kredit, dan persyaratan kredit sebagaimana ditetapkan dalam keputusan persetujuan kredit. Bentuk dan format PK ditetapkan oleh Bank yang disesuaikan dengan jenis kredit.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-080",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 530",
+      "topik": "Artikel 530 Klausul Utama: Kebijakan Perkreditan                                                           ",
+      "teks_regulasi": "Kebijakan Perkreditan                                                                                                                                                        V - 530 -1 Edisi        :  4 Revisi ke  :  0 Berlaku sejak tanggal   : 10 Mei 2021 Tanggal yang digantikan  : 1 Juli 2019 Diverifikasi oleh :",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    },
+    {
+      "id": "KPKD-081",
+      "regulasi_terkait": "Kebijakan Perkreditan Bank Mandiri (KPKD)",
+      "pasal_regulasi": "BAB V : KEBIJAKAN PEMBERIAN KREDIT - Artikel 530",
+      "topik": "Artikel 530 Klausul Utama: Pencairan Kredit Pencairan Kredit dilakukan berdasarkan prinsip sebagai berikut:",
+      "teks_regulasi": "Pencairan Kredit Pencairan Kredit dilakukan berdasarkan prinsip sebagai berikut: 1. Seluruh syarat pencairan kredit yang ditetapkan dalam keputusan kredit t elah dipenuhi oleh (calon) debitur. 2. Seluruh aspek yuridis yang berkaitan dengan kredit telah diselesaikan dan telah memberikan perlindungan yang memadai bagi Bank.",
+      "source_file": "Kebijakan Perkreditan i3655.pdf"
+    }
+  ]
+}

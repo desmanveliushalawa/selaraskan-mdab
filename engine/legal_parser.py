@@ -68,9 +68,21 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
     current_pasal = ""
     current_pasal_lines: List[str] = []
 
-    # Pola reguler untuk Bab dan Pasal Indonesia
-    bab_regex = re.compile(r"^(BAB\s+[IVXLCDM\d]+)(.*)$", re.IGNORECASE)
-    pasal_regex = re.compile(r"^(Pasal\s+\d+)(.*)$", re.IGNORECASE)
+    # Pola reguler untuk Bab, Bagian, Pasal, dan Artikel (standar perbankan internal Bank Mandiri)
+    bab_regex = re.compile(r"^(BAB\s+[IVXLCDM\d]+|BAGIAN\s+[IVXLCDM\d]+)(.*)$", re.IGNORECASE)
+    pasal_regex = re.compile(r"^(Pasal\s+\d+|Artikel\s+\d+)(.*)$", re.IGNORECASE)
+
+    def is_noise_line(line_str: str) -> bool:
+        u = line_str.upper()
+        if "DILARANG MEMPERBANYAK" in u:
+            return True
+        if re.match(r"^BANK MANDIRI(\s+\d+)?$", u):
+            return True
+        if re.match(r"^\d+\s*-\s*\d{2}/\d{2}/\d{4}", u):
+            return True
+        if re.match(r"^HALAMAN\s+\d+(\s+DARI\s+\d+)?$", u):
+            return True
+        return False
 
     def flush_pasal():
         nonlocal current_pasal, current_pasal_lines
@@ -97,6 +109,9 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
         current_pasal_lines = []
 
     for line in lines:
+        if is_noise_line(line):
+            continue
+
         match_bab = bab_regex.match(line)
         if match_bab:
             flush_pasal()
@@ -109,7 +124,7 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
         match_pasal = pasal_regex.match(line)
         if match_pasal:
             flush_pasal()
-            current_pasal = match_pasal.group(1).capitalize()
+            current_pasal = match_pasal.group(1).title()
             remainder = match_pasal.group(2).strip(" -:.")
             if remainder:
                 current_pasal_lines.append(remainder)
