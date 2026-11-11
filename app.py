@@ -912,68 +912,68 @@ with tab_unggah:
                         }
                         st.rerun()
 
-                    # Render hasil evaluasi dari session state (persisten saat tombol dialog diklik)
-                    if (
-                        "uploaded_analysis" in st.session_state
-                        and st.session_state["uploaded_analysis"].get("filename") == target_filename
-                    ):
-                        analysis = st.session_state["uploaded_analysis"]
-                        saved_metrics = analysis["metrics"]
-                        saved_clauses = analysis["clauses"]
+                # Render hasil evaluasi dari session state (persisten saat tombol dialog diklik)
+                if (
+                    "uploaded_analysis" in st.session_state
+                    and st.session_state["uploaded_analysis"].get("filename") == target_filename
+                ):
+                    analysis = st.session_state["uploaded_analysis"]
+                    saved_metrics = analysis["metrics"]
+                    saved_clauses = analysis["clauses"]
 
-                        display_eval_clauses = filter_clause_list(saved_clauses, filter_status, search_keyword)
+                    display_eval_clauses = filter_clause_list(saved_clauses, filter_status, search_keyword)
 
-                        st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;'>", unsafe_allow_html=True)
-                        st.markdown("##### Hasil Evaluasi Keselarasan terhadap Bucket Acuan")
+                    st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;'>", unsafe_allow_html=True)
+                    st.markdown("##### Hasil Evaluasi Keselarasan terhadap Bucket Acuan")
 
-                        st.success(
-                            f"Audit selesai. Ditemukan {saved_metrics['selaras']['count']} Selaras, "
-                            f"{saved_metrics['tidak_selaras']['count']} Tidak Selaras, "
-                            f"{saved_metrics['netral']['count']} Netral. Hasil lengkap kini juga dapat dianalisis di Tab 1 (Matriks Keselarasan Dokumen)!"
-                        )
+                    st.success(
+                        f"Audit selesai. Ditemukan {saved_metrics['selaras']['count']} Selaras, "
+                        f"{saved_metrics['tidak_selaras']['count']} Tidak Selaras, "
+                        f"{saved_metrics['netral']['count']} Netral. Hasil lengkap kini juga dapat dianalisis di Tab 1 (Matriks Keselarasan Dokumen)!"
+                    )
 
-                        if search_keyword.strip() or filter_status != "Semua Status":
-                            st.info(f"Menampilkan {len(display_eval_clauses)} dari {len(saved_clauses)} klausul hasil evaluasi sesuai filter penelusuran.")
+                    if search_keyword.strip() or filter_status != "Semua Status":
+                        st.info(f"Menampilkan {len(display_eval_clauses)} dari {len(saved_clauses)} klausul hasil evaluasi sesuai filter penelusuran.")
 
-                        if not display_eval_clauses:
-                            st.warning(f"Tidak ada klausul hasil evaluasi yang sesuai dengan filter kata kunci '{search_keyword.strip()}'.")
-                        else:
-                            for up_idx, item in enumerate(display_eval_clauses):
-                                b_class = (
-                                    "badge-selaras" if item["status"] == "Selaras"
-                                    else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
-                                )
-                                up_card_html = f"""
-                                <div class="legal-card">
-                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                                        <div>
-                                            <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
-                                            <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
-                                        </div>
-                                        <span class="{b_class}">{item['status'].upper()}</span>
+                    if not display_eval_clauses:
+                        st.warning(f"Tidak ada klausul hasil evaluasi yang sesuai dengan filter kata kunci '{search_keyword.strip()}'.")
+                    else:
+                        for up_idx, item in enumerate(display_eval_clauses):
+                            b_class = (
+                                "badge-selaras" if item["status"] == "Selaras"
+                                else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
+                            )
+                            up_card_html = f"""
+                            <div class="legal-card">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div>
+                                        <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
+                                        <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
                                     </div>
-                                    <div class="reference-box">
-                                        <strong>Ketentuan Acuan ({sel_b['name']}):</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
-                                        <em>Relevansi Semantik: {item['similarity_pct']}%</em>
-                                    </div>
-                                    <div class="reasoning-text">
-                                        <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
-                                    </div>
+                                    <span class="{b_class}">{item['status'].upper()}</span>
                                 </div>
-                                """
-                                render_html(up_card_html)
+                                <div class="reference-box">
+                                    <strong>Ketentuan Acuan ({sel_b['name']}):</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
+                                    <em>Relevansi Semantik: {item['similarity_pct']}%</em>
+                                </div>
+                                <div class="reasoning-text">
+                                    <strong>Pertimbangan Hukum:</strong> {item['reasoning']}
+                                </div>
+                            </div>
+                            """
+                            render_html(up_card_html)
 
-                                up_btn_col, _ = st.columns([1.6, 2.4])
-                                with up_btn_col:
-                                    if st.button(
-                                        "Lihat Komparasi Before-After",
-                                        key=f"btn_up_diff_{item['id']}_{up_idx}",
-                                        use_container_width=True,
-                                    ):
-                                        show_diff_dialog(item)
-                                st.write("")
-                else:
-                    st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen target ini.")
+                            up_btn_col, _ = st.columns([1.6, 2.4])
+                            with up_btn_col:
+                                if st.button(
+                                    "Lihat Komparasi Before-After",
+                                    key=f"btn_up_diff_{item['id']}_{up_idx}",
+                                    use_container_width=True,
+                                ):
+                                    show_diff_dialog(item)
+                            st.write("")
+            else:
+                st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen target ini.")
     else:
         render_html(
             """
