@@ -80,13 +80,27 @@ st.set_page_config(
 )
 
 # CSS Bersih dan Terstruktur: Standar Desain Perbankan & Legal Tech
+# Dokumentasi R-29 (Color Palette):
+# - Core Primary: #003d79 (Navy Bank Mandiri) sebagai warna identitas institusional.
+# - Semantic Success: #166534 / #f0fdf4 (Selaras)
+# - Semantic Alert: #991b1b / #fef2f2 (Tidak Selaras / Risiko Deviasi)
+# - Semantic Neutral: #854d0e / #fefce8 (Netral / Prosedural Teknis)
+# - Slate Neutrals: #0f172a (teks utama), #475569 (kontras tinggi 7.24:1 untuk teks sekunder), #ffffff & #f8fafc (background).
+# Dokumentasi R-31 (Border Radius):
+# - 4px dipilih konsisten untuk seluruh elemen guna mempertahankan wibawa formal institusional perbankan.
 render_html(
     """
+    <script>document.documentElement.lang = "id";</script>
     <style>
     /* Tipografi Dasar */
     html, body, [class*="css"] {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         color: #0f172a;
+    }
+
+    /* R-39: Affordance Kursor untuk seluruh kontrol interaktif */
+    button, select, [role="button"], a {
+        cursor: pointer !important;
     }
 
     /* Header Institusional */
@@ -129,7 +143,7 @@ render_html(
     .metric-label {
         font-size: 11px;
         font-weight: 600;
-        color: #64748b;
+        color: #475569; /* WCAG AA & AAA compliant 7.24:1 */
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
@@ -140,7 +154,7 @@ render_html(
     }
     .metric-desc {
         font-size: 11px;
-        color: #64748b;
+        color: #475569; /* WCAG AA compliant */
     }
 
     /* Kartu Klausul Hukum */
@@ -150,14 +164,15 @@ render_html(
         border-radius: 4px;
         padding: 16px;
         margin-bottom: 12px;
+        transition: border-color 0.15s ease;
     }
     .legal-card:hover {
-        border-color: #94a3b8;
+        border-color: #003d79;
     }
     .legal-meta {
         font-size: 11px;
         font-weight: 600;
-        color: #64748b;
+        color: #475569; /* WCAG AA compliant */
         margin-bottom: 4px;
     }
     .legal-title {
@@ -211,13 +226,19 @@ render_html(
         border-radius: 4px;
     }
 
-    /* Bucket Card */
+    /* Bucket Card (R-14: Hierarki Visual Tegas Antara Bawaan Sistem vs Kustom) */
     .bucket-card {
         background-color: #ffffff;
         border: 1px solid #cbd5e1;
         border-radius: 4px;
         padding: 14px 16px;
         margin-bottom: 12px;
+    }
+    .bucket-card.bucket-default {
+        border-left: 4px solid #003d79;
+    }
+    .bucket-card.bucket-custom {
+        border-left: 4px solid #2563eb;
     }
     .bucket-card:hover {
         border-color: #003d79;
@@ -311,7 +332,7 @@ with st.sidebar:
             st.markdown(f"• <span style='font-size: 12px; color: #334155;'>{reg}</span>", unsafe_allow_html=True)
     elif "uploaded_analysis" in st.session_state:
         b_name = st.session_state["uploaded_analysis"].get("bucket_name", "Bucket Dokumen Acuan")
-        st.markdown(f"<div style='font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;'>Bucket Aktif:</div><div style='font-size: 12px; font-weight: 600; color: #003d79; margin-top: 2px;'>{b_name}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase;'>Bucket Aktif:</div><div style='font-size: 12px; font-weight: 600; color: #003d79; margin-top: 2px;'>{b_name}</div>", unsafe_allow_html=True)
     else:
         st.caption("Pilih bucket acuan di Tab 'Unggah & Cek Keselarasan'.")
 
@@ -613,8 +634,8 @@ with tab_evaluasi:
             """
             <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 40px 20px; text-align: center; color: #475569; margin: 20px 0;">
                 <h4 style="color: #003d79; margin-bottom: 8px; font-size: 16px;">Belum Ada Dokumen yang Diunggah</h4>
-                <p style="font-size: 13px; max-width: 580px; margin: 0 auto 16px auto; line-height: 1.5; color: #64748b;">
-                    Anda saat ini berada pada mode <strong>Unggah Dokumen Baru</strong>. Silakan buka tab <strong>"Unggah & Parsing Dokumen"</strong> di atas untuk mengunggah berkas Word (.docx) atau PDF regulasi Anda, atau alihkan pilihan ke <strong>"Contoh Studi Kasus (Bank Mandiri)"</strong> pada menu di sidebar kiri untuk melihat contoh simulasi.
+                <p style="font-size: 13px; max-width: 580px; margin: 0 auto 16px auto; line-height: 1.5; color: #475569;">
+                    Anda saat ini berada pada mode <strong>Unggah Dokumen Baru</strong>. Silakan buka tab <strong>"Unggah & Cek Keselarasan"</strong> di atas untuk mengunggah berkas Word (.docx) atau PDF regulasi Anda, atau alihkan pilihan ke <strong>"Contoh Studi Kasus (Bank Mandiri)"</strong> pada menu di sidebar kiri untuk melihat contoh simulasi.
                 </p>
             </div>
             """
@@ -627,7 +648,7 @@ with tab_unggah:
     st.markdown(
         "<span style='font-size: 13px; color: #475569;'>"
         "Pilih bucket regulasi acuan kepatuhan, tentukan dokumen operasional target yang ingin diuji, "
-        "lalu klik tombol <strong>SUBMIT CEK KESELARASAN</strong> untuk menjalankan audit kepatuhan otomatis."
+        "lalu klik tombol <strong>SUBMIT CEK KESELARASAN</strong> untuk menjalankan audit kepatuhan berbasis inferensi semantik."
         "</span>",
         unsafe_allow_html=True,
     )
@@ -651,7 +672,7 @@ with tab_unggah:
         f"""
         <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #003d79; border-radius: 4px; padding: 10px 14px; margin: 8px 0 16px 0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;">
+                <div style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase;">
                     Bucket Acuan Terpilih : {sel_b['category']}
                 </div>
                 <span class="{'badge-bucket-default' if sel_b.get('is_default') else 'badge-bucket-custom'}">
@@ -660,7 +681,7 @@ with tab_unggah:
             </div>
             <div style="font-size: 13px; font-weight: 700; color: #003d79; margin: 2px 0 4px 0;">{sel_b['name']}</div>
             <div style="font-size: 12px; color: #334155; line-height: 1.4;">{sel_b['description']}</div>
-            <div style="font-size: 11px; color: #64748b; margin-top: 6px;">
+            <div style="font-size: 11px; color: #475569; margin-top: 6px;">
                 Total Dokumen Terindeks: <strong>{sel_b['total_files']}</strong> berkas • Total Klausul Norma: <strong>{sel_b['total_clauses']}</strong> klausul siap dicocokkan semantik
             </div>
         </div>
@@ -729,7 +750,7 @@ with tab_unggah:
     target_filename = None
 
     if uploaded_file is not None:
-        target_bytes = uploaded_file.read()
+        target_bytes = uploaded_file.getvalue() # Menggunakan getvalue() agar pointer buffer tidak hilang saat rerun
         target_filename = uploaded_file.name
     elif "target_file_path" in st.session_state and os.path.exists(st.session_state["target_file_path"]):
         with open(st.session_state["target_file_path"], "rb") as f:
@@ -738,139 +759,158 @@ with tab_unggah:
 
     if target_bytes is not None and target_filename is not None:
         file_size_kb = round(len(target_bytes) / 1024, 1)
-        with st.spinner(f"Mengekstrak struktur Bab & Pasal dari '{target_filename}'..."):
-            try:
-                raw_text = extract_raw_text(target_bytes, target_filename)
-                parsed_doc = parse_legal_structure(raw_text)
 
+        # Caching ekstraksi parsing di session state agar tidak re-parse berulang saat klik tombol dialog/filter
+        cache_key = f"parsed_{target_filename}_{len(target_bytes)}"
+        if "parsed_cache" not in st.session_state:
+            st.session_state["parsed_cache"] = {}
+
+        if cache_key in st.session_state["parsed_cache"]:
+            parsed_doc = st.session_state["parsed_cache"][cache_key]
+        else:
+            with st.spinner(f"Mengekstrak struktur Bab & Pasal dari '{target_filename}'..."):
+                try:
+                    raw_text = extract_raw_text(target_bytes, target_filename)
+                    parsed_doc = parse_legal_structure(raw_text)
+                    st.session_state["parsed_cache"][cache_key] = parsed_doc
+                except Exception as e:
+                    st.error(f"Gagal memproses berkas target: {str(e)}")
+                    parsed_doc = None
+
+        if parsed_doc:
+            render_html(
+                f"""
+                <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #166534;">
+                    Dokumen Target <strong>'{target_filename}'</strong> berhasil diekstrak. Terdeteksi {parsed_doc['total_bab']} Bab, {parsed_doc['total_pasal']} Pasal/Artikel, dan {parsed_doc['total_ayat']} Ayat/Butir.
+                </div>
+                """
+            )
+
+            # Metadata Cards
+            meta_cols = st.columns(4)
+            with meta_cols[0]:
                 render_html(
                     f"""
-                    <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 4px; padding: 10px 14px; margin: 12px 0; font-size: 13px; color: #166534;">
-                        Dokumen Target <strong>'{target_filename}'</strong> berhasil diekstrak. Terdeteksi {parsed_doc['total_bab']} Bab, {parsed_doc['total_pasal']} Pasal/Artikel, dan {parsed_doc['total_ayat']} Ayat/Butir.
+                    <div class="metric-box">
+                        <div class="metric-label">Nama Berkas Target</div>
+                        <div style="font-size: 13px; font-weight: 600; color: #003d79; margin: 4px 0;">{target_filename[:24]}</div>
+                        <div class="metric-desc">Ukuran: {file_size_kb} KB</div>
+                    </div>
+                    """
+                )
+            with meta_cols[1]:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Total Bab Terdeteksi</div>
+                        <div class="metric-number" style="color: #003d79;">{parsed_doc['total_bab']}</div>
+                        <div class="metric-desc">Struktur Utama</div>
+                    </div>
+                    """
+                )
+            with meta_cols[2]:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Total Pasal / Artikel</div>
+                        <div class="metric-number" style="color: #003d79;">{parsed_doc['total_pasal']}</div>
+                        <div class="metric-desc">Norma Terpisah</div>
+                    </div>
+                    """
+                )
+            with meta_cols[3]:
+                render_html(
+                    f"""
+                    <div class="metric-box">
+                        <div class="metric-label">Total Ayat / Butir</div>
+                        <div class="metric-number" style="color: #003d79;">{parsed_doc['total_ayat']}</div>
+                        <div class="metric-desc">Klausul Spesifik</div>
                     </div>
                     """
                 )
 
-                # Metadata Cards
-                meta_cols = st.columns(4)
-                with meta_cols[0]:
-                    render_html(
-                        f"""
-                        <div class="metric-box">
-                            <div class="metric-label">Nama Berkas Target</div>
-                            <div style="font-size: 13px; font-weight: 600; color: #003d79; margin: 4px 0;">{target_filename[:24]}</div>
-                            <div class="metric-desc">Ukuran: {file_size_kb} KB</div>
-                        </div>
-                        """
-                    )
-                with meta_cols[1]:
-                    render_html(
-                        f"""
-                        <div class="metric-box">
-                            <div class="metric-label">Total Bab Terdeteksi</div>
-                            <div class="metric-number" style="color: #003d79;">{parsed_doc['total_bab']}</div>
-                            <div class="metric-desc">Struktur Utama</div>
-                        </div>
-                        """
-                    )
-                with meta_cols[2]:
-                    render_html(
-                        f"""
-                        <div class="metric-box">
-                            <div class="metric-label">Total Pasal / Artikel</div>
-                            <div class="metric-number" style="color: #003d79;">{parsed_doc['total_pasal']}</div>
-                            <div class="metric-desc">Norma Terpisah</div>
-                        </div>
-                        """
-                    )
-                with meta_cols[3]:
-                    render_html(
-                        f"""
-                        <div class="metric-box">
-                            <div class="metric-label">Total Ayat / Butir</div>
-                            <div class="metric-number" style="color: #003d79;">{parsed_doc['total_ayat']}</div>
-                            <div class="metric-desc">Klausul Spesifik</div>
-                        </div>
-                        """
-                    )
+            st.markdown(f"**Estimasi Judul Regulasi:** `{parsed_doc['title']}`")
 
-                st.markdown(f"**Estimasi Judul Regulasi:** `{parsed_doc['title']}`")
+            # Tabel Klausul yang Terdaftar
+            st.markdown("##### Rincian Klausul yang Terdaftar pada Dokumen Target")
+            if parsed_doc["clauses"]:
+                display_parsed_clauses = filter_clause_list(parsed_doc["clauses"], "Semua Status", search_keyword)
+                if search_keyword.strip():
+                    st.caption(f"Menampilkan {len(display_parsed_clauses)} dari {len(parsed_doc['clauses'])} klausul untuk kata kunci: \"{search_keyword.strip()}\"")
 
-                # Tabel Klausul yang Terdaftar
-                st.markdown("##### Rincian Klausul yang Terdaftar pada Dokumen Target")
-                if parsed_doc["clauses"]:
-                    display_parsed_clauses = filter_clause_list(parsed_doc["clauses"], "Semua Status", search_keyword)
-                    if search_keyword.strip():
-                        st.caption(f"Menampilkan {len(display_parsed_clauses)} dari {len(parsed_doc['clauses'])} klausul untuk kata kunci: \"{search_keyword.strip()}\"")
+                df_parsed = pd.DataFrame([
+                    {
+                        "No": i + 1,
+                        "Bab": c["bab"],
+                        "Pasal / Artikel": c["pasal"],
+                        "Ayat / Butir": c["ayat"],
+                        "Teks Klausul": (c["text"][:110] + "...") if len(c["text"]) > 110 else c["text"],
+                    }
+                    for i, c in enumerate(display_parsed_clauses)
+                ])
+                st.dataframe(df_parsed, use_container_width=True, hide_index=True)
 
-                    df_parsed = pd.DataFrame([
-                        {
-                            "No": i + 1,
-                            "Bab": c["bab"],
-                            "Pasal / Artikel": c["pasal"],
-                            "Ayat / Butir": c["ayat"],
-                            "Teks Klausul": (c["text"][:110] + "...") if len(c["text"]) > 110 else c["text"],
+                # Tombol Utama: SUBMIT CEK KESELARASAN
+                st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;'>", unsafe_allow_html=True)
+                st.markdown("##### 3. Eksekusi Pengujian Kepatuhan")
+                st.write(f"Audit keselarasan akan memetakan seluruh klausul dari **{target_filename}** terhadap norma acuan di **{sel_b['name']}**.")
+
+                if st.button("SUBMIT CEK KESELARASAN", type="primary", use_container_width=True):
+                    with st.spinner(f"Mencocokkan {len(parsed_doc['clauses'])} klausul dengan Bucket '{sel_b['name']}' menggunakan Semantic Retriever..."):
+                        retriever = get_bucket_retriever(selected_bucket_id)
+                        eval_list = []
+                        # R-31 & Karpathy K-4: Ambang batas kecocokan semantik (Semantic Similarity Threshold).
+                        # Nilai 0.10 dipilih sebagai baseline minimum untuk menyaring pasangan dokumen yang tidak berkorelasi.
+                        SEMANTIC_MATCH_THRESHOLD = 0.10
+                        for i, c in enumerate(parsed_doc["clauses"]):
+                            matches = retriever.retrieve_best_match(c["text"], top_k=1)
+                            if matches and matches[0]["similarity_score"] >= SEMANTIC_MATCH_THRESHOLD:
+                                ref_sample = matches[0]
+                                sim_pct = int(ref_sample["similarity_score"] * 100)
+                            else:
+                                # Fallback normatif umum: Jika tidak ada klausul spesifik yang cocok langsung,
+                                # klausul dievaluasi terhadap prinsip umum kepatuhan dan kehati-hatian perbankan.
+                                ref_sample = {
+                                    "regulasi_terkait": sel_b["name"],
+                                    "pasal_regulasi": "Ketentuan Umum Asas Kepatuhan",
+                                    "teks_regulasi": "Ketentuan teknis operasional perbankan harus tunduk pada asas kehati-hatian, kepatuhan regulasi, dan mitigasi risiko.",
+                                }
+                                sim_pct = 0
+
+                            eval_res = evaluate_custom_clause_alignment(c["text"], ref_sample["teks_regulasi"])
+                            eval_list.append({
+                                "id": f"UP-{i+1:03d}",
+                                "bab": c["bab"],
+                                "pasal": c["pasal"],
+                                "ayat": c["ayat"],
+                                "judul_klausul": f"{c['pasal']} {c['ayat']}",
+                                "teks_internal": c["text"],
+                                "regulasi_terkait": ref_sample.get("regulasi_terkait", sel_b["name"]),
+                                "pasal_regulasi": ref_sample.get("pasal_regulasi", "-"),
+                                "teks_regulasi": ref_sample.get("teks_regulasi", ""),
+                                "similarity_pct": sim_pct,
+                                "status": eval_res["status"],
+                                "reasoning": eval_res["reasoning"],
+                                "rekomendasi": eval_res["rekomendasi"],
+                            })
+
+                        up_metrics = calculate_compliance_metrics(eval_list)
+                        
+                        # Simpan ke session state agar persisten dan Tab 1 otomatis sinkron
+                        st.session_state["uploaded_analysis"] = {
+                            "filename": target_filename,
+                            "bucket_id": selected_bucket_id,
+                            "bucket_name": sel_b["name"],
+                            "doc_info": {
+                                "title": parsed_doc["title"],
+                                "subject": f"Ekstraksi dari berkas {target_filename}",
+                                "version": f"v1.0 ({target_filename[:20]})",
+                                "issued_date": "Terbaru",
+                            },
+                            "clauses": eval_list,
+                            "metrics": up_metrics,
                         }
-                        for i, c in enumerate(display_parsed_clauses)
-                    ])
-                    st.dataframe(df_parsed, use_container_width=True, hide_index=True)
-
-                    # Tombol Utama: SUBMIT CEK KESELARASAN
-                    st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;'>", unsafe_allow_html=True)
-                    st.markdown("##### 3. Eksekusi Pengujian Kepatuhan")
-                    st.write(f"Audit keselarasan akan memetakan seluruh klausul dari **{target_filename}** terhadap norma acuan di **{sel_b['name']}**.")
-
-                    if st.button("SUBMIT CEK KESELARASAN", type="primary", use_container_width=True):
-                        with st.spinner(f"Mencocokkan {len(parsed_doc['clauses'])} klausul dengan Bucket '{sel_b['name']}' menggunakan Semantic Retriever..."):
-                            retriever = get_bucket_retriever(selected_bucket_id)
-                            eval_list = []
-                            for i, c in enumerate(parsed_doc["clauses"]):
-                                matches = retriever.retrieve_best_match(c["text"], top_k=1)
-                                if matches and matches[0]["similarity_score"] > 0.05:
-                                    ref_sample = matches[0]
-                                    sim_pct = int(ref_sample["similarity_score"] * 100)
-                                else:
-                                    ref_sample = {
-                                        "regulasi_terkait": sel_b["name"],
-                                        "pasal_regulasi": "Ketentuan Umum",
-                                        "teks_regulasi": "Ketentuan teknis operasional perbankan harus tunduk pada asas kehati-hatian dan kepatuhan regulasi.",
-                                    }
-                                    sim_pct = 50
-
-                                eval_res = evaluate_custom_clause_alignment(c["text"], ref_sample["teks_regulasi"])
-                                eval_list.append({
-                                    "id": f"UP-{i+1:03d}",
-                                    "bab": c["bab"],
-                                    "pasal": c["pasal"],
-                                    "ayat": c["ayat"],
-                                    "judul_klausul": f"{c['pasal']} {c['ayat']}",
-                                    "teks_internal": c["text"],
-                                    "regulasi_terkait": ref_sample.get("regulasi_terkait", sel_b["name"]),
-                                    "pasal_regulasi": ref_sample.get("pasal_regulasi", "-"),
-                                    "teks_regulasi": ref_sample.get("teks_regulasi", ""),
-                                    "similarity_pct": sim_pct,
-                                    "status": eval_res["status"],
-                                    "reasoning": eval_res["reasoning"],
-                                    "rekomendasi": eval_res["rekomendasi"],
-                                })
-
-                            up_metrics = calculate_compliance_metrics(eval_list)
-                            
-                            # Simpan ke session state agar persisten dan Tab 1 otomatis sinkron
-                            st.session_state["uploaded_analysis"] = {
-                                "filename": target_filename,
-                                "bucket_id": selected_bucket_id,
-                                "bucket_name": sel_b["name"],
-                                "doc_info": {
-                                    "title": parsed_doc["title"],
-                                    "subject": f"Ekstraksi dari berkas {target_filename}",
-                                    "version": f"v1.0 ({target_filename[:20]})",
-                                    "issued_date": "Terbaru",
-                                },
-                                "clauses": eval_list,
-                                "metrics": up_metrics,
-                            }
-                            st.rerun()
+                        st.rerun()
 
                     # Render hasil evaluasi dari session state (persisten saat tombol dialog diklik)
                     if (
@@ -934,13 +974,10 @@ with tab_unggah:
                                 st.write("")
                 else:
                     st.warning("Tidak ditemukan pola Bab atau Pasal yang dapat diekstraksi dari dokumen target ini.")
-
-            except Exception as e:
-                st.error(f"Gagal memproses berkas target: {str(e)}")
     else:
         render_html(
             """
-            <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 24px; text-align: center; color: #64748b; font-size: 13px;">
+            <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 24px; text-align: center; color: #475569; font-size: 13px;">
                 Silakan pilih salah satu tombol cepat contoh berkas di atas atau unggah dokumen peraturan internal (.docx atau .pdf) untuk memulai ekstraksi dan audit keselarasan.
             </div>
             """
@@ -1004,20 +1041,23 @@ with tab_bucket:
     st.markdown("##### Koleksi Bucket yang Tersedia")
     for b in all_buckets:
         full_b = get_bucket(b["id"]) or b
-        badge_type = "Bawaan Sistem" if b.get("is_default") else "Koleksi Pengguna"
-        badge_style = "background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;" if b.get("is_default") else "background-color: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;"
+        # R-09: Badge fungsional membedakan korpus regulasi bawaan sistem (tidak dapat dihapus) vs koleksi kustom pengguna (dapat dihapus)
+        is_default = b.get("is_default", False)
+        badge_type = "Bawaan Sistem" if is_default else "Koleksi Pengguna"
+        badge_style = "background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;" if is_default else "background-color: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe;"
+        card_class = "bucket-card bucket-default" if is_default else "bucket-card bucket-custom"
 
         render_html(f"""
-        <div class="bucket-card">
+        <div class="{card_class}">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #64748b;">{b.get('category', 'Kustom')}</span>
+                    <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #475569;">{b.get('category', 'Kustom')}</span>
                     <h4 style="margin: 2px 0 6px 0; color: #003d79; font-size: 15px;">{b['name']}</h4>
                 </div>
                 <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; {badge_style}">{badge_type}</span>
             </div>
             <div style="font-size: 12px; color: #334155; line-height: 1.4; margin-bottom: 8px;">{b.get('description', '')}</div>
-            <div style="font-size: 11px; color: #64748b;">
+            <div style="font-size: 11px; color: #475569;">
                 ID: <code>{b['id']}</code> • <strong>{b.get('total_files', 0)}</strong> Berkas Fisik • <strong>{b.get('total_clauses', 0)}</strong> Klausul Terindeks
             </div>
         </div>
@@ -1049,11 +1089,14 @@ with tab_bucket:
                 else:
                     st.caption("Belum ada klausul terindeks.")
 
-            if not b.get("is_default"):
+            if not is_default:
                 if st.button(f"Hapus Bucket '{b['name']}'", key=f"del_bucket_{b['id']}"):
-                    delete_bucket(b["id"])
-                    st.success(f"Bucket '{b['name']}' berhasil dihapus.")
-                    st.rerun()
+                    try:
+                        delete_bucket(b["id"])
+                        st.success(f"Bucket '{b['name']}' berhasil dihapus.")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Gagal menghapus bucket: {str(e)}")
 
     st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;'>", unsafe_allow_html=True)
 
@@ -1078,10 +1121,13 @@ with tab_bucket:
         if st.button("Ekstrak & Tambahkan ke Bucket", type="primary", key="btn_add_doc_to_bucket"):
             if add_file is not None:
                 with st.spinner("Mengekstrak teks dan mengindeks klausul ke bucket..."):
-                    bytes_data = add_file.read()
-                    res = add_document_to_bucket(target_b_id, bytes_data, add_file.name)
-                    st.success(f"Berhasil menambahkan '{add_file.name}'! Terindeks {res['new_clauses_count']} klausul baru. Total klausul di bucket: {res['total_clauses_count']}.")
-                    st.rerun()
+                    try:
+                        bytes_data = add_file.getvalue()
+                        res = add_document_to_bucket(target_b_id, bytes_data, add_file.name)
+                        st.success(f"Berhasil menambahkan '{add_file.name}'! Terindeks {res['new_clauses_count']} klausul baru. Total klausul di bucket: {res['total_clauses_count']}.")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"Gagal menambahkan dokumen ke bucket: {str(e)}")
             else:
                 st.warning("Pilih berkas terlebih dahulu sebelum menekan tombol.")
 
@@ -1099,9 +1145,12 @@ with tab_bucket:
         
         if st.button("Buat Bucket Baru", type="primary", key="btn_create_bucket"):
             if new_b_name.strip():
-                created = create_bucket(new_b_name.strip(), new_b_desc.strip(), new_b_cat)
-                st.success(f"Bucket '{created['name']}' berhasil dibuat! Anda kini dapat menambahkan berkas dokumen ke dalamnya.")
-                st.rerun()
+                try:
+                    created = create_bucket(new_b_name.strip(), new_b_desc.strip(), new_b_cat)
+                    st.success(f"Bucket '{created['name']}' berhasil dibuat! Anda kini dapat menambahkan berkas dokumen ke dalamnya.")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Gagal membuat bucket baru: {str(e)}")
             else:
                 st.warning("Nama bucket wajib diisi.")
 
