@@ -57,24 +57,43 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
 
     # Deteksi judul dokumen dari baris awal
     title_candidates = []
-    for line in lines[:8]:
-        if any(term in line.upper() for term in ["PETUNJUK", "PERATURAN", "SURAT EDARAN", "STANDAR OPERASIONAL", "PEDOMAN", "UNDANG-UNDANG"]):
-            title_candidates.append(line)
-            break
+    for idx, line in enumerate(lines[:12]):
+        u = line.upper()
+        if any(term in u for term in ["DILARANG", "PERINTAH", "MEMPERBANYAK"]):
+            continue
+        if any(term in u for term in ["PETUNJUK", "PERATURAN", "SURAT EDARAN", "STANDAR OPERASIONAL", "PEDOMAN", "KEBIJAKAN", "UNDANG-UNDANG"]):
+            if u != "UNDANG-UNDANG":
+                cand = line
+                if idx + 1 < len(lines) and len(lines[idx + 1]) < 60 and not any(k in lines[idx + 1].upper() for k in ["EDISI", "202", "BAB", "PASAL"]):
+                    cand += " " + lines[idx + 1]
+                title_candidates.append(cand)
+                break
     doc_title = title_candidates[0] if title_candidates else lines[0][:80]
 
     clauses: List[Dict[str, Any]] = []
     current_bab = "Ketentuan Umum"
     current_pasal = ""
     current_pasal_lines: List[str] = []
+    in_daftar_isi = False
 
-    # Pola reguler untuk Bab, Bagian, Pasal, dan Artikel (standar perbankan internal Bank Mandiri)
+    # Pola reguler untuk Bab, Bagian, Pasal, dan Sub-bab operasional
     bab_regex = re.compile(r"^(BAB\s+[IVXLCDM\d]+|BAGIAN\s+[IVXLCDM\d]+)(.*)$", re.IGNORECASE)
     pasal_regex = re.compile(r"^(Pasal\s+\d+|Artikel\s+\d+)(.*)$", re.IGNORECASE)
+    subbab_regex = re.compile(r"^([A-Z]\.\s+[A-Za-z0-9].*)$")
 
     def is_noise_line(line_str: str) -> bool:
         u = line_str.upper()
-        if "DILARANG MEMPERBANYAK" in u:
+        if any(h in u for h in [
+            "DILARANG MEMPERBANYAK",
+            "TANPA PERSETUJUAN TERTULIS",
+            "KARENA PERINTAH UNDANG-UNDANG",
+            "PERINTAH UNDANG -UNDANG",
+            "PETUNJUK TEKNIS OPERASIONAL KREDIT USAHA RAKYAT",
+            "EDISI",
+            "REVISI KE",
+            "BERLAKU SEJAK TANGGAL",
+            "TANGGAL YANG DIGANTIKAN",
+        ]):
             return True
         if re.match(r"^BANK MANDIRI(\s+\d+)?$", u):
             return True
@@ -82,43 +101,60 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
             return True
         if re.match(r"^HALAMAN\s+\d+(\s+DARI\s+\d+)?$", u):
             return True
+        if re.match(r"^:\s*\d+", line_str) or re.match(r"^:\s*\d+\s+[A-Za-z]+", line_str):
+            return True
+        if re.match(r"^[IVXLCDM\d]+\s*-\s*\d+$", line_str):
+            return True
+        if re.search(r"\b\d{2}/\d{2}/\d{4}\s+\d{2}:\d{2}:\d{2}\b", line_str):
+            return True
         return False
 
     def flush_pasal():
         nonlocal current_pasal, current_pasal_lines
         if current_pasal and current_pasal_lines:
             pasal_body = " ".join(current_pasal_lines).strip()
-            
-            # Deteksi apakah di dalam pasal terdapat ayat terpisah
-            ayat_matches = re.findall(r"(\(\d+\))\s*([^\(\)]+)", pasal_body)
-            if ayat_matches:
-                for ayat_num, ayat_content in ayat_matches:
+            if len(pasal_body) > 15:
+                # Deteksi apakah di dalam pasal terdapat ayat terpisah
+                ayat_matches = re.findall(r"(\(\d+\))\s*([^\(\)]+)", pasal_body)
+                if ayat_matches:
+                    for ayat_num, ayat_content in ayat_matches:
+                        clauses.append({
+                            "bab": current_bab,
+                            "pasal": current_pasal,
+                            "ayat": f"Ayat {ayat_num}",
+                            "text": ayat_content.strip(),
+                        })
+                else:
                     clauses.append({
                         "bab": current_bab,
                         "pasal": current_pasal,
-                        "ayat": f"Ayat {ayat_num}",
-                        "text": ayat_content.strip(),
+                        "ayat": "Klausul Utama",
+                        "text": pasal_body,
                     })
-            else:
-                clauses.append({
-                    "bab": current_bab,
-                    "pasal": current_pasal,
-                    "ayat": "Klausul Utama",
-                    "text": pasal_body,
-                })
         current_pasal_lines = []
 
     for line in lines:
         if is_noise_line(line):
             continue
 
+        if "DAFTAR ISI" in line.upper():
+            in_daftar_isi = True
+            continue
+
         match_bab = bab_regex.match(line)
         if match_bab:
-            flush_pasal()
+            in_daftar_isi = False
             bab_id = match_bab.group(1).upper()
             bab_desc = match_bab.group(2).strip(" -:.")
-            current_bab = f"{bab_id} : {bab_desc}" if bab_desc else bab_id
-            current_pasal = ""
+            new_bab = f"{bab_id} : {bab_desc}" if bab_desc else bab_id
+            # Jika bab baru berbeda dari bab aktif (bukan sekadar running header yang mengulang bab yang sama di tiap halaman)
+            if new_bab != current_bab:
+                flush_pasal()
+                current_bab = new_bab
+                current_pasal = ""
+            continue
+
+        if in_daftar_isi:
             continue
 
         match_pasal = pasal_regex.match(line)
@@ -128,6 +164,13 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
             remainder = match_pasal.group(2).strip(" -:.")
             if remainder:
                 current_pasal_lines.append(remainder)
+            continue
+
+        # Dukungan untuk dokumen kebijakan internal & PTO yang menggunakan format Sub-Bab (A., B., C.)
+        match_sub = subbab_regex.match(line)
+        if match_sub and len(line) < 120 and not line.endswith(":"):
+            flush_pasal()
+            current_pasal = line[:80].strip()
             continue
 
         if current_pasal:

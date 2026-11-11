@@ -55,6 +55,28 @@ class TestLegalParser(unittest.TestCase):
         self.assertIn("BAB I PENDAHULUAN", text)
         self.assertIn("Pasal 1 Definisi", text)
 
+    def test_parse_legal_structure_pto_subbab(self):
+        sample_pto = """
+        PETUNJUK TEKNIS OPERASIONAL KREDIT USAHA RAKYAT
+        
+        BAB I PENDAHULUAN
+        A. Latar Belakang
+        Kredit Usaha Rakyat merupakan program pemerintah untuk UMKM.
+        
+        B. Maksud dan Tujuan
+        Petunjuk ini menjadi panduan unit kerja mikro Bank Mandiri.
+        
+        BAB II KETENTUAN KUR
+        A. Persyaratan Penerima KUR
+        Calon debitur wajib memiliki usaha produktif minimal 6 bulan.
+        """
+        result = parse_legal_structure(sample_pto)
+        self.assertEqual(result["total_bab"], 2)
+        self.assertEqual(len(result["clauses"]), 3)
+        self.assertEqual(result["clauses"][0]["pasal"], "A. Latar Belakang")
+        self.assertEqual(result["clauses"][2]["pasal"], "A. Persyaratan Penerima KUR")
+        self.assertIn("memiliki usaha produktif", result["clauses"][2]["text"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -662,7 +662,7 @@ with tab_unggah:
     selected_bucket_id = st.selectbox(
         "Pilih Bucket Dokumen Acuan:",
         options=bucket_select_options,
-        format_func=lambda bid: f"{bucket_dict[bid]['name']} ({bucket_dict[bid]['category']} • {bucket_dict[bid]['total_clauses']} klausul)",
+        format_func=lambda bid: f"{bucket_dict[bid]['name']} ({bucket_dict[bid]['total_clauses']} klausul)",
         index=0,
         help="Pilih repositori regulasi yang menjadi tolok ukur kepatuhan hukum untuk dokumen target yang akan diuji.",
     )
@@ -1136,17 +1136,12 @@ with tab_bucket:
         st.caption("Buat kategori bucket acuan baru untuk memisahkan domain kepatuhan (misal: Unit Anti-Pencucian Uang, Audit TI, Manajemen Risiko).")
 
         new_b_name = st.text_input("Nama Bucket Baru:", placeholder="Contoh: Ketentuan Manajemen Risiko Likuiditas 2024", key="input_new_b_name")
-        new_b_cat = st.selectbox(
-            "Kategori Dokumen:",
-            options=["Kebijakan Internal Tier-1", "Regulasi Eksternal (Regulator)", "Petunjuk Teknis Lapangan (Tier-2 SOP)", "Standar Audit & Kepatuhan", "Koleksi Kustom Divisi"],
-            key="select_new_b_cat",
-        )
         new_b_desc = st.text_area("Deskripsi Singkat:", placeholder="Jelaskan cakupan dokumen acuan di dalam bucket ini...", height=85, key="input_new_b_desc")
         
         if st.button("Buat Bucket Baru", type="primary", key="btn_create_bucket"):
             if new_b_name.strip():
                 try:
-                    created = create_bucket(new_b_name.strip(), new_b_desc.strip(), new_b_cat)
+                    created = create_bucket(new_b_name.strip(), new_b_desc.strip())
                     st.success(f"Bucket '{created['name']}' berhasil dibuat! Anda kini dapat menambahkan berkas dokumen ke dalamnya.")
                     st.rerun()
                 except Exception as e:
