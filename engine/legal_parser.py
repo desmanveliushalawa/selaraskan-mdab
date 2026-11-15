@@ -80,6 +80,8 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
     bab_regex = re.compile(r"^(BAB\s+[IVXLCDM\d]+|BAGIAN\s+[IVXLCDM\d]+)(.*)$", re.IGNORECASE)
     pasal_regex = re.compile(r"^(Pasal\s+\d+|Artikel\s+\d+)(.*)$", re.IGNORECASE)
     subbab_regex = re.compile(r"^([A-Z]\.\s+[A-Za-z0-9].*)$")
+    point_regex = re.compile(r"^(\d+\.\s+[A-Z][A-Za-z0-9\s/()-]+)$")
+    ayat_start_regex = re.compile(r"^\((\d+)\)\s*(.*)$")
 
     def is_noise_line(line_str: str) -> bool:
         u = line_str.upper()
@@ -101,6 +103,8 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
             return True
         if re.match(r"^HALAMAN\s+\d+(\s+DARI\s+\d+)?$", u):
             return True
+        if re.match(r"^-\s*\d+\s*-$", line_str):
+            return True
         if re.match(r"^:\s*\d+", line_str) or re.match(r"^:\s*\d+\s+[A-Za-z]+", line_str):
             return True
         if re.match(r"^[IVXLCDM\d]+\s*-\s*\d+$", line_str):
@@ -109,77 +113,151 @@ def parse_legal_structure(text: str) -> Dict[str, Any]:
             return True
         return False
 
-    def flush_pasal():
-        nonlocal current_pasal, current_pasal_lines
-        if current_pasal and current_pasal_lines:
-            pasal_body = " ".join(current_pasal_lines).strip()
-            if len(pasal_body) > 15:
-                # Deteksi apakah di dalam pasal terdapat ayat terpisah
-                ayat_matches = re.findall(r"(\(\d+\))\s*([^\(\)]+)", pasal_body)
-                if ayat_matches:
-                    for ayat_num, ayat_content in ayat_matches:
-                        clauses.append({
-                            "bab": current_bab,
-                            "pasal": current_pasal,
-                            "ayat": f"Ayat {ayat_num}",
-                            "text": ayat_content.strip(),
-                        })
-                else:
-                    clauses.append({
-                        "bab": current_bab,
-                        "pasal": current_pasal,
-                        "ayat": "Klausul Utama",
-                        "text": pasal_body,
+    def parse_external(lines_to_parse: List[str]) -> List[Dict[str, Any]]:
+        extracted: List[Dict[str, Any]] = []
+        cur_bab = "Ketentuan Umum"
+        cur_pasal = ""
+        cur_ayat = ""
+        cur_lines: List[str] = []
+
+        def flush():
+            nonlocal cur_lines, cur_ayat
+            if cur_pasal and cur_lines:
+                body = " ".join(cur_lines).strip()
+                if len(body) > 10:
+                    extracted.append({
+                        "bab": cur_bab,
+                        "pasal": cur_pasal,
+                        "ayat": cur_ayat if cur_ayat else "Klausul Utama",
+                        "text": body,
                     })
-        current_pasal_lines = []
+            cur_lines = []
 
-    for line in lines:
-        if is_noise_line(line):
-            continue
+        for line in lines_to_parse:
+            if is_noise_line(line):
+                continue
 
-        if "DAFTAR ISI" in line.upper():
-            in_daftar_isi = True
-            continue
+            m_bab = bab_regex.match(line)
+            if m_bab:
+                flush()
+                bab_id = m_bab.group(1).upper()
+                bab_desc = m_bab.group(2).strip(" -:.")
+                cur_bab = f"{bab_id} : {bab_desc}" if bab_desc else bab_id
+                cur_pasal = ""
+                cur_ayat = ""
+                continue
 
-        match_bab = bab_regex.match(line)
-        if match_bab:
-            in_daftar_isi = False
-            bab_id = match_bab.group(1).upper()
-            bab_desc = match_bab.group(2).strip(" -:.")
-            new_bab = f"{bab_id} : {bab_desc}" if bab_desc else bab_id
-            # Jika bab baru berbeda dari bab aktif (bukan sekadar running header yang mengulang bab yang sama di tiap halaman)
-            if new_bab != current_bab:
-                flush_pasal()
-                current_bab = new_bab
-                current_pasal = ""
-            continue
+            m_pasal = pasal_regex.match(line)
+            if m_pasal:
+                flush()
+                cur_pasal = m_pasal.group(1).title()
+                cur_ayat = ""
+                rem = m_pasal.group(2).strip(" -:.")
+                if rem:
+                    m_ay = ayat_start_regex.match(rem)
+                    if m_ay:
+                        cur_ayat = f"Ayat ({m_ay.group(1)})"
+                        if m_ay.group(2):
+                            cur_lines.append(m_ay.group(2))
+                    else:
+                        cur_lines.append(rem)
+                continue
 
-        if in_daftar_isi:
-            continue
+            if cur_pasal:
+                m_ay = ayat_start_regex.match(line)
+                if m_ay:
+                    flush()
+                    cur_ayat = f"Ayat ({m_ay.group(1)})"
+                    if m_ay.group(2):
+                        cur_lines.append(m_ay.group(2))
+                    continue
+                cur_lines.append(line)
 
-        match_pasal = pasal_regex.match(line)
-        if match_pasal:
-            flush_pasal()
-            current_pasal = match_pasal.group(1).title()
-            remainder = match_pasal.group(2).strip(" -:.")
-            if remainder:
-                current_pasal_lines.append(remainder)
-            continue
+        flush()
+        return extracted
 
-        # Dukungan untuk dokumen kebijakan internal & PTO yang menggunakan format Sub-Bab (A., B., C.)
-        match_sub = subbab_regex.match(line)
-        if match_sub and len(line) < 120 and not line.endswith(":"):
-            flush_pasal()
-            current_pasal = line[:80].strip()
-            continue
+    def parse_internal(lines_to_parse: List[str]) -> List[Dict[str, Any]]:
+        extracted: List[Dict[str, Any]] = []
+        cur_bab = "Ketentuan Umum"
+        cur_section = ""
+        cur_item = ""
+        cur_lines: List[str] = []
+        in_toc = False
 
-        if current_pasal:
-            current_pasal_lines.append(line)
-        else:
-            # Teks sebelum pasal pertama (misal bagian menimbang atau pendahuluan)
-            pass
+        def flush():
+            nonlocal cur_lines
+            if cur_section and cur_lines:
+                body = " ".join(cur_lines).strip()
+                if len(body) > 15:
+                    extracted.append({
+                        "bab": cur_bab,
+                        "pasal": cur_section,
+                        "ayat": cur_item if cur_item else "Ketentuan Pokok",
+                        "text": body,
+                    })
+            cur_lines = []
 
-    flush_pasal()
+        for line in lines_to_parse:
+            if is_noise_line(line):
+                continue
+
+            if "DAFTAR ISI" in line.upper():
+                in_toc = True
+                continue
+
+            m_bab = bab_regex.match(line)
+            if m_bab:
+                in_toc = False
+                bab_id = m_bab.group(1).upper()
+                bab_desc = m_bab.group(2).strip(" -:.")
+                new_bab = f"{bab_id} : {bab_desc}" if bab_desc else bab_id
+                if new_bab != cur_bab:
+                    flush()
+                    cur_bab = new_bab
+                    cur_section = ""
+                    cur_item = ""
+                continue
+
+            if in_toc:
+                continue
+
+            m_pasal = pasal_regex.match(line)
+            if m_pasal:
+                flush()
+                cur_section = m_pasal.group(1).title()
+                cur_item = "Klausul Utama"
+                rem = m_pasal.group(2).strip(" -:.")
+                if rem:
+                    cur_lines.append(rem)
+                continue
+
+            m_sub = subbab_regex.match(line)
+            if m_sub and len(line) < 100 and not line.endswith(":"):
+                flush()
+                cur_section = line.strip()
+                cur_item = ""
+                continue
+
+            m_pt = point_regex.match(line)
+            if m_pt and len(line) < 80 and not line.endswith(":"):
+                flush()
+                cur_item = line.strip()
+                continue
+
+            if cur_section:
+                cur_lines.append(line)
+
+        flush()
+        return extracted
+
+    # Deteksi strategi parsing: apakah dokumen regulasi eksternal (UU/Permenko/POJK) atau kebijakan internal (PTO/SOP)
+    subbab_count = len(re.findall(r"^\s*[A-Z]\.\s+[A-Za-z0-9]", text, re.MULTILINE))
+    pasal_count = len(re.findall(r"^\s*(Pasal|Artikel)\s+\d+", text, re.MULTILINE | re.IGNORECASE))
+
+    if subbab_count > pasal_count:
+        clauses = parse_internal(lines)
+    else:
+        clauses = parse_external(lines)
 
     # Fallback untuk dokumen kebijakan/RIPLAY/Pedoman operasional yang tidak menggunakan format Bab-Pasal formal
     if not clauses and len(lines) > 2:
