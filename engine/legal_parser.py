@@ -4,7 +4,7 @@ Modul ekstraksi dan parsing hierarki dokumen hukum Indonesia (Word .docx, PDF, d
 Mengekstrak struktur Bab, Pasal, Ayat, dan Angka secara otomatis.
 """
 
-import io
+import io 
 import re
 from typing import Any, Dict, List
 
@@ -13,7 +13,7 @@ def extract_raw_text(file_bytes: bytes, filename: str) -> str:
     """
     Mengekstrak teks mentah dari berkas DOCX, PDF, atau TXT.
     """
-    ext = filename.lower().split(".")[-1]
+    ext = filename.lower().split(".")[-1] 
     
     if ext == "docx":
         import docx

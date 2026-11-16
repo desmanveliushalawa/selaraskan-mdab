@@ -1,7 +1,12 @@
 """
 Unit tests untuk modul report_generator (pembuatan PDF resmi).
 """
+import os
+import sys
 import unittest
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from engine.alignment_engine import load_benchmark_data, calculate_compliance_metrics
 from engine.report_generator import generate_compliance_pdf_report
 

@@ -2,8 +2,14 @@
 Unit tests untuk modul legal_parser.
 """
 import io
+import os
+import sys
 import unittest
 import docx
+
+# Menambahkan direktori root proyek ke sys.path agar test bisa dijalankan langsung
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from engine.legal_parser import extract_raw_text, parse_legal_structure
 
 

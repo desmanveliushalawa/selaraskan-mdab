@@ -1,7 +1,12 @@
 """
 Unit tests untuk modul engine (diff_highlighter dan alignment_engine).
 """
+import os
+import sys
 import unittest
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from engine.diff_highlighter import tokenize_words, compute_word_diff, render_side_by_side_diff_html
 from engine.alignment_engine import (
     load_benchmark_data,
