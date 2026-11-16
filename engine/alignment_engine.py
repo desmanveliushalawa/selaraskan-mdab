@@ -17,7 +17,7 @@ def get_default_dataset_path() -> str:
     return os.path.join(base_dir, "data", "bank_mandiri_demo.json")
 
 
-def load_benchmark_data(filepath: str | None = None) -> Dict[str, Any]:
+def load_benchmark_data(filepath: Optional[str] = None) -> Dict[str, Any]:
     """
     Memuat data benchmark dari file JSON.
     """
@@ -78,7 +78,7 @@ def calculate_compliance_metrics(clauses: List[Dict[str, Any]]) -> Dict[str, Any
 def evaluate_custom_clause_alignment(
     internal_text: str,
     external_text: str,
-    api_key: str | None = None
+    api_key: Optional[str] = None
 ) -> Dict[str, Any]:
     """
     Mengevaluasi keselarasan antara 1 klausul internal baru dan 1 pasal regulasi eksternal.

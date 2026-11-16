@@ -3,7 +3,8 @@ __pycache__/
 *$py.class
 .venv/
 venv/
-.streamlit/
+.streamlit/*
+!.streamlit/config.toml
 *.log
 anti-slop/
 scratch/

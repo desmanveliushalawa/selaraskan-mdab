@@ -8,7 +8,14 @@ Desain institusional berbasis arsitektur legal-tech, bebas dari ornamen AI gener
 import io
 import json
 import os
+import sys
 import textwrap
+
+# Memastikan path direktori proyek berada di urutan pertama sys.path (khususnya Streamlit Cloud)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
