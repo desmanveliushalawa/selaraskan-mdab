@@ -1,0 +1,27 @@
+{
+  "id": "rt_po_dir_it_042_2024",
+  "target_doc_id": "Petunjuk Operasional (PO) No. PO-DIR/IT/042/2024",
+  "meeting_date": "2024-01-10",
+  "meeting_title": "Rapat Teknis Penyelarasan Tata Kelola Siber & UU PDP Bank Mandiri",
+  "organizer": "Group IT & Legal Compliance",
+  "notes": "Penyelarasan ketentuan enkripsi AES-256 dan evaluasi tenggat waktu pelaporan insiden data pribadi.",
+  "file_name": "Notulen_Rapat_Teknis_Ketahanan_Siber_Januari_2024.docx",
+  "changes": [
+    {
+      "clause_ref": "Pasal 4 Angka 2",
+      "sub_ref": "Enkripsi Data Sensitif",
+      "topic": "Enkripsi Data Sensitif Nasabah pada Penyimpanan dan Transmisi",
+      "before_text": "Bank Mandiri menerapkan enkripsi data nasabah sensitif dengan algoritma standar 3DES atau AES-128 saat transit.",
+      "after_text": "Bank Mandiri wajib menerapkan enkripsi data nasabah kategori sensitif (data finansial dan kredensial autentikasi) baik saat data disimpan (data-at-rest) dengan standar minimal AES-256 maupun saat data ditransmisikan (data-in-transit) menggunakan protokol kriptografi TLS 1.3.",
+      "reason": "Peningkatan standar keamanan enkripsi mengikuti ketentuan POJK No. 11/POJK.03/2022 dari AES-128 menjadi AES-256 dan TLS 1.3."
+    },
+    {
+      "clause_ref": "Pasal 7 Angka 4",
+      "sub_ref": "Pelaporan Insiden",
+      "topic": "Batas Waktu Pelaporan Insiden Kebocoran Data Pribadi",
+      "before_text": "Dalam hal terjadi insiden kegagalan perlindungan data, Unit Kerja Pengelola Sistem wajib menyampaikan laporan investigasi kepada internal selambat-lambatnya 14 (empat belas) hari kerja.",
+      "after_text": "Dalam hal terjadi insiden kegagalan perlindungan atau dugaan kebocoran data nasabah, Unit Kerja Pengelola Sistem wajib menyampaikan laporan investigasi awal kepada Direksi dan regulator terkait selambat-lambatnya dalam jangka waktu 7 (tujuh) hari kerja setelah terkonfirmasi.",
+      "reason": "Penyelarasan awal masa transisi UU No. 27 Tahun 2022 (UU PDP), diperpendek dari 14 hari kerja menjadi 7 hari kerja (masih perlu penyelarasan akhir ke 3x24 jam kalender)."
+    }
+  ]
+}

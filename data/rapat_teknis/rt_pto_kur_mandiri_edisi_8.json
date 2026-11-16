@@ -1,0 +1,35 @@
+{
+  "id": "rt_pto_kur_mandiri_edisi_8",
+  "target_doc_id": "Petunjuk Teknis Operasional Kredit Usaha Rakyat (KUR)",
+  "meeting_date": "2026-01-13",
+  "meeting_title": "Rapat Teknis Penyesuaian PTO KUR Edisi 8 (MDAB & SMR Group)",
+  "organizer": "Micro Development & Agent Banking (MDAB) Group",
+  "notes": "Penyesuaian ketentuan operasional KUR sesuai Permenko Perekonomian No. 1 Tahun 2026, penghapusan agunan tambahan limit s.d. 100 juta, dan penerapan skema bunga berjenjang.",
+  "file_name": "Matriks_Perubahan_PTO_KUR_Edisi_8_Januari_2026.docx",
+  "changes": [
+    {
+      "clause_ref": "H. Agunan",
+      "sub_ref": "2. Agunan Tambahan",
+      "topic": "Penghapusan Ketentuan Agunan Tambahan KUR s.d. 100 Juta",
+      "before_text": "Unit Bisnis Mikro wajib meminta agunan tambahan berupa sertifikat tanah/bangunan atau BPKB untuk permohonan pinjaman KUR di atas Rp 50.000.000.",
+      "after_text": "KUR dengan limit kredit sampai dengan Rp 100.000.000,00 (seratus juta rupiah), dilarang mempersyaratkan dan/atau menerima Agunan Tambahan.",
+      "reason": "Penyesuaian wajib terhadap Permenko Perekonomian No. 1 Tahun 2026 Pasal 14 ayat (2)."
+    },
+    {
+      "clause_ref": "BAB III : KETENTUAN KUR - Suku Bunga",
+      "sub_ref": "Ketentuan Bunga",
+      "topic": "Penetapan Suku Bunga KUR Mikro Berjenjang",
+      "before_text": "Suku bunga pinjaman KUR Mikro dan KUR Kecil ditetapkan flat 6% efektif per tahun untuk seluruh siklus pinjaman debitur.",
+      "after_text": "Suku bunga pinjaman KUR Mikro ditetapkan 6% efektif per tahun untuk penyaluran pertama, dan berjenjang naik 7%, 8%, sampai 9% untuk debitur suplemen/berulang.",
+      "reason": "Implementasi skema graduasi suku bunga perbankan sesuai Permenko Perekonomian No. 1 Tahun 2026 Pasal 18 ayat (1) dan (2)."
+    },
+    {
+      "clause_ref": "G. Dokumen Persyaratan KUR",
+      "sub_ref": "Persyaratan Kepesertaan BPJS Ketenagakerjaan",
+      "topic": "Kewajiban Kepesertaan BPJS Ketenagakerjaan Limit > 100 Juta",
+      "before_text": "Calon debitur tidak dipersyaratkan memiliki kepesertaan jaminan sosial ketenagakerjaan.",
+      "after_text": "Untuk Debitur KUR Kecil dan KUR Khusus limit > Rp 100 juta dipersyaratkan bukti kepesertaan BPJS Ketenagakerjaan aktif.",
+      "reason": "Kepatuhan terhadap Instruksi Presiden No. 2 Tahun 2021 dan Permenko No. 1 Tahun 2026."
+    }
+  ]
+}

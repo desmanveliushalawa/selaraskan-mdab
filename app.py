@@ -18,6 +18,7 @@ from engine.alignment_engine import (
     load_benchmark_data,
     calculate_compliance_metrics,
     evaluate_custom_clause_alignment,
+    link_rapat_teknis_to_clauses,
 )
 from engine.legal_parser import extract_raw_text, parse_legal_structure
 from engine.report_generator import generate_compliance_pdf_report
@@ -30,6 +31,14 @@ from engine.bucket_manager import (
     delete_bucket,
     get_bucket_retriever,
 )
+from engine.rapat_teknis_manager import (
+    list_rapat_teknis,
+    get_rapat_teknis,
+    save_rapat_teknis,
+    delete_rapat_teknis,
+    find_rapat_teknis_for_target,
+)
+from engine.rapat_teknis_parser import parse_rapat_teknis_file
 
 
 def render_html(html_str: str):
@@ -279,6 +288,7 @@ render_html(
 def show_diff_dialog(clause: dict):
     st.caption(f"ID Klausul: {clause.get('id', '')} : {clause.get('judul_klausul', '')}")
 
+    st.markdown("##### 1. Evaluasi Keselarasan terhadap Regulasi Acuan Eksternal")
     diff_html = render_side_by_side_diff_html(
         title_internal=f"{clause.get('bab', '')} • {clause.get('pasal', '')}",
         text_internal=clause.get("teks_internal", ""),
@@ -299,6 +309,54 @@ def show_diff_dialog(clause: dict):
             """
         )
 
+    # Riwayat Pembahasan Rapat Teknis (Audit Trail) jika tersedia
+    rt_history = clause.get("rapat_teknis_history", [])
+    if rt_history:
+        st.markdown("<hr style='border: none; border-top: 1px solid #cbd5e1; margin: 18px 0 14px 0;'>", unsafe_allow_html=True)
+        render_html(
+            f"""
+            <div style="margin-bottom: 12px;">
+                <div style="font-size: 13px; font-weight: 700; color: #003d79; text-transform: uppercase; letter-spacing: 0.5px;">
+                    2. Riwayat Rapat Teknis & Audit Trail Matriks Perubahan ({len(rt_history)} Catatan Terhubung)
+                </div>
+                <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+                    Rekam jejak pembahasan internal yang mendasari perubahan redaksional pada klausul operasional ini:
+                </div>
+            </div>
+            """
+        )
+        for h in rt_history:
+            render_html(
+                f"""
+                <div style="background-color: #fffbeb; border: 1px solid #fef3c7; border-left: 4px solid #b45309; border-radius: 4px; padding: 10px 14px; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <span style="font-size: 12px; font-weight: 700; color: #92400e;">
+                            {h.get('meeting_title', 'Rapat Teknis Pembahasan')}
+                        </span>
+                        <span style="font-size: 11px; font-weight: 600; background-color: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 3px; border: 1px solid #fde68a;">
+                            Tanggal: {h.get('meeting_date', '-')}
+                        </span>
+                    </div>
+                    <div style="font-size: 11px; color: #475569; margin-bottom: 6px;">
+                        Penyelenggara: <strong>{h.get('organizer', 'Unit Kerja')}</strong> • Rujukan Klausul: <strong>{h.get('clause_ref', '-')}</strong>
+                    </div>
+                    <div style="font-size: 12px; color: #1e293b; line-height: 1.4;">
+                        <strong>Alasan / Dasar Perubahan:</strong> {h.get('reason', '-')}
+                    </div>
+                </div>
+                """
+            )
+
+            diff_rt_html = render_side_by_side_diff_html(
+                title_internal=f"Semula (Sebelum Rapat Teknis: {h.get('meeting_date', '-')})",
+                text_internal=h.get("before_text", ""),
+                title_regulasi=f"Menjadi (Hasil Keputusan Rapat Teknis)",
+                text_regulasi=h.get("after_text", ""),
+                status="Netral",
+                reasoning="",
+            )
+            render_html(diff_rt_html)
+
     if st.button("Tutup Dialog", use_container_width=True):
         st.rerun()
 
@@ -306,7 +364,14 @@ def show_diff_dialog(clause: dict):
 # Pemuatan Data Benchmark Simulasi
 @st.cache_data
 def get_benchmark_data():
-    return load_benchmark_data()
+    data = load_benchmark_data()
+    # Hubungkan dengan data rapat teknis bawaan Bank Mandiri
+    data["clauses"] = link_rapat_teknis_to_clauses(
+        data["clauses"],
+        data["internal_document"]["title"],
+        selected_rt_id="rt_po_dir_it_042_2024",
+    )
+    return data
 
 benchmark_data = get_benchmark_data()
 demo_doc_info = benchmark_data["internal_document"]
@@ -568,12 +633,15 @@ with tab_evaluasi:
                                 "badge-selaras" if item["status"] == "Selaras"
                                 else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
                             )
+                            rt_nav_tag = ""
+                            if item.get("rapat_teknis_history"):
+                                rt_nav_tag = "<span style='background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-size: 10px; font-weight: 600; padding: 1px 4px; border-radius: 3px; margin-left: 4px;'>Rapat Teknis</span>"
                             render_html(
                                 f"""
                                 <div style="font-size: 12px; margin-bottom: 8px; padding: 4px 0 4px 6px; border-left: 2px solid #cbd5e1;">
                                     <div style="font-weight: 600; color: #003d79;">{item.get('pasal', '')}</div>
                                     <div style="font-size: 11px; color: #475569; margin: 2px 0;">{item.get('judul_klausul', '')}</div>
-                                    <span class="{badge_style}">{item.get('status', '')}</span>
+                                    <span class="{badge_style}">{item.get('status', '')}</span>{rt_nav_tag}
                                 </div>
                                 """
                             )
@@ -599,6 +667,12 @@ with tab_evaluasi:
                         else ("badge-tidaksaras" if status == "Tidak Selaras" else "badge-netral")
                     )
 
+                    rt_hist = clause.get("rapat_teknis_history", [])
+                    rt_pill = ""
+                    if rt_hist:
+                        latest_date = rt_hist[-1].get("meeting_date", "")
+                        rt_pill = f"""<span style="background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">Catatan Rapat Teknis ({latest_date})</span>"""
+
                     card_html = f"""
                     <div class="legal-card">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -606,7 +680,10 @@ with tab_evaluasi:
                                 <div class="legal-meta">{clause.get('id', '')} : {clause.get('bab', '')}</div>
                                 <h3 class="legal-title">{clause.get('pasal', '')}: {clause.get('judul_klausul', '')}</h3>
                             </div>
-                            <span class="{badge_class}">{status.upper()}</span>
+                            <div style="text-align: right;">
+                                <span class="{badge_class}">{status.upper()}</span>
+                                {rt_pill}
+                            </div>
                         </div>
                         <div class="reference-box">
                             <strong>Ketentuan Acuan:</strong> {clause.get('regulasi_terkait', '')} ({clause.get('pasal_regulasi', '')})
@@ -850,6 +927,55 @@ with tab_unggah:
                 ])
                 st.dataframe(df_parsed, use_container_width=True, hide_index=True)
 
+                # Pilihan Riwayat Rapat Teknis (Audit Trail)
+                with st.expander("Riwayat Rapat Teknis & Matriks Perubahan (Opsional - Audit Trail Rekam Jejak)", expanded=False):
+                    st.caption("Hubungkan klausul dokumen target dengan notulen rapat teknis atau matriks perubahan redaksional untuk melihat rekam jejak pembahasan internal.")
+                    rt_list = list_rapat_teknis()
+                    rt_options = ["Deteksi Otomatis (Berdasarkan Judul Dokumen)", "Tanpa Catatan Rapat Teknis"] + [r["id"] for r in rt_list]
+                    rt_label_map = {
+                        "Deteksi Otomatis (Berdasarkan Judul Dokumen)": "Deteksi Otomatis (Mencocokkan Berkas Rapat Teknis Berdasarkan Judul Dokumen)",
+                        "Tanpa Catatan Rapat Teknis": "Tanpa Catatan Rapat Teknis (Audit Kepatuhan Murni Tanpa Rekam Jejak)",
+                    }
+                    for r in rt_list:
+                        rt_label_map[r["id"]] = f"{r['meeting_title']} ({r['meeting_date']}) - {r['total_changes']} butir perubahan"
+
+                    selected_rt_choice = st.selectbox(
+                        "Pilih Sumber Riwayat Rapat Teknis:",
+                        options=rt_options,
+                        format_func=lambda x: rt_label_map.get(x, x),
+                        key="select_rapat_teknis_choice",
+                        help="Sistem akan menghubungkan klausul dokumen operasional yang diubah dengan notulen keputusan rapat teknis.",
+                    )
+
+                    uploaded_rt_file = st.file_uploader(
+                        "Atau unggah berkas Matriks Perubahan Rapat Teknis baru (.docx Word Table, .csv, .json):",
+                        type=["docx", "csv", "json"],
+                        key="uploader_rt_instant",
+                        help="Unggah tabel matriks perubahan dengan kolom: Klausul, Teks Sebelum, Teks Sesudah, Alasan Perubahan.",
+                    )
+                    if uploaded_rt_file is not None:
+                        try:
+                            rt_bytes = uploaded_rt_file.getvalue()
+                            parsed_rt_changes = parse_rapat_teknis_file(rt_bytes, uploaded_rt_file.name)
+                            if parsed_rt_changes:
+                                st.success(f"Berhasil mengekstrak {len(parsed_rt_changes)} butir perubahan dari '{uploaded_rt_file.name}'!")
+                                custom_rt_id = f"rt_upload_{abs(hash(uploaded_rt_file.name)) % 100000}"
+                                save_rapat_teknis({
+                                    "id": custom_rt_id,
+                                    "target_doc_id": target_filename,
+                                    "meeting_date": "Terbaru",
+                                    "meeting_title": f"Matriks Perubahan: {uploaded_rt_file.name}",
+                                    "organizer": "Unit Terkait Bank Mandiri",
+                                    "notes": f"Diekstrak dari berkas {uploaded_rt_file.name}",
+                                    "file_name": uploaded_rt_file.name,
+                                    "changes": parsed_rt_changes,
+                                })
+                                selected_rt_choice = custom_rt_id
+                            else:
+                                st.warning("Tabel perubahan tidak terdeteksi pada berkas yang diunggah. Pastikan terdapat kolom Sebelum, Sesudah, dan Alasan.")
+                        except Exception as e:
+                            st.error(f"Gagal memproses berkas rapat teknis: {str(e)}")
+
                 # Tombol Utama: SUBMIT CEK KESELARASAN
                 st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 16px 0;'>", unsafe_allow_html=True)
                 st.markdown("##### 3. Eksekusi Pengujian Kepatuhan")
@@ -893,6 +1019,22 @@ with tab_unggah:
                                 "reasoning": eval_res["reasoning"],
                                 "rekomendasi": eval_res["rekomendasi"],
                             })
+
+                        # Hubungkan dengan riwayat rapat teknis jika dipilih
+                        chosen_rt_id = None
+                        if selected_rt_choice == "Deteksi Otomatis (Berdasarkan Judul Dokumen)":
+                            matched_rt = find_rapat_teknis_for_target(f"{target_filename} {parsed_doc['title']}")
+                            if matched_rt:
+                                chosen_rt_id = matched_rt["id"]
+                        elif selected_rt_choice != "Tanpa Catatan Rapat Teknis":
+                            chosen_rt_id = selected_rt_choice
+
+                        if chosen_rt_id:
+                            eval_list = link_rapat_teknis_to_clauses(
+                                eval_list,
+                                f"{target_filename} {parsed_doc['title']}",
+                                selected_rt_id=chosen_rt_id,
+                            )
 
                         up_metrics = calculate_compliance_metrics(eval_list)
                         
@@ -943,6 +1085,12 @@ with tab_unggah:
                                 "badge-selaras" if item["status"] == "Selaras"
                                 else ("badge-tidaksaras" if item["status"] == "Tidak Selaras" else "badge-netral")
                             )
+                            rt_hist = item.get("rapat_teknis_history", [])
+                            rt_pill = ""
+                            if rt_hist:
+                                latest_date = rt_hist[-1].get("meeting_date", "")
+                                rt_pill = f"""<span style="background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-size: 11px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">Catatan Rapat Teknis ({latest_date})</span>"""
+
                             up_card_html = f"""
                             <div class="legal-card">
                                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
@@ -950,7 +1098,10 @@ with tab_unggah:
                                         <div class="legal-meta">{item['bab']} • {item['pasal']} ({item['ayat']})</div>
                                         <h4 class="legal-title">{item['teks_internal'][:90]}...</h4>
                                     </div>
-                                    <span class="{b_class}">{item['status'].upper()}</span>
+                                    <div style="text-align: right;">
+                                        <span class="{b_class}">{item['status'].upper()}</span>
+                                        {rt_pill}
+                                    </div>
                                 </div>
                                 <div class="reference-box">
                                     <strong>Ketentuan Acuan ({sel_b['name']}):</strong> {item['regulasi_terkait']} ({item['pasal_regulasi']}) • 
@@ -1148,6 +1299,118 @@ with tab_bucket:
                     st.error(f"Gagal membuat bucket baru: {str(e)}")
             else:
                 st.warning("Nama bucket wajib diisi.")
+
+    # Bagian Baru: Repositori Notulen & Matriks Perubahan Rapat Teknis
+    st.markdown("<hr style='border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;'>", unsafe_allow_html=True)
+    st.markdown("##### C. Repositori Notulen & Matriks Perubahan Rapat Teknis (Audit Trail)")
+    st.caption(
+        "Modul penyimpanan notulen rapat teknis dan matriks perubahan redaksional. Setiap perubahan pada draf petunjuk "
+        "operasional dicatat bersama teks sebelum, teks sesudah, dan dasar pertimbangan hukumnya untuk transparansi audit."
+    )
+
+    rt_records = list_rapat_teknis()
+    if rt_records:
+        for r in rt_records:
+            full_r = get_rapat_teknis(r["id"]) or r
+            is_seeded = r["id"] in ("rt_pto_kur_mandiri_edisi_8", "rt_po_dir_it_042_2024")
+
+            render_html(
+                f"""
+                <div class="bucket-card bucket-custom" style="border-left: 4px solid #b45309;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: #b45309;">
+                                Rekam Jejak Rapat Teknis • {r.get('meeting_date', '-')}
+                            </span>
+                            <h4 style="margin: 2px 0 4px 0; color: #003d79; font-size: 15px;">{r.get('meeting_title', '')}</h4>
+                            <div style="font-size: 12px; color: #334155; margin-bottom: 4px;">
+                                Dokumen Target: <strong>{r.get('target_doc_id', '-')}</strong> • Penyelenggara: <strong>{r.get('organizer', '-')}</strong>
+                            </div>
+                        </div>
+                        <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a;">
+                            {r.get('total_changes', 0)} Perubahan Klausul
+                        </span>
+                    </div>
+                    <div style="font-size: 12px; color: #475569; line-height: 1.4; margin-top: 4px;">
+                        {r.get('notes', '')}
+                    </div>
+                </div>
+                """
+            )
+
+            with st.expander(f"Lihat Rincian Matriks Perubahan: {r['meeting_title']}", expanded=False):
+                changes_list = full_r.get("changes", [])
+                if changes_list:
+                    df_rt = pd.DataFrame([
+                        {
+                            "No": idx_c + 1,
+                            "Klausul Rujukan": ch.get("clause_ref", "-"),
+                            "Topik Perubahan": ch.get("topic", "-"),
+                            "Teks Sebelum (Semula)": (ch.get("before_text", "")[:75] + "...") if len(ch.get("before_text", "")) > 75 else ch.get("before_text", ""),
+                            "Teks Sesudah (Menjadi)": (ch.get("after_text", "")[:75] + "...") if len(ch.get("after_text", "")) > 75 else ch.get("after_text", ""),
+                            "Dasar Pertimbangan": ch.get("reason", "-"),
+                        }
+                        for idx_c, ch in enumerate(changes_list)
+                    ])
+                    st.dataframe(df_rt, use_container_width=True, hide_index=True)
+                else:
+                    st.caption("Belum ada data klausul perubahan yang tercatat.")
+
+                if not is_seeded:
+                    if st.button(f"Hapus Catatan Rapat '{r['meeting_title']}'", key=f"del_rt_{r['id']}"):
+                        try:
+                            delete_rapat_teknis(r["id"])
+                            st.success(f"Catatan rapat '{r['meeting_title']}' berhasil dihapus.")
+                            st.rerun()
+                        except Exception as e:
+                            st.error(f"Gagal menghapus catatan rapat: {str(e)}")
+
+    # Form Unggah Notulen / Matriks Perubahan Baru
+    with st.expander("Unggah & Daftarkan Berkas Rapat Teknis Baru", expanded=False):
+        col_rt_f1, col_rt_f2 = st.columns(2)
+        with col_rt_f1:
+            in_target_doc = st.text_input("Judul Dokumen Target yang Diubah:", placeholder="Contoh: Petunjuk Teknis Operasional KUR Edisi 8", key="in_rt_target_doc")
+            in_rt_title = st.text_input("Judul / Agenda Rapat Teknis:", placeholder="Contoh: Rapat Teknis Sinkronisasi Ketentuan KUR", key="in_rt_title")
+            in_rt_date = st.text_input("Tanggal Rapat Teknis (YYYY-MM-DD):", placeholder="Contoh: 2026-01-13", key="in_rt_date")
+        with col_rt_f2:
+            in_rt_organizer = st.text_input("Unit Penyelenggara:", placeholder="Contoh: MDAB Group & Legal Compliance", key="in_rt_organizer")
+            in_rt_notes = st.text_area("Catatan / Ringkasan Notulen:", placeholder="Tuliskan pokok kesepakatan rapat teknis...", height=85, key="in_rt_notes")
+
+        in_rt_file = st.file_uploader(
+            "Unggah Berkas Matriks Perubahan (.docx Word Table, .csv, .json):",
+            type=["docx", "csv", "json"],
+            key="in_rt_file_uploader",
+        )
+
+        if st.button("Simpan Berkas Rapat Teknis", type="primary", key="btn_save_new_rt"):
+            if not in_rt_title.strip() or not in_target_doc.strip():
+                st.warning("Judul rapat dan judul dokumen target wajib diisi.")
+            elif in_rt_file is None:
+                st.warning("Silakan unggah berkas matriks perubahan.")
+            else:
+                with st.spinner("Mengekstrak tabel perubahan dan menyimpan ke repositori..."):
+                    try:
+                        f_bytes = in_rt_file.getvalue()
+                        parsed_changes = parse_rapat_teknis_file(f_bytes, in_rt_file.name)
+                        if not parsed_changes:
+                            st.error("Gagal mendeteksi tabel matriks perubahan pada berkas. Pastikan ada kolom Sebelum, Sesudah, dan Alasan.")
+                        else:
+                            new_rt_id = f"rt_{abs(hash(in_rt_title)) % 100000}"
+                            new_record = {
+                                "id": new_rt_id,
+                                "target_doc_id": in_target_doc.strip(),
+                                "meeting_date": in_rt_date.strip() or "2026-01-01",
+                                "meeting_title": in_rt_title.strip(),
+                                "organizer": in_rt_organizer.strip() or "Unit Terkait Bank Mandiri",
+                                "notes": in_rt_notes.strip(),
+                                "file_name": in_rt_file.name,
+                                "changes": parsed_changes,
+                            }
+                            save_rapat_teknis(new_record)
+                            st.success(f"Berhasil mendaftarkan rapat teknis '{in_rt_title}' dengan {len(parsed_changes)} klausul perubahan!")
+                            st.rerun()
+                    except Exception as e:
+                        st.error(f"Gagal memproses berkas rapat teknis: {str(e)}")
 
 
 # TAB 4: Uji Klausul Mandiri

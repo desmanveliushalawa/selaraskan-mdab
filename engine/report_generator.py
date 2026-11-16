@@ -202,7 +202,10 @@ def generate_compliance_pdf_report(
             ParagraphStyle("StatCell", parent=body_style, textColor=colors.HexColor(status_color)),
         )
 
-        internal_desc = f"<b>{c.get('id', '')}</b><br/>{c.get('pasal', '')}: {c.get('judul_klausul', '')}"
+        has_rt = bool(c.get("rapat_teknis_history"))
+        rt_badge = "<br/><font color='#92400e'><b>[Ada Catatan Rapat Teknis]</b></font>" if has_rt else ""
+
+        internal_desc = f"<b>{c.get('id', '')}</b><br/>{c.get('pasal', '')}: {c.get('judul_klausul', '')}{rt_badge}"
         external_desc = f"<b>{c.get('regulasi_terkait', '')}</b><br/>{c.get('pasal_regulasi', '')}"
 
         findings_data.append([
@@ -227,8 +230,69 @@ def generate_compliance_pdf_report(
     elements.append(findings_table)
     elements.append(Spacer(1, 16))
 
-    # 5. Lembar Pengesahan / Catatan Akhir
-    elements.append(Paragraph("3. Catatan Implementasi & Kepatuhan", section_title_style))
+    # 5. Audit Trail Rapat Teknis (Jika ada riwayat rapat teknis yang terhubung)
+    all_rt_changes = []
+    seen_rt_keys = set()
+    for c in clauses:
+        for rt in c.get("rapat_teknis_history", []):
+            unique_key = (rt.get("meeting_title", ""), rt.get("clause_ref", ""), rt.get("meeting_date", ""))
+            if unique_key not in seen_rt_keys:
+                seen_rt_keys.add(unique_key)
+                all_rt_changes.append(rt)
+
+    section_num = 3
+    if all_rt_changes:
+        elements.append(Paragraph(f"{section_num}. Audit Trail: Rekam Jejak Rapat Teknis & Matriks Perubahan", section_title_style))
+        rt_intro = (
+            "Berikut merupakan rekam jejak pembahasan teknis internal perbankan yang menjadi dasar perubahan redaksional "
+            "pada klausul operasional sebelum dan sesudah diselenggarakannya rapat koordinasi:"
+        )
+        elements.append(Paragraph(rt_intro, body_style))
+        elements.append(Spacer(1, 6))
+
+        rt_table_data = [
+            [
+                Paragraph("Klausul & Tanggal Rapat", table_header_style),
+                Paragraph("Semula (Sebelum Rapat Teknis)", table_header_style),
+                Paragraph("Menjadi (Hasil Rapat Teknis)", table_header_style),
+                Paragraph("Alasan / Justifikasi Perubahan", table_header_style),
+            ]
+        ]
+
+        for rt in all_rt_changes:
+            meta_desc = (
+                f"<b>{rt.get('clause_ref', '-')}</b><br/>"
+                f"Tanggal: {rt.get('meeting_date', '-')}<br/>"
+                f"<font color='#475569'>Agenda: {rt.get('meeting_title', '-')}</font>"
+            )
+            before_t = rt.get("before_text", "-")
+            after_t = rt.get("after_text", "-")
+            reason_t = rt.get("reason", "-")
+
+            rt_table_data.append([
+                Paragraph(meta_desc, body_style),
+                Paragraph(before_t, body_style),
+                Paragraph(after_t, body_style),
+                Paragraph(reason_t, body_style),
+            ])
+
+        rt_table = Table(rt_table_data, colWidths=[110, 140, 140, 130])
+        rt_table.setStyle(TableStyle([
+            ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#003d79")),
+            ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+            ("INNERGRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#e2e8f0")),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("TOPPADDING", (0, 0), (-1, -1), 5),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+            ("LEFTPADDING", (0, 0), (-1, -1), 5),
+            ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+        ]))
+        elements.append(rt_table)
+        elements.append(Spacer(1, 16))
+        section_num += 1
+
+    # 6. Lembar Pengesahan / Catatan Akhir
+    elements.append(Paragraph(f"{section_num}. Catatan Implementasi & Kepatuhan", section_title_style))
     notes_text = (
         "Laporan audit ini dihasilkan secara otomatis melalui sistem SELARASKAN MDAB berbasis analisis semantik kepatuhan. "
         "Klausul yang berstatus Tidak Selaras berpotensi menimbulkan risiko hukum (legal risk) dan sanksi administratif dari "

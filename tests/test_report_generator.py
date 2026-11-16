@@ -27,6 +27,35 @@ class TestReportGenerator(unittest.TestCase):
         self.assertGreater(len(pdf_bytes), 1000)
         self.assertTrue(pdf_bytes.startswith(b"%PDF"))
 
+    def test_generate_compliance_pdf_report_with_rapat_teknis(self):
+        data = load_benchmark_data()
+        clauses = list(data["clauses"])
+        # Tambahkan mock rapat_teknis_history
+        clauses[0]["rapat_teknis_history"] = [
+            {
+                "rt_id": "rt_test_01",
+                "meeting_title": "Rapat Teknis Pembahasan Kebijakan",
+                "meeting_date": "2026-01-15",
+                "organizer": "Unit Kepatuhan Hukum",
+                "clause_ref": "Pasal 4 Angka 2",
+                "before_text": "Teks sebelum rapat teknis dilaksanakan.",
+                "after_text": "Teks sesudah rapat teknis disepakati.",
+                "reason": "Penyesuaian terhadap regulasi terkini.",
+            }
+        ]
+        metrics = calculate_compliance_metrics(clauses)
+
+        pdf_bytes = generate_compliance_pdf_report(
+            doc_info=data["internal_document"],
+            benchmark_info=data["external_benchmark"],
+            clauses=clauses,
+            metrics=metrics,
+        )
+
+        self.assertIsInstance(pdf_bytes, bytes)
+        self.assertGreater(len(pdf_bytes), 1000)
+        self.assertTrue(pdf_bytes.startswith(b"%PDF"))
+
 
 if __name__ == "__main__":
     unittest.main()

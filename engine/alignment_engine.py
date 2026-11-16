@@ -8,7 +8,7 @@ dan memberikan penjelasan pertimbangan hukum (reasoning).
 import json
 import os
 import re
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 
 def get_default_dataset_path() -> str:
@@ -148,4 +148,80 @@ def evaluate_custom_clause_alignment(
         "reasoning": "Klausul internal tidak bertentangan secara langsung dengan ketentuan regulasi rujukan dan mengatur aspek prosedural operasional internal.",
         "rekomendasi": "Dapat dipertahankan tanpa perubahan redaksional mendesak.",
     }
+
+
+def link_rapat_teknis_to_clauses(
+    clauses: List[Dict[str, Any]],
+    doc_title: str,
+    selected_rt_id: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    """
+    Menghubungkan klausul-klausul dokumen target dengan riwayat rapat teknis (Audit Trail).
+    Jika selected_rt_id diberikan, hanya menghubungkan dengan dokumen rapat teknis tersebut.
+    Jika tidak, mencari seluruh berkas rapat teknis yang relevan dengan judul dokumen target.
+    """
+    from engine.rapat_teknis_manager import find_rapat_teknis_for_target, get_rapat_teknis
+    
+    if selected_rt_id:
+        rt_doc = get_rapat_teknis(selected_rt_id)
+        records = [rt_doc] if rt_doc else []
+    else:
+        records = find_rapat_teknis_for_target(doc_title)
+        
+    for c in clauses:
+        c["rapat_teknis_history"] = []
+        clause_pasal = c.get("pasal", "").lower()
+        clause_text = c.get("text", "").lower()
+        clause_bab = c.get("bab", "").lower()
+        
+        for rec in records:
+            meeting_date = rec.get("meeting_date", "")
+            meeting_title = rec.get("meeting_title", "")
+            organizer = rec.get("organizer", "")
+            
+            for ch in rec.get("changes", []):
+                ref = ch.get("clause_ref", "").lower()
+                topic = ch.get("topic", "").lower()
+                sub = ch.get("sub_ref", "").lower()
+                
+                # Cek kecocokan nomor pasal/klausul atau topik
+                matched = False
+                if ref and (ref in clause_pasal or clause_pasal in ref):
+                    matched = True
+                elif sub and (sub in clause_pasal or sub in clause_text):
+                    matched = True
+                elif topic and len(topic) > 5 and (topic in clause_text or topic in clause_pasal):
+                    matched = True
+                else:
+                    # Cek overlap kata kunci spesifik perbankan (agunan, bunga, bpjs, limit)
+                    for kw in ["agunan", "bunga", "bpjs", "penjaminan", "plafon", "sikp"]:
+                        if kw in ref and (kw in clause_pasal or kw in clause_text):
+                            matched = True
+                            break
+                            
+                if matched:
+                    # Hindari duplikasi jika topik/meeting sudah ada
+                    already_exists = any(
+                        h.get("meeting_id") == rec.get("id") and h.get("topic") == ch.get("topic")
+                        for h in c["rapat_teknis_history"]
+                    )
+                    if not already_exists:
+                        c["rapat_teknis_history"].append({
+                            "meeting_id": rec.get("id"),
+                            "meeting_date": meeting_date,
+                            "meeting_title": meeting_title,
+                            "organizer": organizer,
+                            "clause_ref": ch.get("clause_ref", ""),
+                            "sub_ref": ch.get("sub_ref", ""),
+                            "topic": ch.get("topic", ""),
+                            "before_text": ch.get("before_text", ""),
+                            "after_text": ch.get("after_text", ""),
+                            "reason": ch.get("reason", ""),
+                        })
+                    
+        # Urutkan kronologis dari tanggal terlama ke terbaru
+        c["rapat_teknis_history"].sort(key=lambda x: x.get("meeting_date", ""))
+        
+    return clauses
+
 
